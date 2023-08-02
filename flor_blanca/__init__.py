@@ -2,7 +2,7 @@ import os
 from flask import Flask ,redirect, request, url_for, render_template
 import stripe
 
-stripe.api_key = 'sk_test_51LIRtEAEZk4zaxmwgkvrQLY710xrEQxpWy6wDfNbGB5dH7fnI8Z86XHp1d2Su0qFVV5D7YCMwao8J3UGSMinxJaM004g6MLmcl'
+
 def create_app(test_config=None):
       # create and configure the app
     app = Flask(__name__, instance_relative_config=True,static_url_path='',
