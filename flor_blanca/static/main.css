@@ -1,0 +1,17 @@
+h1 {
+  text-shadow: 2px 2px 2px rgb(127, 199, 214);
+}
+body {
+  background: linear-gradient(
+    60deg,
+    rgb(66, 147, 66),
+    rgb(89, 175, 89),
+    rgb(65, 82, 211)
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+.frameContainer {
+  max-width: 50%;
+}

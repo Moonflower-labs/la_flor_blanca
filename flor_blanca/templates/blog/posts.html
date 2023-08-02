@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block header %}
+<h1 class="text-center">
+  {% block title %}{% if username != None %} {{username}}~{% endif %}Posts{%
+  endblock %}
+</h1>
+{% if g.user %}
+<a
+  class="btn btn-outline-success text-info rounded-pill"
+  href="{{ url_for('blog.create') }}"
+  >New</a
+>
+{% endif %} {% endblock %} {% block content %} {% for post in posts %}
+<article class="container">
+  <div class="row">
+    <div class="col">
+      <header>
+        <div>
+          <h1>{{ post['title'] }}</h1>
+          <div class="about">
+            by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d')
+            }}
+          </div>
+        </div>
+        {% if g.user['id'] == post['author_id'] %}
+        <a
+          class="btn btn-success rounded-pill"
+          href="{{ url_for('blog.update', id=post['id']) }}"
+          >Edit</a
+        >
+        {% endif %}
+      </header>
+      <p class="body">{{ post['body'] }}</p>
+    </div>
+  </div>
+</article>
+{% if not loop.last %}
+<hr />
+{% endif %} {% endfor %} {% endblock %}

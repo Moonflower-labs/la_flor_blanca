@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-8 mx-auto">
+      <p class="display-6">Checkout</p>
+    </div>
+    <div class="col-md-8 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">No lo pienses más</div>
+        <div class="card-body">
+          <h5 class="card-title">Miembros Premium</h5>
+          <p class="card-text">
+            Suscríbete ahora y disfruta de contenido más profundo que el
+            ofrecido en los recursos gratuitos
+          </p>
+          <form action="/checkout/create-checkout-session" method="POST">
+            <!-- Note: If using PHP set the action to /create-checkout-session.php -->
+
+            <input
+              type="hidden"
+              name="priceId"
+              value="price_G0FvDp6vZvdwRZ"
+              class="form-control"
+            />
+            <button
+              type="submit"
+              id="checkout-button"
+              class="btn btn-outline-success rounded-pill"
+            >
+              Checkout
+            </button>
+          </form>
+        </div>
+        <div class="card-footer fw-bold">Solo £9,95 al mes</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
