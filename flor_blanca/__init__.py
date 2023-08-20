@@ -1,16 +1,31 @@
 import os
-from flask import Flask ,redirect, request, url_for, render_template
-import stripe
+from flask import Flask, render_template, session
+import logging
+from dotenv import load_dotenv
+from config import Config
 
 
+load_dotenv()
+
+
+logging.basicConfig( level=logging.DEBUG)
 def create_app(test_config=None):
       # create and configure the app
     app = Flask(__name__, instance_relative_config=True,static_url_path='',
            )
+    
     app.config.from_mapping(
-        SECRET_KEY='dev',     # path where the SQLite database file will be saved.
-        DATABASE=os.path.join(app.instance_path, 'flor_blanca.sqlite'),
+        
+        DATABASE=os.getenv('DATABASE_URL') ,
+        MAIL_SERVER = os.getenv('MAIL_SERVER'),
+        MAIL_PORT = int(os.getenv('MAIL_PORT')),
+        MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
+        MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
+        MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') == 'True',
+        MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') == 'True',
     )
+    app.config.from_object(Config)
+   
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -25,34 +40,54 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
+
+    # @app.after_request
+    # def add_security_headers(resp):
+    #     resp.headers['Permissions-Policy'] = "geolocation=(),midi=(),camera=()"
+    #     return resp
+
+    from flor_blanca.postDb import init_app
+    init_app(app)
+
+    from flor_blanca.extensions import mail
+    mail.init_app(app)
+  
     @app.route('/')
     def index():
-        return render_template('index.html')
-    
+       
+        username = session.get('username') 
+        return render_template('index.html',username=username)
 
-    from . import db
-    db.init_app(app)
-
-
-    from . import auth
+    from flor_blanca import auth
     app.register_blueprint(auth.bp)
 
-    from . import blog
-    app.register_blueprint(blog.bp)
-    app.add_url_rule('/', endpoint='blog')
+    from flor_blanca.questions import bp as questions_bp
+    app.register_blueprint(questions_bp)
+
+
+    from flor_blanca.answers import bp as answers_bp
+    app.register_blueprint(answers_bp)
+
+    from flor_blanca.admin import bp as admin_bp
+    app.register_blueprint(admin_bp)
+
 
     from . import server
     app.register_blueprint(server.bp)
-    # app.add_url_rule('/', endpoint='index')
-    @app.route('/checkout')
-    def checkout():
-       
 
-        
-        return render_template('checkout.html')
 
-    
+    @app.route('/dashboard')
+    def dashboard():
+       email = session.get('email')
+       username = session.get('username')
+       return render_template('user/dashboard.html',email=email,username=username)
+
+
+
+
+
+
+
     return app
    
-# flask --app flor_blanca run --debug
+
