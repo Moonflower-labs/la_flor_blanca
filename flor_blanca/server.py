@@ -158,10 +158,10 @@ def customer_portal():
        
         if user:
             # Check if user has necessary attributes
-            if user[6] and user[8]:
+            if user[6] and user[8] :
                 # Create the customer portal session
                 billing_session = stripe.billing_portal.Session.create(
-                    customer=user['customer_id'],
+                    customer=user[6],
                     return_url=url_for('stripe.customer_portal_redirect', _external=True)
                 )
 
