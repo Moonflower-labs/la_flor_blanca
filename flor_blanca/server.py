@@ -157,8 +157,8 @@ def customer_portal():
         user = get_user_by_email(email)
        
         if user:
-            customer_id =user[6]
-            subscription_plan=user[8]
+            customer_id =user[5]
+            subscription_plan=user[7]
             # Check if user has necessary attributes
             if customer_id and subscription_plan :
 
@@ -173,7 +173,6 @@ def customer_portal():
                      return redirect(billing_session.url)
             
                 except Exception as e:
-                    
                     return str(e)
             else:
                 flash("No pudimos encontrar una suscripcion asociada a tu cuenta")
