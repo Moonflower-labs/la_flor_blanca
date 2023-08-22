@@ -18,3 +18,7 @@ def basic():
 
 
     return render_template('answers/basic.html')
+
+@bp.route('/coming-soon')
+def soon_view():
+    return render_template('coming-soon.html')

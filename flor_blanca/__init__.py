@@ -42,10 +42,6 @@ def create_app(test_config=None):
         pass
 
 
-    # @app.after_request
-    # def add_security_headers(resp):
-    #     resp.headers['Permissions-Policy'] = "geolocation=(),midi=(),camera=()"
-    #     return resp
 
     from flor_blanca.postDb import init_app
     init_app(app)
