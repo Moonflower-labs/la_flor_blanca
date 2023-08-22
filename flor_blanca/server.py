@@ -150,12 +150,12 @@ def webhook_received():
 def customer_portal():
     # Get the user session email
     email = session.get('email')
-    flash(email)
+   
 
     if email:
         # Retrieve user information
         user = get_user_by_email(email)
-
+        flash(email)
         if user:
             # Check if user has necessary attributes
             if 'customer_id' in user and user[5] and 'subscription_plan' in user and user[7]:
