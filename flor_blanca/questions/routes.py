@@ -1,12 +1,13 @@
 from flor_blanca.questions import bp
 from flor_blanca.auth import login_required
 from flor_blanca.postDb import save_message
-from flask import render_template,session,request,redirect,url_for,flash
+from flask import render_template,session,request,redirect,url_for,flash,current_app
 from flask_mail import Message
 from flor_blanca.extensions import mail
 import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
+
 
 current_month = datetime.datetime.now().month
 
@@ -29,6 +30,7 @@ def question_page():
     count = session.get('question_count',0)  
     if user_id:
         remaining_question_count = max(3 - count, 0)  
+        session['remaining_question_count'] = remaining_question_count
         return render_template('questions/index.html', username=username, remaining_question_count=remaining_question_count)
     else:
         return redirect(url_for('login'))
@@ -39,9 +41,9 @@ def increment_question_count():
         session['question_count'] = 1
         session['question_count_month'] = current_month
     else:
-        session['question_count'] = session.get('question_count', 0)
-        session['question_count'] = session['question_count'] + 1 if session['question_count'] is not None else 1
+        session['question_count'] = session.get('question_count', 0) + 1
     session.permanent = True
+
 
 @bp.route('/questions', methods=('GET', 'POST'))
 @login_required
@@ -78,8 +80,10 @@ def index():
                         mail.send(msg)
 
                         save_message(email, name, subject, question, gender, age, media, country, city, subscribe)
-                        increment_question_count()
+                        
                         flash('Question submitted successfully.')
+
+                        increment_question_count()
                         count = session.get('question_count',0) 
                         remaining_question_count = max(3 - count, 0)  
                         return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
