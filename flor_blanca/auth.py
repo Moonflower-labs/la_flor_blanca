@@ -63,7 +63,7 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:          
-            session.clear()
+            
             session['id'] = user[0]
             session['username'] = user[1]
             session['email'] = user[3]
@@ -95,7 +95,12 @@ def load_logged_in_user():
 
 @bp.route('/logout')
 def logout():
+    count = session.get('question_count', 0)
+    count_month = session.get('question_count_month')
     session.clear()
+    session['question_count'] = count
+    session['question_count_month'] = count_month
+ 
     return redirect(url_for('index'))
 
 

@@ -23,6 +23,7 @@ def create_app(test_config=None):
         MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
         MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') == 'True',
         MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') == 'True',
+        
     )
     app.config.from_object(Config)
    
