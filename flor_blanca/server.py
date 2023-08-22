@@ -155,7 +155,7 @@ def customer_portal():
     if email:
         # Retrieve user information
         user = get_user_by_email(email)
-        flash(email)
+        flash(user)
         if user:
             # Check if user has necessary attributes
             if 'customer_id' in user and user[5] and 'subscription_plan' in user and user[7]:
