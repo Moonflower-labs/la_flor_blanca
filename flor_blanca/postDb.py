@@ -78,18 +78,20 @@ def get_links():
 def get_user_by_email(email):
     db = get_db()
     cursor = db.cursor()
-    user = cursor.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
-    
+    cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+    user = cursor.fetchone()
+
     if user is None:
         return None
     
-    return dict(user)
+    return user
 
 # Retrieve customer_id from stripe and save to db
 
 def save_customer_id(customer_id, email):
         db = get_db()
         cursor = db.cursor()
+        
         if customer_id is not None:
 
             cursor.execute('UPDATE users SET customer_id = %s WHERE email = %s', (customer_id, email))

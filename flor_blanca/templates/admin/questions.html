@@ -1,0 +1,57 @@
+{% extends 'admin/index.html' %} {% block view %}
+
+<div class="overflow-auto h-100">
+  <table class="table table-hover table-responsive w-100">
+    <thead class="sticky-top">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">email</th>
+        <th scope="col">created</th>
+        <th scope="col">name</th>
+        <th scope="col">subject</th>
+        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
+        <th scope="col" class="border px-4">question</th>
+        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
+        <th scope="col">gender</th>
+        <th scope="col">age_group</th>
+        <th scope="col">media_choice</th>
+        <th scope="col">country</th>
+        <th scope="col">city</th>
+        <th scope="col">subscribe</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for question in questions %}
+      <tr>
+        <th scope="row">{{question[0]}}</th>
+        <td>{{question[1]}}</td>
+        <td>{{question[2]}}</td>
+        <td>{{question[3]}}</td>
+        <td>{{question[4]}}</td>
+        <td colspan="3" class="border">{{question[5]}}</td>
+        <td>{{question[6]}}</td>
+        <td>{{question[7]}}</td>
+        <td>{{question[8]}}</td>
+        <td>{{question[9]}}</td>
+        <td>{{question[10]}}</td>
+        <td>{{question[11]}}</td>
+
+        <td>
+          <form action="{{url_for('admin.delete_question')}}" method="post">
+            <input type="text" name="id" value="{{question[0]}}" hidden />
+            <button
+              class="btn btn-sm"
+              type="submit"
+              onclick="return confirm('Confirma que quieres borrar esta pregunta');"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

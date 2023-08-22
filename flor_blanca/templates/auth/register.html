@@ -4,19 +4,11 @@
 </p>
 {% endblock %} {% block content %}
 
-<div class="container text-center mb-4">
-  <h1 class="mt-3 display-1 fw-bolder">Registrate ahora</h1>
-  <h2 class="mb-3">
-    Para acceder a nuestra sección de
-    <a href="" class="link-light link-underline link-underline-opacity-0"
-      >preguntas y respuestas</a
-    >
-    .
-  </h2>
+<div class="container text-center my-4">
   <img
     src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
     alt="logo"
-    class="rounded-2 shadow"
+    class="rounded-2 shadow logo"
     width="200px"
     height="200px"
   />
@@ -54,43 +46,27 @@
         />
       </div>
 
-      <!-- <div class="mb-3">
-        <label for="confirmPassword" class="form-label"
-          >Confirmar Password</label
-        >
-        <input
-          name="confirmPassword"
-          type="password"
-          class="form-control"
-          id="confirmPassword"
-        />
-      </div> -->
-      <!-- 
-      <div class="mb-3">
-        <p class="">Elige el tipo the subscripción</p>
-        <select
-          name="subscription"
-          class="form-select"
-          aria-label="Default select example"
-        >
-          <option selected>Elige el tipo the subscripción</option>
-          <option value="basic">Básica</option>
-          <option value="premium">Premium</option>
-        </select>
-      </div> -->
       <div class="mb-3 text-center">
         <button
           type="button"
-          class="btn btn-outline-light rounded-pill"
+          class="btn btn-outline-info mx-1 rounded-1"
           data-bs-dismiss="modal"
         >
           Cancelar
         </button>
-        <button type="submit" class="btn btn-outline-light rounded-pill">
+        <button
+          type="submit"
+          class="btn btn-outline-info rounded-1 mx-1 text-center"
+        >
           Aceptar
         </button>
       </div>
     </form>
+  </div>
+  <div class="my-5">
+    <p class="h4 text-center">
+      Ya estás registrado? <a href="{{url_for('auth.login')}}">Login</a>
+    </p>
   </div>
 </div>
 

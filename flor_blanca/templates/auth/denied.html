@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% block header %}
+<p class="fw-75 display-6 text-center title">
+  {% block title %}Admin{% endblock %}{% endblock %}
+</p>
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-center mx-auto mb-3">
+      {% include ('logo.html') %}
+    </div>
+    <div class="col-md-6 text-center mx-auto mb-3r">
+      <p class="display-6">Acceso denegado</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

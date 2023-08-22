@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block header %} {% block title %}Admin Panel {%
+endblock %} {% endblock %} {% block content %}
+<div class="container">
+  <div class="row my-2 align-items-center">
+    {% include 'admin/panel.html' %}
+    <div class="col-md-8 text-center">
+      <div class="col-md-6 text-center mx-auto">
+        <form action="{{action}}" method="post">
+          <label for="link" class="form-label"
+            >Inserte el link del <strong>{{name}}</strong></label
+          >
+          <input type="text" name="link" class="form-control mb-3" />
+          <button
+            type="submit"
+            class="btn w-25 btn-outline-info rounded-1 mb-3"
+          >
+            Aceptar
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

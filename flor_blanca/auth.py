@@ -1,14 +1,17 @@
-import functools
+import functools,os
 
 from flask import(
     Blueprint, flash , g, redirect, render_template, request, 
     session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from flor_blanca.db import get_db
-     #   creates a Blueprint named 'auth'
+from flor_blanca.postDb import get_db
+# from flor_blanca.db import get_db
+
+   
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+ADMIN_LIST = os.getenv('ADMIN_LIST')
 
 @bp.route('/register', methods=('GET','POST'))
 def register():
@@ -28,12 +31,13 @@ def register():
 
         if error is None:
             try:
-                db.execute(
-                     "INSERT INTO user (username, password, email) VALUES (?, ?,?)",
+                cursor = db.cursor()
+                cursor.execute(
+                     "INSERT INTO users (username, password, email) VALUES (%s, %s,%s)",
                     (username, generate_password_hash(password), email),
 
                 )
-                db.commit()
+                # db.commit()
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
@@ -49,36 +53,45 @@ def login():
         password = request.form['password']
         db = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE email = ?', (email,)
-        ).fetchone()
+        cursor = db.cursor()
+        cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+        user = cursor.fetchone()
         
         if user is None:
-            error = 'Incorrect email address.'
-        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect email address or password.'
+        elif not check_password_hash(user[2], password):
             error = 'Incorrect password.'
 
-        if error is None:
+        if error is None:          
             session.clear()
-            session['user_id'] = user['id']
-            session['username'] = user['username']
-            return redirect(url_for('index'))
+            session['id'] = user[0]
+            session['username'] = user[1]
+            session['email'] = user[3]
+
+            if session['email'] in ADMIN_LIST :
+                    session['role'] = 'admin'
+            else:
+                    session['role'] = 'user'
+                    
+            return redirect(url_for('index',username=user[1]))
 
         flash(error)
 
     return render_template('auth/login.html')
 
+
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = session.get('user_id')
+    user_id = session.get('id')
 
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        cursor = get_db().cursor()
+        cursor.execute('SELECT * FROM users WHERE id = %s', (user_id,))
+        g.user = cursor.fetchone()
 
+        cursor.close() 
 
 @bp.route('/logout')
 def logout():
@@ -95,6 +108,11 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+@bp.route('/denied')
+def denied():
+
+    return render_template('auth/denied.html')
 
 """This decorator returns a new view function that wraps 
 the original view it's applied to. The new function checks 

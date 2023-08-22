@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block header %} {% block title %}Preguntas {%
+endblock %} {% endblock %} {% block content %}
+
+<div class="container">
+  <div class="row text-center align-items-center">
+    <div class="col-md-6 mx-auto mb-3">{% include 'logo.html' %}</div>
+    <div class="col-md-6 mx-auto mb-3">
+      <p class="h3">Mensaje enviado</p>
+      <p>Gracias por tu pregunta</p>
+      <p>
+        Preguntas restantes este mes
+        <span class="h4 text-warning">{{remaining_question_count}}</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

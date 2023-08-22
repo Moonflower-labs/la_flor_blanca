@@ -1,0 +1,362 @@
+{% extends 'base.html' %} {% block header %} {% block title %}Preguntas {%
+endblock %} {% endblock %} {% block content %}
+<section>
+  <div class="container-fluid mb-3">
+    <div class="row">
+      <div class="col-md-6 mx-auto text-center mb-3">
+        <p class="display-6 fw-medium">Hola Almas Oscuras y Luminosas</p>
+        <p class="">
+          aquí podéis preguntar de una manera más anónima todo aquello que
+          verdaderamente os inquieta (siguiendo la línea de mi contenido) y que
+          no os atrevéis a hacer en los canales públicos. No mencionaremos
+          ningún dato personal solo la pregunta en sí al responder
+        </p>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <div class="h6 text-end mb-3">
+          Preguntas disponibles:
+          <span class="h4 text-warning">{{remaining_question_count}}</span> de
+          <span class="h4 text-warning">3</span>
+        </div>
+        <form
+          action="{{url_for('questions.index')}}"
+          method="post"
+          class="border border-1 px-4 pt-2 rounded-4 bg-body-tertiary questions"
+        >
+          <label for="email" class="form-label">Email</label>
+          <!-- ? * * input-group + input-group-text to insert icon * * -->
+          <div class="mb-4 input-group">
+            <span class="input-group-text">
+              <i class="bi bi-envelope-at-fill"></i>
+            </span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="e.g. myname@example.com"
+              required
+            />
+          </div>
+          <label for="name" class="form-label">Nombre</label>
+          <div class="mb-4 input-group">
+            <span class="input-group-text">
+              <i class="bi bi-person-fill"></i>
+            </span>
+            <input
+              type="name"
+              id="name"
+              class="form-control"
+              placeholder="e.g. Harry"
+              name="name"
+              required
+            />
+          </div>
+          <did class="p fw-bolder"
+            >1. ¿Tu pregunta es sobre Limpiezas, Emociones y Sentimentos Ataques
+            Psíquicos o Habilidades Psíquicas?</did
+          >
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="limpiezas"
+              value="limpiezas"
+              required
+            />
+            <label class="form-check-label" for="limpiezas"> Limpiezas </label>
+          </div>
+
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="emotions"
+              value="emotions"
+              required
+            />
+            <label class="form-check-label" for="emotions">
+              Emociones y Sentimientos
+            </label>
+          </div>
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="ataques"
+              value="ataques"
+              required
+            />
+            <label class="form-check-label" for="ataques">
+              Ataques Psiquicos
+            </label>
+          </div>
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="habilidades"
+              value="habilidades-psiquicas"
+              required
+            />
+            <label class="form-check-label" for="habilidades">
+              Habilidades Psiquicas
+            </label>
+          </div>
+
+          <div class="form- mb-4 mt-5">
+            <label for="query" class="fw-bolder"
+              >2. ¿Qué duda tienes o te intersa saber sobre este tema?</label
+            >
+            <textarea
+              name="question"
+              class="form-control"
+              id="query"
+              style="height: 140px"
+              placeholder="Escribe tu pregunta aqui..."
+              required
+            ></textarea>
+          </div>
+
+          <label for="subscribe" class="form-label fw-bolder"
+            >3. ¿Nos das permiso para suscribirte a nuestra lista de
+            email?</label
+          >
+          <p>
+            Debes suscribirte en la página
+            <a href="https://thechicnoir.com/">The Chic Noir</a> si deseas
+            recibir las respuestas anónimamente. (Utiliza el mismo correo de
+            formulario para ello. No mencionaremos ningún dato personal solo la
+            pregunta en sí al responder).
+          </p>
+          <div class="input-group mb-4">
+            <span class="input-group-text">
+              <i class="bi bi-sunrise-fill"></i>
+            </span>
+            <select
+              class="form-select"
+              id="subscribe"
+              name="subscribe"
+              required
+            >
+              <option value="">Elige una opción</option>
+              <option value="yes">Si</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <did class="p fw-bolder"
+            >4. ¿Dónde has oído hablar de nosotros: Telegram, YouTube, Anuncio,
+            Instagram,Facebook, LinkedIn ,de boca en boca u otro?</did
+          >
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="telegram"
+              name="telegram"
+            />
+            <label class="form-check-label" for="telegram"> Telegram </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="youtube"
+              name="youtube"
+            />
+            <label class="form-check-label" for="youtube"> YouTube </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="instagram"
+              name="instagram"
+            />
+            <label class="form-check-label" for="instagram"> Instagram </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="facebook"
+              name="facebook"
+            />
+            <label class="form-check-label" for="facebook"> Facebook </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="linkedin"
+              name="linkedin"
+            />
+            <label class="form-check-label" for="linkedin"> LinkedIn </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="anuncio"
+              name="anuncio"
+            />
+            <label class="form-check-label" for="anuncio"> Anuncio </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="boca"
+              name="boca"
+            />
+            <label class="form-check-label" for="boca"> De boca en boca </label>
+          </div>
+          <div class="form-check my-2">
+            <!-- <input
+              class="form-check-input"
+              type="checkbox"
+              id="otro"
+              name="otro"
+            /> -->
+            <label class="form-check-label" for="other"> Otro:</label>
+            <input
+              type="text "
+              class="form-control form-control-plaintext"
+              placeholder="Especifica aquí..."
+              name="other"
+            />
+          </div>
+
+          <did class="p fw-bolder mb-3">5. ¿Cual es tu grupo de edad? </did>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt1"
+              value="16-25"
+              required
+            />
+            <label class="form-check-label" for="opt1"> De 16 a 25 años </label>
+          </div>
+
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt2"
+              value="26-35"
+              required
+            />
+            <label class="form-check-label" for="opt2"> De 26 a 35 años </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt3"
+              value="36-45"
+              required
+            />
+            <label class="form-check-label" for="opt3"> De 36 a 45 años </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt4"
+              value="46-55"
+              required
+            />
+            <label class="form-check-label" for="opt4"> De 46 a 55 años </label>
+          </div>
+
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt5"
+              value="56-65"
+              required
+            />
+            <label class="form-check-label" for="opt5"> De 56 a 65 años </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt6"
+              value="66-75"
+              required
+            />
+            <label class="form-check-label" for="opt6"> De 66 a 75 años </label>
+          </div>
+          <div class="form-check my-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ageGroup"
+              id="opt7"
+              value=">75"
+              required
+            />
+            <label class="form-check-label" for="opt7">
+              Mayor de 75 años
+            </label>
+          </div>
+          <label for="subject" class="form-label fw-bolder"
+            >6. ¿Cual es tu Género?</label
+          >
+          <div class="input-group mb-4">
+            <span class="input-group-text">
+              <i class="bi bi-gender-ambiguous"></i>
+            </span>
+            <select class="form-select" id="gender" name="gender" required>
+              <option value="female">Mujer</option>
+              <option value="male">Hombre</option>
+            </select>
+          </div>
+          <label for="country" class="fw-bolder mb-3"
+            >7. ¿Desde qué país nos contactas?</label
+          >
+          <input
+            name="country"
+            type="text "
+            class="form-control"
+            id="country"
+            required
+          />
+          <label for="country" class="fw-bolder my-3"
+            >8. ¿Desde qué ciudad nos contactas?</label
+          >
+          <input
+            name="city"
+            type="text "
+            class="form-control mb-3"
+            id="city"
+            required
+          />
+
+          <div class="mb-4 text-center">
+            <button type="submit" class="btn w-25 btn-outline-info rounded-1">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

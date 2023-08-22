@@ -1,3 +1,4 @@
+APScheduler==3.10.4
 blinker==1.6.2
 cachelib==0.10.2
 certifi==2023.7.22
@@ -18,9 +19,12 @@ pipenv==2023.7.23
 platformdirs==3.10.0
 psycopg2-binary==2.9.7
 python-dotenv==0.21.0
+pytz==2023.3
 requests==2.31.0
+six==1.16.0
 stripe==6.0.0
 typing_extensions==4.7.1
+tzlocal==5.0.1
 urllib3==2.0.4
 virtualenv==20.24.2
 virtualenv-clone==0.5.7

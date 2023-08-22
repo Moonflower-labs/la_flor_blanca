@@ -1,0 +1,164 @@
+<div class="container" id="plans">
+  <div class="row text-center">
+    <div class="col-md-8 mx-auto">
+      <p class="display-6 my-3">Planes de Suscripción</p>
+    </div>
+    <div class="col-md-6 mx-auto mb-3">
+      <div class="card text-center shadow h-100 plan1">
+        <div class="card-header fw-bold h3">PERSONALIDAD</div>
+        <div class="card-body">
+          <div class="text-center my-3">
+            <img
+              src="{{ url_for('static', filename='/images/woman-white-dress.avif')}}"
+              alt=""
+              width="300"
+              height="300"
+              class="img-fluid rounded-2"
+            />
+          </div>
+          <ul class="list-unstyled text-start p-3">
+            <li>👁Precio Gratis</li>
+            <li>👁Puedes cancelar en cualquier momento</li>
+            <li>👁Renovación automática</li>
+            <li>
+              👁Respuesta a tus Preguntas en audio o video
+              <span class="fw-bold"
+                >desde cualquier lugar y en cualquier momento </span
+              >de manera anónima sin incluir ningún dato personal. Accede usando
+              tu dispositivo electrónico favorito.
+            </li>
+          </ul>
+
+          <form
+            action="{{url_for('stripe.create_checkout_session')}}"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="price_id"
+              value="price_1Ng3CfAEZk4zaxmwMXEF9bfR"
+              class="form-control"
+            />
+            <button
+              type="submit"
+              id="plan1"
+              class="btn btn-lg btn-outline-dark"
+            >
+              Comprar por £0
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mx-auto mb-3">
+      <div class="card text-center plan2 shadow h-100">
+        <div class="card-header fw-bold h3">ALMA</div>
+        <div class="card-body">
+          <div class="text-center my-3">
+            <img
+              src="{{ url_for('static', filename='images/fantasy-astral.avif')}}"
+              alt=""
+              width="300"
+              height="300"
+              class="img-fluid rounded-2"
+            />
+          </div>
+          <ul class="list-unstyled text-start p-3">
+            <li>
+              Recibirás contenido que nutra tu Alma en todas sus formas más una
+              pregunta mensual de tarot incluida cuya respuesta sera enviada
+              personalmente a tu email de tu suscripción
+            </li>
+            <li>👁Precio £9.95</li>
+            <li>👁Puedes cancelar en cualquier momento</li>
+            <li>👁Renovación automática</li>
+            <li>👁Contenido sorpresa</li>
+            <li>👁Una pregunta al mes de tarot</li>
+            <li>
+              👁Acceso a contenido exclusivo en audio, video o streaming
+              <span class="fw-bold"
+                >desde cualquier lugar y en cualquier momento </span
+              >a través de tu dispositivo electrónico favorito.
+            </li>
+          </ul>
+
+          <form
+            action="{{url_for('stripe.create_checkout_session')}}"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="price_id"
+              value="price_1Ng3GzAEZk4zaxmwyZRkXBiW"
+              class="form-control"
+            />
+            <button
+              type="submit"
+              id="plan2"
+              class="btn btn-lg btn-outline-dark"
+            >
+              Comprar por £9,95/mes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mx-auto mb-3 h-100">
+      <div class="card text-center plan3 shadow h-100">
+        <div class="card-header fw-bold h3">ESPIRITU</div>
+        <div class="card-body">
+          <div class="text-center my-3">
+            <img
+              src="{{ url_for('static', filename='images/brain-tree.avif')}}"
+              alt=""
+              width="300"
+              height="300"
+              class="img-fluid rounded-2"
+            />
+          </div>
+          <ul class="list-unstyled text-start p-3">
+            <li>
+              Con esta suscripción tendrás acceso a contenido live de preguntas
+              y respuestas, tarot o mi propio proceso una vez al mes y lo que
+              espontáneamente surja. Si no puedes estar en el live tendrás
+              acceso a dejar tu preguntas para el live.
+            </li>
+            <li>👁Precio £14.95</li>
+            <li>👁Puedes cancelar en cualquier momento</li>
+            <li>👁Renovación automática</li>
+            <li>👁Contenido sorpresa</li>
+            <li>👁Sesiones en directo</li>
+            <li>
+              👁Acceso a contenido exclusivo en audio, video o streaming
+              <span class="fw-bold"
+                >desde cualquier lugar y en cualquier momento
+              </span>
+              a través de tu dispositivo electrónico favorito.
+            </li>
+          </ul>
+
+          <form
+            action="{{url_for('stripe.create_checkout_session')}}"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="price_id"
+              value="price_1Ng3KKAEZk4zaxmwLuapT9kg"
+              class="form-control"
+            />
+            <button
+              type="submit"
+              id="plan3"
+              class="btn btn-lg btn-outline-dark"
+            >
+              Comprar por £14,95/mes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

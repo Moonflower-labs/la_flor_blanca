@@ -1,12 +1,20 @@
-{% extends 'base.html' %}
-<p class="fw-75 display-6 text-center">
-  {% block header %} {% block title %}Login{% endblock %}{% endblock %}
+{% extends 'base.html' %}{% block header %}
+<p class="fw-75 display-6 text-center title">
+  {% block title %}Login{% endblock %}{% endblock %}
 </p>
-
 {% block content %}
 
 <div class="container-fluid">
-  <div class="col-md-8 mx-auto mt-5">
+  <div class="container text-center my-4">
+    <img
+      src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
+      alt="logo"
+      class="rounded-2 shadow logo"
+      width="200px"
+      height="200px"
+    />
+  </div>
+  <div class="col-md-6 mx-auto mt-5">
     <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
@@ -28,15 +36,20 @@
         />
       </div>
       <div class="mb-3 text-center">
-        <button type="reset" class="btn btn-outline-light rounded-pill">
+        <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-outline-light rounded-pill">
+        <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
           Aceptar
         </button>
       </div>
     </form>
   </div>
+</div>
+<div class="my-5">
+  <p class="h4 text-center">
+    No estás registrado? <a href="{{url_for('auth.register')}}">Registro</a>
+  </p>
 </div>
 
 {% endblock %}
