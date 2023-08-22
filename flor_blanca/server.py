@@ -145,31 +145,33 @@ def webhook_received():
         
     return jsonify({'status': 'successfull'})
 
-
-
 @bp.route('/customer-portal', methods=['POST'])
 @login_required
 def customer_portal():
     # Get the user session email
     email = session.get('email')
 
-    # Check if email exists in the session
     if email:
         # Retrieve user information
         user = get_user_by_email(email)
 
-        # Check if user exists and has the necessary attributes
-        if user and 'customer_id' in user and user['subscription_plan']  :
-            # Create the customer portal session
-            billing_session = stripe.billing_portal.Session.create(
-                customer=user['customer_id'],
-                return_url=url_for('stripe.customer_portal_redirect', _external=True)
-            )
+        if user:
+            # Check if user has necessary attributes
+            if 'customer_id' in user and user[5] and 'subscription_plan' in user and user[7]:
+                # Create the customer portal session
+                billing_session = stripe.billing_portal.Session.create(
+                    customer=user['customer_id'],
+                    return_url=url_for('stripe.customer_portal_redirect', _external=True)
+                )
 
-            return redirect(billing_session.url)
+                return redirect(billing_session.url)
+
     flash("Debes comprar una suscripción antes de acceder al Customer portal ")
     # If email is missing or user does not have required attributes, handle the error
     return redirect(url_for('index', _anchor='plans'))
+
+
+
     
     
 @bp.route('/customer-portal-redirect')
