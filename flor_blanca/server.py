@@ -150,6 +150,7 @@ def webhook_received():
 def customer_portal():
     # Get the user session email
     email = session.get('email')
+    flash(email)
 
     if email:
         # Retrieve user information
