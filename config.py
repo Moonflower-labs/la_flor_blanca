@@ -13,12 +13,11 @@ class TestConfig(Config):
 
 class ProductionConfig(Config):
         
-       DATABASE_URL = 'postgresql://laflorblancadb_user:273OYZiX4KGuePZzAjFFZQi6YMJVfWAP@dpg-cj8jfacl975s73bvbft0-a.frankfurt-postgres.render.com/laflorblancadb'
+       DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 
 
-#* postgresql://laflorblancadb_user:273OYZiX4KGuePZzAjFFZQi6YMJVfWAP@dpg-cj8jfacl975s73bvbft0-a.frankfurt-postgres.render.com/laflorblancadb
 
 
 
