@@ -1,2 +1,3 @@
 # la_flor_blanca
-members website with subscription option
+members website with 3 subscription plans 
+integrated stripe api
