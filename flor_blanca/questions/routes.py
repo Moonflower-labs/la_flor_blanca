@@ -1,7 +1,7 @@
 from flor_blanca.questions import bp
 from flor_blanca.auth import login_required
 from flor_blanca.postDb import save_message
-from flask import render_template,session,request,redirect,url_for,flash,current_app
+from flask import render_template,session,request,redirect,url_for,flash
 from flask_mail import Message
 from flor_blanca.extensions import mail
 import datetime
@@ -45,36 +45,40 @@ def increment_question_count():
     session.permanent = True
 
 
-@bp.route('/questions', methods=('GET', 'POST'))
+@bp.route('/questions', methods=['GET', 'POST'])
 @login_required
 def index():
         username = session.get('username')
 
         if request.method == 'POST':
-            email = request.form.get('email')
-            name = request.form.get('name')
-            subject = request.form.get('flexRadioDefault')
-            question = request.form.get('question')
-            subscribe = request.form.get('subscribe')
+            try:
+                email = request.form.get('email')
+                name = request.form.get('name')
+                subject = request.form.get('flexRadioDefault')
+                question = request.form.get('question')
+                subscribe = request.form.get('subscribe')
 
-            age = request.form.get('ageGroup')
-            other = request.form.get('other')
-            country = request.form.get('country')
-            city = request.form.get('city')
-            gender = request.form.get('gender')
+                age = request.form.get('ageGroup')
+                other = request.form.get('other')
+                country = request.form.get('country')
+                city = request.form.get('city')
+                gender = request.form.get('gender')
 
-            media = []
-            for key, value in request.form.items():
-                if value == 'on':
-                    media.append(key)
-            user_id = session.get('id')
+                media = []
+                for key, value in request.form.items():
+                    if value == 'on':
+                        media.append(key)
+                        user_id = session.get('id')
+            except Exception as e:
+                return str(e)
 
             if user_id:
+
                 session['question_count'] = session.get('question_count', 0)
 
                 if session['question_count'] < 3:
-                    
-                        msg = Message('Hello from the other side!', sender='laflorBlanca',
+                    try:
+                        msg = Message('Hola de la Flor Blanca!', sender='laflorBlanca',
                                   recipients=['alex.landin@hotmail.com'])
                         msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nsubscribe: {subscribe},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
                         mail.send(msg)
@@ -88,13 +92,16 @@ def index():
                         remaining_question_count = max(3 - count, 0)  
                         return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                     
+                    except Exception as e:
+                        return str(e)
+                    
                 else:
                     flash('You have reached the maximum limit of 3 questions per month.')
 
         return question_page()
 
 
-@bp.route('/questions/sent', methods=('GET', 'POST'))
+@bp.route('/questions/sent', methods=['GET', 'POST'])
 @login_required
 def message_sent():
 
