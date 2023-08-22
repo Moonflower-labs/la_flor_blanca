@@ -158,7 +158,7 @@ def customer_portal():
        
         if user:
             # Check if user has necessary attributes
-            if 'customer_id' in user and user[6] and 'subscription_plan' in user and user[8]:
+            if user[6] and user[8]:
                 # Create the customer portal session
                 billing_session = stripe.billing_portal.Session.create(
                     customer=user['customer_id'],
@@ -166,6 +166,8 @@ def customer_portal():
                 )
 
                 return redirect(billing_session.url)
+            else:
+                flash("No pudimos encontrar una suscripcion asociada a tu cuenta")
 
     flash("Debes comprar una suscripción antes de acceder al Customer portal ")
     # If email is missing or user does not have required attributes, handle the error
