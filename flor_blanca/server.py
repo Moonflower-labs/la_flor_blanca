@@ -155,10 +155,10 @@ def customer_portal():
     if email:
         # Retrieve user information
         user = get_user_by_email(email)
-        flash(user)
+       
         if user:
             # Check if user has necessary attributes
-            if 'customer_id' in user and user[5] and 'subscription_plan' in user and user[7]:
+            if 'customer_id' in user and user[6] and 'subscription_plan' in user and user[8]:
                 # Create the customer portal session
                 billing_session = stripe.billing_portal.Session.create(
                     customer=user['customer_id'],
