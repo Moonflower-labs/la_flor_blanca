@@ -16,8 +16,20 @@ bp = Blueprint('stripe', __name__,)
 @login_required
 def create_checkout_session():
     price_id = request.form.get('price_id') 
-
-    if price_id is not None:
+    email = session.get('email')
+    user = get_user_by_email(email)
+    customer_id =user[5]
+    
+   
+    if customer_id is not None and price_id is not None:
+        try:
+       
+            return  redirect(url_for('stripe.customer_portal')) 
+        
+        except Exception as e:
+            return str(e)
+    else:
+        email = session.get('email')
         try:
               
             checkout_session = stripe.checkout.Session.create(
@@ -30,13 +42,14 @@ def create_checkout_session():
                 mode='subscription',
                 success_url=url_for('stripe.success', _external=True) ,
                 cancel_url=url_for('stripe.cancel', _external=True),
+                customer_email=email
             )
-       
+           
             return redirect(checkout_session.url, code=303)    
         
         except Exception as e:
             return str(e)
-    
+
 
 
 @bp.route('/success')
@@ -85,10 +98,13 @@ def webhook_received():
         email = customer.email
       
         get_user_by_email(email)
+
+        session['customer_id']= customer_id
         
         # Save the customer ID in database
         save_customer_id(customer_id, email)
         
+       
         
 
     elif event.type == 'customer.subscription.updated':
@@ -145,7 +161,8 @@ def webhook_received():
         
     return jsonify({'status': 'successfull'})
 
-@bp.route('/customer-portal', methods=['POST'])
+   
+@bp.route('/customer-portal', methods=['POST','GET'])
 @login_required
 def customer_portal():
     # Get the user session email
@@ -155,12 +172,11 @@ def customer_portal():
     if email:
         # Retrieve user information
         user = get_user_by_email(email)
-       
+        
         if user:
             customer_id =user[5]
-            subscription_plan=user[7]
-            # Check if user has necessary attributes
-            if customer_id and subscription_plan :
+                      
+            if customer_id is not None  :
 
                 try:
                 

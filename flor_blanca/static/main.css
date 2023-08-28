@@ -35,11 +35,42 @@ section.home {
   background-position: center;
   color: rgb(255, 201, 24);
 
-  text-shadow: 2px 1px 3px #000000;
+  text-shadow: 2px 1px 3px #948181;
 }
-/* h1.title {
+h1.title {
   color: #e5e5e5;
-} */
+}
+h1.title {
+  animation: glow;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transition: glow 1s;
+  animation: beat;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transition: transform 0.3s;
+}
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0px 0px 0px black;
+    transition: 0.5s;
+  }
+  50% {
+    text-shadow: 2px 1px 6px black;
+    transition: 0.5s;
+  }
+}
+@keyframes beat {
+  0%,
+  100% {
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
 .plan1 .card-header {
   background: linear-gradient(45deg, #9b2a75, #cfb142, #e46849);
   color: antiquewhite;
@@ -145,3 +176,10 @@ div.admin {
 i.mail {
   font-size: 1.3rem;
 }
+img.tarot {
+  height: 250px;
+  width: 200px;
+}
+/* div.tarot {
+  background-image: url("./images/tarot.avif");
+} */

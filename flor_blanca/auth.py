@@ -67,6 +67,7 @@ def login():
             session['id'] = user[0]
             session['username'] = user[1]
             session['email'] = user[3]
+            session['customer_id'] = user[5]
 
             if session['email'] in ADMIN_LIST :
                     session['role'] = 'admin'

@@ -58,17 +58,7 @@
                 class="nav-link"
                 aria-current="page"
                 href="{{url_for('index')}}"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('answers.index')}}"
-                >Respuestas</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('questions.index')}}"
-                >Preguntas</a
+                >Inicio</a
               >
             </li>
             <li class="nav-item">
@@ -76,6 +66,12 @@
                 >Planes de suscripción</a
               >
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('questions.index')}}"
+                >Preguntas</a
+              >
+            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('answers.basic')}}"
                 >Personalidad</a
@@ -85,6 +81,9 @@
               <a class="nav-link" href="{{url_for('answers.soon_view')}}"
                 >Alma</a
               >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('answers.index')}}">Tarot</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('answers.soon_view')}}"
@@ -100,7 +99,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.logout') }}"
-                >Log Out</a
+                >Cerrar Sesión</a
               >
             </li>
             {% if session['role'] == 'admin' %}
@@ -119,7 +118,9 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('auth.login')}}">Log In</a>
+              <a class="nav-link" href="{{url_for('auth.login')}}"
+                >Iniciar Sesión</a
+              >
             </li>
             {% endif %}
           </ul>
@@ -147,13 +148,18 @@
       >
         <div class="row my-3">
           <div class="col d-flex justify-content-evenly">
-            <i class="bi bi-instagram"></i>
-            <i class="bi bi-telegram"></i>
+            <a href="https://www.instagram.com/the_chic_noir">
+              <i class="bi bi-instagram"></i
+            ></a>
+            <a href="https://t.me/VisioneslaFlorBlanca">
+              <i class="bi bi-telegram"></i
+            ></a>
             <a href="https://www.youtube.com/@LaFlorBlanca">
               <i class="bi bi-youtube"></i
             ></a>
-
-            <i class="bi bi-facebook"></i>
+            <a href="https://www.facebook.com/TheChicNoir1">
+              <i class="bi bi-facebook"></i
+            ></a>
             <a href="https://thechicnoir.com/">
               <img
                 src="{{url_for('static', filename='images/chic-noir.png')}}"
@@ -174,7 +180,7 @@
             </div>
           </div>
           <div class="col text-end align-self-end">
-            <p>&copy; 2023 La Flor Blanca. All rights reserved.</p>
+            <p>&copy; La Flor Blanca 2023.</p>
           </div>
         </div>
       </div>
