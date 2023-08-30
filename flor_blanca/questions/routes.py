@@ -68,10 +68,10 @@ def index():
 
                 if used_questions < 3:
                     try:
-                        msg = Message('Hola de la Flor Blanca!', sender='laflorBlanca',
-                                  recipients=['alex.landin@hotmail.com'])
-                        msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nsubscribe: {subscribe},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
-                        mail.send(msg)
+                        # msg = Message('Hola de la Flor Blanca!', sender='laflorBlanca',
+                        #           recipients=['alex.landin@hotmail.com'])
+                        # msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nsubscribe: {subscribe},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
+                        # mail.send(msg)
 
                         save_message(email, name, subject, question, gender, age, media, country, city, subscribe,current_plan)
                         
