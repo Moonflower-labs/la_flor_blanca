@@ -40,6 +40,7 @@ def index():
             current_plan = "SPÍRITU"
 
         if request.method == 'POST':
+            user_id = session.get('user_id')
             try:
                 email = session.get('email')
                 name = request.form.get('name')
