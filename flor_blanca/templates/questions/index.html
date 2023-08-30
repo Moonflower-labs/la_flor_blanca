@@ -5,11 +5,15 @@ endblock %} {% endblock %} {% block content %}
     <div class="row">
       <div class="col-md-6 mx-auto text-center mb-3">
         <p class="display-6 fw-medium">Hola Almas Oscuras y Luminosas</p>
-        <p class="">
+        <p>
           aquí podéis preguntar de una manera más anónima todo aquello que
           verdaderamente os inquieta (siguiendo la línea de mi contenido) y que
           no os atrevéis a hacer en los canales públicos. No mencionaremos
-          ningún dato personal solo la pregunta en sí al responder
+          ningún dato personal solo la pregunta en sí al responder.
+        </p>
+        <p class="message fw-bold">
+          Asegúrate de iniciar sesión una ver al mes para actualizar tus
+          preguntas mensuales
         </p>
       </div>
     </div>
@@ -25,21 +29,6 @@ endblock %} {% endblock %} {% block content %}
           method="post"
           class="border border-1 px-4 pt-2 rounded-4 bg-body-tertiary questions"
         >
-          <label for="email" class="form-label">Email</label>
-          <!-- ? * * input-group + input-group-text to insert icon * * -->
-          <div class="mb-4 input-group">
-            <span class="input-group-text">
-              <i class="bi bi-envelope-at-fill"></i>
-            </span>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              name="email"
-              placeholder="e.g. myname@example.com"
-              required
-            />
-          </div>
           <label for="name" class="form-label">Nombre</label>
           <div class="mb-4 input-group">
             <span class="input-group-text">
@@ -109,6 +98,22 @@ endblock %} {% endblock %} {% block content %}
               Habilidades Psiquicas
             </label>
           </div>
+          <div class="form-check mb-2">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="habilidades"
+              value="otro"
+              required
+            />
+            <label class="form-check-label" for="habilidades">
+              Otro
+              <span class="fw-bold"
+                >(siguiendo la línea de nuestro contenido)</span
+              >
+            </label>
+          </div>
 
           <div class="form- mb-4 mt-5">
             <label for="query" class="fw-bolder"
@@ -125,16 +130,10 @@ endblock %} {% endblock %} {% block content %}
           </div>
 
           <label for="subscribe" class="form-label fw-bolder"
-            >3. ¿Nos das permiso para suscribirte a nuestra lista de
-            email?</label
+            >3. ¿Nos das permiso para suscribirte a nuestra lista de email de
+            <a href="https://thechicnoir.com/">The Chic Noir</a> ?</label
           >
-          <p>
-            Debes suscribirte en la página
-            <a href="https://thechicnoir.com/">The Chic Noir</a> si deseas
-            recibir las respuestas anónimamente. (Utiliza el mismo correo de
-            formulario para ello. No mencionaremos ningún dato personal solo la
-            pregunta en sí al responder).
-          </p>
+
           <div class="input-group mb-4">
             <span class="input-group-text">
               <i class="bi bi-sunrise-fill"></i>
@@ -351,7 +350,7 @@ endblock %} {% endblock %} {% block content %}
 
           <div class="mb-4 text-center">
             <button type="submit" class="btn w-25 btn-outline-info rounded-1">
-              Submit
+              Enviar
             </button>
           </div>
         </form>

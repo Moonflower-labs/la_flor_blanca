@@ -1,0 +1,42 @@
+{% extends 'admin/index.html' %} {% block view %}
+
+<div class="overflow-auto h-100">
+  <h4 class="text-center">VIDEOS ESPÍRITU</h4>
+  <table class="table table-hover">
+    <thead class="sticky-top">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Link</th>
+        <th scope="col">Uploaded</th>
+        <th scope="col">Title</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for video in videos %}
+      <tr>
+        <th scope="row">{{video[0]}}</th>
+        <td>{{video[2]}}</td>
+        <td>{{video[1]}}</td>
+        <td>{{video[3]}}</td>
+        <td>{{video[4]}}</td>
+        <td>
+          <form action="{{url_for('admin.delete_video_spirit')}}" method="post">
+            <input type="text" name="id" value=" {{video[0]}}" hidden />
+            <button
+              class="btn btn-sm"
+              type="submit"
+              onclick="return confirm('Confirma que quieres borrar este link');"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

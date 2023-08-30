@@ -1,10 +1,11 @@
 from flor_blanca.answers import bp
-from flor_blanca.auth import login_required
+from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
 from flask import render_template,session,request
 from flor_blanca.postDb import get_links, get_db
 
 @bp.route('/answers', methods=['GET'])
 @login_required
+@required_soul_plan
 def index():
     links = get_links()
     username = session.get('username')
@@ -18,7 +19,7 @@ def index():
         'ORDER BY p.created DESC'
     )
     posts = cursor.fetchall()
-    username = session.get('username')
+   
    
     return render_template('answers/tarot.html', username=username, links=links, posts=posts)
 
@@ -30,7 +31,24 @@ def basic():
 
     return render_template('answers/basic.html')
 
+
+@bp.route('/medium')
+# @required_spirit_plan
+def soul_view():
+    links = get_links()
+    username = session.get('username')
+    return render_template('answers/soul.html',links=links,username=username)
+
+
+@bp.route('/premium')
+# @required_spirit_plan
+def spirit_view():
+    links = get_links()
+    username = session.get('username')
+    return render_template('answers/spirit.html',links=links,username=username)
+
 @bp.route('/coming-soon')
+@required_spirit_plan
 def soon_view():
     return render_template('coming-soon.html')
 

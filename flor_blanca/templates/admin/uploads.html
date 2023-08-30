@@ -9,7 +9,23 @@ endblock %} {% endblock %} {% block content %}
           <label for="link" class="form-label"
             >Inserte el link del <strong>{{name}}</strong></label
           >
-          <input type="text" name="link" class="form-control mb-3" />
+          <input type="text" name="link" class="form-control mb-3" id="link" />
+          <label for="title" class="form-label">Título </label>
+          <input
+            type="text"
+            name="title"
+            class="form-control mb-3"
+            id="title"
+          />
+          <label for="comment" class="form-label">Descripción </label>
+          <textarea
+            name="comment"
+            id="comment"
+            cols="30"
+            rows="10"
+            class="form-control mb-3"
+          ></textarea>
+
           <button
             type="submit"
             class="btn w-25 btn-outline-info rounded-1 mb-3"

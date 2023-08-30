@@ -21,16 +21,16 @@ def show_links():
     
     try:
                         
-        cursor.execute("SELECT * FROM videos ORDER BY id DESC  ")
+        cursor.execute("SELECT * FROM videos_soul ORDER BY id DESC  ")
         results = cursor.fetchall()
        
-        return render_template('admin/videos.html', results=results)
+        return render_template('admin/soul.html', results=results)
               
         
-    except:
+    except :
             pass
     
-    return render_template('admin/videos.html')
+    return render_template('admin/soul.html')
 
 
 
@@ -42,7 +42,7 @@ def delete_link():
         link_id = int(request.form['id'])
 
         try:
-          cursor.execute("DELETE FROM videos WHERE id=%s ",(link_id,))
+          cursor.execute("DELETE FROM videos_soul WHERE id=%s ",(link_id,))
           db.commit()
 
        
@@ -51,7 +51,7 @@ def delete_link():
         except:
             pass
     
-      return render_template('admin/videos.html')
+      return render_template('admin/soul.html')
 
 
 
@@ -59,11 +59,13 @@ def delete_link():
 @login_required
 def upload():
     username = session.get('username')
-    name = 'VIDEO'
+    name = 'VIDEO ALMA'
     action = url_for('admin.upload')
     
     if request.method == 'POST':
         link = request.form.get('link')
+        title = request.form.get('title')
+        comment = request.form.get('comment')
         error = None
         if not link:
             error = "Debes de inserta un link válido"
@@ -73,7 +75,7 @@ def upload():
         else:
             try:
                 print(link)
-                save_link(link)
+                save_link(link,title,comment)
                 info = "link guardado con éxito!"
                 flash(info)
                 return redirect(url_for('admin.upload'))
@@ -86,17 +88,19 @@ def upload():
 
 
 
-# podcasts
+# SPIRIT
 
-@bp.route('/podcasts', methods=['GET','POST'])
+@bp.route('/videos/spirit', methods=['GET','POST'])
 @login_required
-def podcast():
+def videos_spirit():
     username = session.get('username')
-    name = 'PODCAST'
-    action = url_for('admin.podcast')
+    name = 'VIDEO ESPÍRITU'
+    action = url_for('admin.videos_spirit')
    
     if request.method == 'POST':
         link = request.form.get('link')  
+        title = request.form.get('title')  
+        comment = request.form.get('comment')  
         error = None
         if not link:
             error = "Debes de inserta un link válido"
@@ -109,7 +113,7 @@ def podcast():
                 print(link)
                 db = get_db()
                 cursor = db.cursor()
-                cursor.execute('INSERT INTO podcasts (link) VALUES (%s)',(link,))
+                cursor.execute('INSERT INTO videos_spirit (link,title,comment) VALUES (%s,%s, %s)',(link,title,comment))
                 
                 info = "link guardado con éxito!"
                 flash(info)
@@ -119,9 +123,9 @@ def podcast():
    
     return render_template('admin/uploads.html', username=username,name=name,action=action)
 
-@bp.route('/delete_podcast', methods=['POST'])
+@bp.route('/videos/spirit/delete', methods=['POST'])
 @login_required
-def delete_podcast():
+def delete_video_spirit():
         
 
     if request.method == 'POST':
@@ -130,7 +134,7 @@ def delete_podcast():
         try:
             db = get_db()
             cursor = db.cursor()
-            cursor.execute("DELETE FROM podcasts WHERE id=%s ",(link_id,))
+            cursor.execute("DELETE FROM videos_spirit WHERE id=%s ",(link_id,))
             db.commit()
         
             info = "link borrado con éxito!"
@@ -138,20 +142,20 @@ def delete_podcast():
 
         except:
             pass
-        return redirect(url_for('admin.view_podcasts'))
+        return redirect(url_for('admin.view_videos_spirit'))
 
 
 
-@bp.route('/view_podcasts')
+@bp.route('/view/videos_spirit')
 @login_required
-def view_podcasts():
+def view_videos_spirit():
      username = session.get('username')
      db = get_db()
      cursor = db.cursor()
-     cursor.execute('SELECT * FROM podcasts ORDER BY id DESC')
-     podcasts = cursor.fetchall()
+     cursor.execute('SELECT * FROM videos_spirit ORDER BY id DESC')
+     videos = cursor.fetchall()
     
-     return render_template('admin/podcasts.html', podcasts=podcasts, username=username)
+     return render_template('admin/spirit.html', videos=videos, username=username)
 
 # Users
 @bp.route('/view_users')
@@ -170,7 +174,7 @@ def view_users():
 def view_questions():
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('SELECT * FROM questions')
+    cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM questions;")  
     questions = cursor.fetchall()
     return render_template('admin/questions.html', questions=questions)
 

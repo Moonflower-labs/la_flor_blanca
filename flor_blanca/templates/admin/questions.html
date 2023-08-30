@@ -5,6 +5,7 @@
     <thead class="sticky-top">
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">Plan</th>
         <th scope="col">email</th>
         <th scope="col">created</th>
         <th scope="col">name</th>
@@ -18,12 +19,14 @@
         <th scope="col">country</th>
         <th scope="col">city</th>
         <th scope="col">subscribe</th>
+        <th scope="col">delete</th>
       </tr>
     </thead>
     <tbody>
       {% for question in questions %}
       <tr>
         <th scope="row">{{question[0]}}</th>
+        <th scope="row">{{question[12]}}</th>
         <td>{{question[1]}}</td>
         <td>{{question[2]}}</td>
         <td>{{question[3]}}</td>

@@ -7,6 +7,7 @@ endblock %} {% endblock %} {% block content %}
     {% if links %} {% for link in links %}
     <div class="col-md-6 mb-3">
       <div class="ratio ratio-16x9">
+        <p>{{ link['title'] }}</p>
         <iframe
           class="rounded-3 embed-responsive-item"
           src="{{link['link']}}"
@@ -17,6 +18,8 @@ endblock %} {% endblock %} {% block content %}
           allowfullscreen
         ></iframe>
       </div>
+      <p>{{ link['comment'] }}</p>
+
       <p class="my-2 muted">subido el {{ link['created'] }}</p>
       <!-- Display the upload date -->
     </div>

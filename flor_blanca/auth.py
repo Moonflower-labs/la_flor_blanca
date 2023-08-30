@@ -2,11 +2,11 @@ import functools,os
 
 from flask import(
     Blueprint, flash , g, redirect, render_template, request, 
-    session, url_for
+    session, url_for,current_app
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 from flor_blanca.postDb import get_db
-# from flor_blanca.db import get_db
+
 
    
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -68,7 +68,10 @@ def login():
             session['username'] = user[1]
             session['email'] = user[3]
             session['customer_id'] = user[5]
-
+            session['used_questions'] = int(user[8])
+            print(session['used_questions'])
+        
+            
             if session['email'] in ADMIN_LIST :
                     session['role'] = 'admin'
             else:
@@ -96,13 +99,34 @@ def load_logged_in_user():
 
 @bp.route('/logout')
 def logout():
-    count = session.get('question_count', 0)
-    count_month = session.get('question_count_month')
+   
+    
+    
     session.clear()
-    session['question_count'] = count
-    session['question_count_month'] = count_month
- 
+    
+
     return redirect(url_for('index'))
+
+
+
+
+def save_question_count():
+     email = session.get('email')    
+     used_questions = session.get('used_questions')   
+     db = get_db()
+     cursor = db.cursor()
+     cursor.execute('UPDATE users SET used_questions=%s WHERE email = %s',(used_questions,email))
+     current_app.logger.info(f"question count saved correctly\nValues\nUsed Questions: {used_questions}")
+     print(email,used_questions)
+    
+# *  execute everytime a question is asked!!!!!!
+def increment_used_count():
+       
+        used_questions = session.get('used_questions')
+        used_questions += 1
+        session['used_questions'] = used_questions
+      
+      
 
 
 def login_required(view):
@@ -110,6 +134,39 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+
+def required_spirit_plan(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        email = session.get('email')
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
+        subscription_plan = cursor.fetchone()
+        if subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
+            return redirect(url_for('index'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+
+def required_soul_plan(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        email = session.get('email')
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
+        subscription_plan = cursor.fetchone()
+        print(subscription_plan) 
+        if subscription_plan[0]  != 'price_1Ng3KKAEZk4zaxmwLuapT9kg' and subscription_plan[0] != 'price_1Ng3GzAEZk4zaxmwyZRkXBiW' :
+            return redirect(url_for('index'))
 
         return view(**kwargs)
 

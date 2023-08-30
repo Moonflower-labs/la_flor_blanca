@@ -1,0 +1,43 @@
+{% extends 'admin/index.html' %} {% block view %}
+
+<div class="overflow-scroll h-100">
+  <h4 class="text-center">VIDEOS ALMA</h4>
+
+  <table class="table table-hover">
+    <thead class="sticky-top">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Link</th>
+        <th scope="col">uploaded</th>
+        <th scope="col">Title</th>
+        <th scope="col">Comment</th>
+        <th scope="col">delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <th scope="row">{{result[0]}}</th>
+        <td>{{result[2]}}</td>
+        <td>{{result[1]}}</td>
+        <td>{{result[3]}}</td>
+        <td>{{result[4]}}</td>
+        <td>
+          <form action="{{url_for('admin.delete_link')}}" method="post">
+            <input type="text" name="id" value=" {{result[0]}}" hidden />
+            <button
+              class="btn btn-sm"
+              type="submit"
+              onclick="return confirm('Confirma que quieres borrar este link');"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

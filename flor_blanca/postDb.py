@@ -53,21 +53,21 @@ def init_app(app):
     app.cli.add_command(init_db_command)
 
 
-def save_link(link):
+def save_link(link,title,comment): 
      db = get_db()
      cursor = db.cursor()
-     cursor.execute(  'INSERT INTO videos (link) VALUES (%s)',
-                (link,))
+     cursor.execute(  'INSERT INTO videos_soul (link,title,comment) VALUES (%s,%s,%s)',
+                (link,title,comment))
   
-     print('link saved')
+     current_app.logger.info('link saved')
 
 def get_links():
     db = get_db()
     cursor = db.cursor()
     
-    cursor.execute('SELECT link, created FROM videos ORDER BY created DESC LIMIT 20')
+    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment FROM videos_soul ORDER BY created DESC LIMIT 30")
     results = cursor.fetchall() if cursor else []
-    links = [{'link': row[0], 'created': row[1]} for row in results]
+    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3]} for row in results]
 
     if links:
         return links
@@ -86,7 +86,7 @@ def get_user_by_email(email):
     
     return user
 
-# Retrieve customer_id from stripe and save to db
+
 
 def save_customer_id(customer_id, email):
         db = get_db()
@@ -96,13 +96,13 @@ def save_customer_id(customer_id, email):
 
             cursor.execute('UPDATE users SET customer_id = %s WHERE email = %s', (customer_id, email))
             # db.commit()
-            print(f"Customer ID {customer_id} has been saved ")
+            current_app.logger.info(f"Customer ID {customer_id} has been saved ")
            
         
         else:
         # Handle the case where the customer_id is None
         # print a message or raise an exception
-            print("Customer ID is None. Cannot save.")
+              current_app.logger.info("Customer ID is None. Cannot save.")
 
 
 def save_message(*args):
@@ -112,13 +112,16 @@ def save_message(*args):
     media = ','.join(args[6])
 
     cursor.execute("""
-        INSERT INTO questions (email, name, subject, question, gender, age_group, media_choice, country, city, subscribe)
-        VALUES (%s, %s, %s, %s , %s, %s, %s, %s, %s, %s)
-    """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9]))
+        INSERT INTO questions (email, name, subject, question, gender, age_group, media_choice, country, city, subscribe,current_plan)
+        VALUES (%s, %s, %s, %s , %s, %s, %s, %s, %s, %s, %s)
+    """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9],args[10]))
     
     # db.commit()
-    print("Message correctly daved to questions table")
+    current_app.logger.info("Message correctly saved to questions table")
 
-  
-
+def tarot_query(*args): 
+    db= get_db()
+    cursor = db.cursor()
+    cursor.execute(' INSERT INTO tarot (question,info,current_plan) VALUES (%s,%s,%s)',(args[0], args[1], args[2]))
+    current_app.logger.info("Message correctly saved to questions table")
     # run 'flask --app flor_blanca init-db' to initialize db

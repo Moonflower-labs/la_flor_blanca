@@ -3,9 +3,13 @@ from flask import Flask, render_template, session
 import logging
 from dotenv import load_dotenv
 from config import Config
-
+from apscheduler.schedulers.background import BackgroundScheduler
 
 load_dotenv()
+
+
+
+
 
 
 logging.basicConfig( level=logging.DEBUG)
@@ -21,8 +25,8 @@ def create_app(test_config=None):
         MAIL_PORT = int(os.getenv('MAIL_PORT')),
         MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
         MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
-        MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') ,
-        MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') ,
+        MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') == 'True',
+        MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') == 'True',
         
     )
     app.config.from_object(Config)
@@ -43,11 +47,24 @@ def create_app(test_config=None):
 
 
 
-    from flor_blanca.postDb import init_app
+    from flor_blanca.postDb import init_app,get_db
     init_app(app)
 
     from flor_blanca.extensions import mail
     mail.init_app(app)
+
+    scheduler = BackgroundScheduler()
+    def reset_question_count():
+       with app.app_context():
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('UPDATE users SET used_questions=%s', (0,))
+        print("reset_question_count executed")
+
+    # Schedule job to run at the start of each month
+    scheduler.add_job(reset_question_count, 'cron', month='*', day=1, hour=0, minute=0)
+    # scheduler.add_job(reset_question_count, 'interval', minutes=3)
+    scheduler.start()
   
     @app.route('/')
     def index():

@@ -73,7 +73,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-      <p class="my-2 fw-bold">DESCUBRE QUÉ TE DICE LA EJERGÍA CHAMÁNICA</p>
+      <p class="my-2 fw-bold">DESCUBRE QUÉ TE DICE LA ENERGÍA CHAMÁNICA</p>
       <div class="ratio ratio-16x9">
         <iframe
           class="rounded-3 embed-responsive-item"
@@ -101,7 +101,11 @@
       respondidas a través de un videolink privado a tu email de tu plan.
       Nuestras lecturas son sin tiempo.
     </p>
-    <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
+    <form
+      action="{{url_for('questions.save_tarot_query')}}"
+      method="POST"
+      class="bg-gradient p-3 my-3 rounded-3 shadow"
+    >
       <div class="mb-3">
         <label for="questionTarot" class="form-label fw-bold"
           >1. ¿Qué duda tienes o qué te interesa saber?
@@ -116,14 +120,14 @@
         ></textarea>
       </div>
       <div class="mb-3">
-        <label for="questionTarot" class="form-label fw-bold"
+        <label for="info" class="form-label fw-bold"
           >2. Cuéntanos algo que nos ayude a prepararnos para tu consulta
           dándonos el contexto de la pregunta si crees que es necesario.
         </label>
         <textarea
-          name="questionTarot"
+          name="info"
           class="form-control"
-          id="questionTarot"
+          id="info"
           style="height: 140px"
           placeholder="Escribe tu pregunta aqui..."
           required

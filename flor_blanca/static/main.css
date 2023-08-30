@@ -6,9 +6,11 @@ div.footer {
     rgb(66, 157, 207),
     rgb(162, 31, 188)
   );
+  z-index: 100;
 }
 
 p.title,
+p.message,
 header.title {
   color: #9d1ca8;
 }
@@ -180,6 +182,7 @@ img.tarot {
   height: 250px;
   width: 200px;
 }
+
 /* div.tarot {
   background-image: url("./images/tarot.avif");
 } */
