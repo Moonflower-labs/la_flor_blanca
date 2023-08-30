@@ -68,7 +68,7 @@ def login():
             session['username'] = user[1]
             session['email'] = user[3]
             session['customer_id'] = user[5]
-            session['used_questions'] = int(user[8])
+            session['used_questions'] = user[8]
             print(session['used_questions'])
         
             
