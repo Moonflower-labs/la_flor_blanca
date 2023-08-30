@@ -13,8 +13,8 @@ def question_page():
     user_id = session.get('id')
     used_questions = session.get('used_questions')
     if user_id:
-        
-        remaining_question_count = 3 - int(used_questions)
+        # remaining_question_count = max(3 - used_questions, 0) 
+        remaining_question_count = 3 - int(used_questions) if used_questions is not None else 3
 
        
         return render_template('questions/index.html', username=username, remaining_question_count=remaining_question_count)
