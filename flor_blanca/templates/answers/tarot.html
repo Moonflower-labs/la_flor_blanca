@@ -19,6 +19,61 @@
   <div
     class="row my-4 justify-content-center text-center frameContainer mx-auto"
   >
+    <p class="h2 title">PREGUNTA TAROT</p>
+    <p>
+      Una lectura energética del estado presente en el que te encuentras para
+      poder responderte, guiarte hacia tu mejor posible opción y aclararte tus
+      dudas.
+    </p>
+    <p>
+      Ofrecemos un máximo de una pregunta al mes por membresía que serán
+      respondidas a través de un videolink privado a tu email de tu plan.
+      Nuestras lecturas son sin tiempo.
+    </p>
+    <form
+      action="{{url_for('questions.save_tarot_query')}}"
+      method="POST"
+      class="bg-gradient p-3 my-3 rounded-3 shadow"
+    >
+      <div class="mb-3">
+        <label for="questionTarot" class="form-label fw-bold"
+          >1. ¿Qué duda tienes o qué te interesa saber?
+        </label>
+        <textarea
+          name="questionTarot"
+          class="form-control"
+          id="questionTarot"
+          style="height: 140px"
+          placeholder="Escribe tu pregunta aqui..."
+          required
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="info" class="form-label fw-bold"
+          >2. Cuéntanos algo que nos ayude a prepararnos para tu consulta
+          dándonos el contexto de la pregunta si crees que es necesario.
+        </label>
+        <textarea
+          name="info"
+          class="form-control"
+          id="info"
+          style="height: 140px"
+          placeholder="Escribe tu pregunta aqui..."
+        ></textarea>
+      </div>
+      <div class="mb-3 text-center">
+        <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    class="row my-4 justify-content-center text-center frameContainer mx-auto"
+  >
     <p class="h3 mb-3">
       Estos son algunos ejemplos de tiradas generales y grupales.
     </p>
@@ -86,62 +141,6 @@
         ></iframe>
       </div>
     </div>
-  </div>
-  <div
-    class="row my-4 justify-content-center text-center frameContainer mx-auto"
-  >
-    <p class="h2 title">PREGUNTA TAROT</p>
-    <p>
-      Una lectura energética del estado presente en el que te encuentras para
-      poder responderte, guiarte hacia tu mejor posible opción y aclararte tus
-      dudas.
-    </p>
-    <p>
-      Ofrecemos un máximo de una pregunta al mes por membresía que serán
-      respondidas a través de un videolink privado a tu email de tu plan.
-      Nuestras lecturas son sin tiempo.
-    </p>
-    <form
-      action="{{url_for('questions.save_tarot_query')}}"
-      method="POST"
-      class="bg-gradient p-3 my-3 rounded-3 shadow"
-    >
-      <div class="mb-3">
-        <label for="questionTarot" class="form-label fw-bold"
-          >1. ¿Qué duda tienes o qué te interesa saber?
-        </label>
-        <textarea
-          name="questionTarot"
-          class="form-control"
-          id="questionTarot"
-          style="height: 140px"
-          placeholder="Escribe tu pregunta aqui..."
-          required
-        ></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="info" class="form-label fw-bold"
-          >2. Cuéntanos algo que nos ayude a prepararnos para tu consulta
-          dándonos el contexto de la pregunta si crees que es necesario.
-        </label>
-        <textarea
-          name="info"
-          class="form-control"
-          id="info"
-          style="height: 140px"
-          placeholder="Escribe tu pregunta aqui..."
-          required
-        ></textarea>
-      </div>
-      <div class="mb-3 text-center">
-        <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
-          Enviar
-        </button>
-      </div>
-    </form>
   </div>
 </div>
 

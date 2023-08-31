@@ -135,6 +135,11 @@ endblock %} {% endblock %} {% block content %}
   <div class="row mb-4">
     <div class="col-md-6 mx-auto text-center">
       <p class="h3 mb-3 title">Respuestas de audio</p>
+
+      <p class="h6 mb-3 text-center text-muted">
+        Si quieres ver la pregunta más detallada y completa del episodio dale a
+        "more info"
+      </p>
       <div class="ratio ratio-16x9">
         <iframe
           class="person rounded-3 embed-responsive-item border border-2"
@@ -166,6 +171,7 @@ endblock %} {% endblock %} {% block content %}
           <a
             class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
             href="{{ url_for('answers.delete', id=post[0]) }}"
+            onclick="return confirm('Confirma que quieres borrar este link');"
             >Borrar</a
           >
           {% endif %}
