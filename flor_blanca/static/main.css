@@ -153,7 +153,6 @@ form.questions {
 
 div.card {
   transition: background-color 0.75s linear;
-
   -webkit-transition: background-color 0.75s linear;
   -ms-transition: background-color 0.75s linear;
   -o-transition: background-color 0.75s linear;
@@ -173,7 +172,7 @@ button.admin {
   background: none;
 }
 div.admin {
-  height: 26rem;
+  height: 28rem;
 }
 i.mail {
   font-size: 1.3rem;

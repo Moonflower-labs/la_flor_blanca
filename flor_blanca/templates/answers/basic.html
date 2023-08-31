@@ -151,6 +151,33 @@ endblock %} {% endblock %} {% block content %}
   <div class="row text-center mb-4">
     <p class="h3 mb-3 title">Respuestas de Blog</p>
   </div>
+  {% for post in posts %}
+  <article class="container">
+    <div class="row">
+      <div class="col">
+        <header>
+          <div>
+            <p class="h4 fw-bold title">{{ post[3] }}</p>
+            <div class="text-muted">
+              La Flor Blanca el {{ post[2].strftime('%d-%m-%Y') }}
+            </div>
+          </div>
+          {% if session['role'] == 'admin' %}
+          <a
+            class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href="{{ url_for('answers.delete', id=post[0]) }}"
+            >Borrar</a
+          >
+          {% endif %}
+        </header>
+        <p class="body">{{ post[4] }}</p>
+      </div>
+    </div>
+  </article>
+
+  {% if not loop.last %}
+  <hr />
+  {% endif %} {% endfor %}
 </div>
 
 {% endblock %}
