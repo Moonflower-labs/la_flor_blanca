@@ -5,7 +5,7 @@ from flor_blanca.postDb import get_links, get_db,get_videos
 
 @bp.route('/answers', methods=['GET'])
 @login_required
-@required_soul_plan
+# @required_soul_plan
 def index():
     links = get_links()
     username = session.get('username')

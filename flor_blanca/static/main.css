@@ -172,7 +172,7 @@ button.admin {
   background: none;
 }
 div.admin {
-  height: 28rem;
+  height: 34rem;
 }
 i.mail {
   font-size: 1.3rem;
@@ -181,7 +181,3 @@ img.tarot {
   height: 250px;
   width: 200px;
 }
-
-/* div.tarot {
-  background-image: url("./images/tarot.avif");
-} */

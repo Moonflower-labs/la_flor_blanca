@@ -218,3 +218,34 @@ def wipe_questions():
             pass
     
       return redirect(url_for('admin.view_questions')) 
+
+#  Tarot
+
+@bp.route('/view_tarot_questions')
+@login_required
+def view_tarot_questions():
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM tarot;")  
+    questions = cursor.fetchall()
+    return render_template('admin/tarot.html', questions=questions)
+
+
+
+@bp.route('/question/tarot/delete',methods=['POST'])
+def delete_tarot_question():
+      db = get_db()
+      cursor = db.cursor()
+      if request.method == 'POST':
+        question_id = int(request.form['id'])
+
+        try:
+          cursor.execute("DELETE FROM tarot WHERE id=%s ",(question_id,))
+          db.commit()
+                
+          return redirect(url_for('admin.view_tarot_questions')) 
+              
+        except:
+            pass
+    
+      return redirect(url_for('admin.view_tarot_questions')) 

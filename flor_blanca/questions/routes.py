@@ -111,23 +111,33 @@ def save_tarot_query():
         info = request.form.get('info')
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT subscription_plan from users WHERE email = %s",(email,))
-        plan = cursor.fetchone()
-
-        if plan[0] is None:
+        cursor.execute("SELECT subscription_plan,tarot_used_questions from users WHERE email = %s",(email,))
+        results = cursor.fetchone()
+        tarot_used_questions = results[1]
+        if results[0] is None:
             current_plan = "PERSONALIDAD"
-        elif  plan[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+        elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
             current_plan = "ALMA"
-        elif plan[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+        elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
             current_plan = "SPÍRITU"
 
         if request.method == 'POST':
-            try:
-                tarot_query(question,info,current_plan)
+            if tarot_used_questions == 0:
+                try:
+                    tarot_query(question,info,current_plan,email)
+                    # * UPDATE TAROT COUNT FOR USER WHERE EMAIL = 
+               
+                    cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
+                    remaining_question_count = 0
 
-                return redirect(url_for('questions.message_sent'))
-            except Exception as e:
-                return str(e)
+                    return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
+                except Exception as e:
+                    return str(e)
+            
+            else:
 
+                flash("No te quedan preguntas de tarot este mes")
+
+                return redirect(url_for('answers.index'))
 
 
