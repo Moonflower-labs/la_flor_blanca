@@ -1,6 +1,6 @@
 from flor_blanca.questions import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
-from flor_blanca.postDb import save_message,get_db,tarot_query,live_query
+from flor_blanca.postDb import save_message,get_db,tarot_query,live_query_save
 from flask import render_template,session,request,redirect,url_for,flash
 from flask_mail import Message
 from flor_blanca.extensions import mail
@@ -165,7 +165,7 @@ def live_query():
         if request.method == 'POST':
             if live_used_questions == 0:
                 try:
-                    live_query(question,current_plan,email)
+                    live_query_save(question,current_plan,email)
                     # * UPDATE LIVE COUNT FOR USER                
                     cursor.execute('UPDATE users SET live_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0

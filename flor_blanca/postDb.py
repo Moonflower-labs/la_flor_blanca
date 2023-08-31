@@ -141,12 +141,12 @@ def tarot_query(*args):
 
 
 
-def live_query(question, current_plan, email):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('INSERT INTO live (question, current_plan, email) VALUES (%s, %s, %s)', (question, current_plan, email))
-    current_app.logger.info("Message correctly saved to questions table")
 
+def live_query_save(*args): 
+    db= get_db()
+    cursor = db.cursor()
+    cursor.execute(' INSERT INTO live (question,current_plan,email) VALUES (%s,%s,%s)',(args[0], args[1], args[2]))
+    current_app.logger.info("Message correctly saved to questions table")
 
 
     # run 'flask --app flor_blanca init-db' to initialize db

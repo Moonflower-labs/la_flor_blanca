@@ -83,7 +83,7 @@ def webhook_received():
         print("Invalid signature!")
         return jsonify({'error': str(e)})
     
-
+    print(event.type)
     #* Check  event type: 'checkout.session.completed', 'customer.subscription.updated'
     if event.type == 'checkout.session.completed' :  
         stripe_session = event.data.object
