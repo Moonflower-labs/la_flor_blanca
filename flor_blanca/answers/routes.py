@@ -1,7 +1,7 @@
 from flor_blanca.answers import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
-from flask import render_template,session,request,flash,redirect,url_for,g,abort
-from flor_blanca.postDb import get_links, get_db
+from flask import render_template,session,request,flash,redirect,url_for,abort
+from flor_blanca.postDb import get_links, get_db,get_videos
 
 @bp.route('/answers', methods=['GET'])
 @login_required
@@ -39,7 +39,7 @@ def soul_view():
 @bp.route('/premium')
 # @required_spirit_plan
 def spirit_view():
-    links = get_links()
+    links = get_videos()
     username = session.get('username')
     return render_template('answers/spirit.html',links=links,username=username)
 
@@ -88,6 +88,21 @@ def get_post(id):
   
     return post
 
+
+
+@bp.route('/<int:id>/delete')
+@login_required
+def delete(id):
+    get_post(id)
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('DELETE FROM posts WHERE id = %s', (id,))
+   
+    return redirect(url_for('answers.basic'))
+
+
+
+
 # @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 # @login_required
 # def update(id):
@@ -114,13 +129,3 @@ def get_post(id):
     
 #     return render_template('blog/update.html', post=post)
 
-
-@bp.route('/<int:id>/delete')
-@login_required
-def delete(id):
-    get_post(id)
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('DELETE FROM posts WHERE id = %s', (id,))
-   
-    return redirect(url_for('answers.basic'))

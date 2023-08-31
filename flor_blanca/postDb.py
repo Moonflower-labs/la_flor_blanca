@@ -74,6 +74,19 @@ def get_links():
     else:
         return []
 
+def get_videos():
+    db = get_db()
+    cursor = db.cursor()
+    
+    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment FROM videos_spirit ORDER BY created DESC LIMIT 30")
+    results = cursor.fetchall() if cursor else []
+    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3]} for row in results]
+
+    if links:
+        return links
+    else:
+        return []
+
 
 def get_user_by_email(email):
     db = get_db()
