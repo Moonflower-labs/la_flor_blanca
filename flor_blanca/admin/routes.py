@@ -249,3 +249,32 @@ def delete_tarot_question():
             pass
     
       return redirect(url_for('admin.view_tarot_questions')) 
+
+
+
+@bp.route('/question/live',methods=['POST','GET'])
+def live_question():
+      db = get_db()
+      cursor = db.cursor()
+      if request.method == 'POST':
+            question_id = int(request.form['id'])
+
+            try:
+                cursor.execute("DELETE FROM live WHERE id=%s ",(question_id,))
+                db.commit()
+                
+                return redirect(url_for('admin.live_question')) 
+              
+            except Exception as e:
+
+                return str(e)
+        
+    
+            
+      else:
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM live;")  
+        questions = cursor.fetchall()
+          
+        return render_template('admin/live.html',questions=questions)

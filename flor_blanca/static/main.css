@@ -10,10 +10,12 @@ div.footer {
 }
 
 p.title,
+hr.title,
 p.message,
 header.title {
   color: #9d1ca8;
 }
+
 a.nav-link {
   color: antiquewhite;
   font-size: 1.3rem;

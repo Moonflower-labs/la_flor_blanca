@@ -1,6 +1,6 @@
 from flor_blanca.questions import bp
-from flor_blanca.auth import login_required
-from flor_blanca.postDb import save_message,get_db,tarot_query
+from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
+from flor_blanca.postDb import save_message,get_db,tarot_query,live_query
 from flask import render_template,session,request,redirect,url_for,flash
 from flask_mail import Message
 from flor_blanca.extensions import mail
@@ -104,6 +104,8 @@ def message_sent():
 
 
 @bp.route('/questions/tarot', methods=['POST'])
+@login_required
+# @required_soul_plan
 def save_tarot_query():
         email= session.get('email')
         username = session.get('username')
@@ -125,7 +127,7 @@ def save_tarot_query():
             if tarot_used_questions == 0:
                 try:
                     tarot_query(question,info,current_plan,email)
-                    # * UPDATE TAROT COUNT FOR USER WHERE EMAIL = 
+                    # * UPDATE TAROT COUNT FOR USER 
                
                     cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
@@ -141,3 +143,42 @@ def save_tarot_query():
                 return redirect(url_for('answers.index'))
 
 
+@bp.route('/questions/live', methods=['POST','GET'])
+@login_required
+# @required_spirit_plan
+def live_query():
+        email= session.get('email')
+        username = session.get('username')
+        question = request.form.get('questionLive')
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
+        results = cursor.fetchone()
+        live_used_questions = results[1]
+        if results[0] is None:
+            current_plan = "PERSONALIDAD"
+        elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+            current_plan = "ALMA"
+        elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+            current_plan = "SPÍRITU"
+
+        if request.method == 'POST':
+            if live_used_questions == 0:
+                try:
+                    live_query(question,current_plan,email)
+                    # * UPDATE LIVE COUNT FOR USER                
+                    cursor.execute('UPDATE users SET live_used_questions=%s WHERE email=%s', (1,email)) 
+                    remaining_question_count = 0
+
+                    return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
+                except Exception as e:
+                    return str(e)
+            
+            else:
+
+                flash("No te quedan preguntas en directo este mes")
+
+                return redirect(url_for('questions.live_query'))
+            
+        else:
+            return render_template('questions/live.html')

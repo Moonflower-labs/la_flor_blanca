@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block header %} {% block title %} PLAN ESPÍRITU
+PREGUNTA EN DIRECTO {% endblock %} {% endblock %} {% block content %}
+
+<div class="container-fluid tarot">
+  <div
+    class="row my-4 justify-content-center text-center frameContainer mx-auto"
+  >
+    <img
+      class="tarot"
+      src="{{url_for('static', filename='images/liveair.avif')}}"
+      alt=""
+    />
+  </div>
+  <div
+    class="row my-4 justify-content-center text-center frameContainer mx-auto"
+  >
+    <p class="h3 mb-3">
+      Una sesión mensual en directo espontánea, respondiendo usando el método
+      que surja. Una Pregunta por persona o miembro.
+    </p>
+  </div>
+
+  <div class="row my-4 justify-content-center text-center mx-auto">
+    <p class="h2">PREGUNTA CON RESPUESTA EN DIRECTO</p>
+
+    <div class="col-md-6">
+      <form
+        action="{{url_for('questions.live_query')}}"
+        method="POST"
+        class="bg-gradient p-3 my-3 rounded-3 shadow"
+      >
+        <div class="mb-3">
+          <label for="questionLive" class="form-label fw-bold"
+            >1.¿Qué necesitas aclarar, entender?
+          </label>
+          <textarea
+            name="questionLive"
+            class="form-control"
+            id="questionLive"
+            style="height: 140px"
+            placeholder="Escribe tu pregunta aqui..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3 text-center">
+          <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
+            Enviar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
