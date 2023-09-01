@@ -8,7 +8,10 @@ div.footer {
   );
   z-index: 100;
 }
-
+html,
+body {
+  overflow-x: hidden;
+}
 p.title,
 hr.title,
 p.message,
