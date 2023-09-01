@@ -116,7 +116,7 @@ def save_tarot_query():
         cursor.execute("SELECT subscription_plan,tarot_used_questions from users WHERE email = %s",(email,))
         results = cursor.fetchone()
         tarot_used_questions = results[1]
-        if results[0] is None:
+        if results[0] is None  or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
             current_plan = "PERSONALIDAD"
         elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
             current_plan = "ALMA"
@@ -147,7 +147,6 @@ def save_tarot_query():
 @login_required
 @required_spirit_plan
 def live_query():
-    if request.method == 'POST':
         email= session.get('email')
         username = session.get('username')
         question = request.form.get('questionLive')
@@ -156,14 +155,14 @@ def live_query():
         cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
         results = cursor.fetchone()
         live_used_questions = results[1]
-        if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR' :
+        if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
             current_plan = "PERSONALIDAD"
         elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
             current_plan = "ALMA"
         elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
             current_plan = "SPÍRITU"
 
-        
+        if request.method == 'POST':
             if live_used_questions == 0:
                 try:
                     live_query_save(question,current_plan,email)
@@ -181,5 +180,5 @@ def live_query():
 
                 return redirect(url_for('questions.live_query'))
             
-    else:
+        else:
             return render_template('questions/live.html')
