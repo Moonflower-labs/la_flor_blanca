@@ -48,26 +48,20 @@ h1.title {
   color: #e5e5e5;
 }
 h1.title {
-  animation: glow;
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  transition: glow 1s;
-  animation: beat;
+  animation: beat, glow;
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   transition: transform 0.3s;
+  transition: glow 2s;
 }
 @keyframes glow {
   0%,
   100% {
-    text-shadow: 0px 0px 0px black;
-    transition: 0.5s;
+    text-shadow: 1px 1px 2px #3a0147;
   }
   50% {
-    text-shadow: 2px 1px 6px black;
-    transition: 0.5s;
+    text-shadow: 2px 2px 7px #3a0147;
   }
 }
 @keyframes beat {
