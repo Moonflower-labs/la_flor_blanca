@@ -16,6 +16,7 @@ def index():
         
 
 @bp.route('/links/show')
+@login_required
 @is_admin
 def show_links():
     db = get_db()
@@ -37,6 +38,7 @@ def show_links():
 
 
 @bp.route('/links/delete',methods=['POST'])
+@login_required
 @is_admin
 def delete_link():
       db = get_db()
@@ -59,6 +61,7 @@ def delete_link():
 
 
 @bp.route('/uploads', methods=['GET','POST'])
+@login_required
 @is_admin
 def upload():
     username = session.get('username')
@@ -94,6 +97,7 @@ def upload():
 # SPIRIT
 
 @bp.route('/videos/spirit', methods=['GET','POST'])
+@login_required
 @is_admin
 def videos_spirit():
     username = session.get('username')
@@ -127,6 +131,7 @@ def videos_spirit():
     return render_template('admin/uploads.html', username=username,name=name,action=action)
 
 @bp.route('/videos/spirit/delete', methods=['POST'])
+@login_required
 @is_admin
 def delete_video_spirit():
         
@@ -150,6 +155,7 @@ def delete_video_spirit():
 
 
 @bp.route('/view/videos_spirit')
+@login_required
 @is_admin
 def view_videos_spirit():
      username = session.get('username')
@@ -162,6 +168,7 @@ def view_videos_spirit():
 
 # Users
 @bp.route('/view_users')
+@login_required
 @is_admin
 def view_users():
     db = get_db()
@@ -173,6 +180,7 @@ def view_users():
 # Preguntas
     
 @bp.route('/view_questions')
+@login_required
 @is_admin
 def view_questions():
     db = get_db()
@@ -184,6 +192,7 @@ def view_questions():
 #   Borrar por ID
 
 @bp.route('/question/delete',methods=['POST'])
+@login_required
 @is_admin
 def delete_question():
       db = get_db()
@@ -206,6 +215,7 @@ def delete_question():
 
 #  Borrar todas
 @bp.route('/question/wipe',methods=['POST'])
+@login_required
 @is_admin
 def wipe_questions():
       db = get_db()
@@ -227,6 +237,7 @@ def wipe_questions():
 #  Tarot
 
 @bp.route('/view_tarot_questions')
+@login_required
 @is_admin
 def view_tarot_questions():
     db = get_db()

@@ -29,6 +29,7 @@ def basic():
 
 
 @bp.route('/medium')
+@login_required
 @required_soul_plan
 def soul_view():
     links = get_links()
@@ -37,6 +38,7 @@ def soul_view():
 
 
 @bp.route('/premium')
+@login_required
 @required_spirit_plan
 def spirit_view():
     links = get_videos()
@@ -44,6 +46,7 @@ def spirit_view():
     return render_template('answers/spirit.html',links=links,username=username)
 
 @bp.route('/coming-soon')
+
 @required_spirit_plan
 def soon_view():
     return render_template('coming-soon.html')
