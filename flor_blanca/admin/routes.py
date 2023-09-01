@@ -1,11 +1,12 @@
 from flor_blanca.admin import bp
-from flor_blanca.auth import login_required
+from flor_blanca.auth import login_required,is_admin
 from flor_blanca.postDb import save_link, get_db
 from flask import render_template,session,request,redirect,url_for,flash
 
 
 @bp.route('/admin')
 @login_required
+@is_admin
 def index():
     if session['role'] is not None:
         if session['role'] != 'admin':
@@ -15,6 +16,7 @@ def index():
         
 
 @bp.route('/links/show')
+@is_admin
 def show_links():
     db = get_db()
     cursor = db.cursor()
@@ -35,6 +37,7 @@ def show_links():
 
 
 @bp.route('/links/delete',methods=['POST'])
+@is_admin
 def delete_link():
       db = get_db()
       cursor = db.cursor()
@@ -56,7 +59,7 @@ def delete_link():
 
 
 @bp.route('/uploads', methods=['GET','POST'])
-@login_required
+@is_admin
 def upload():
     username = session.get('username')
     name = 'VIDEO ALMA'
@@ -91,7 +94,7 @@ def upload():
 # SPIRIT
 
 @bp.route('/videos/spirit', methods=['GET','POST'])
-@login_required
+@is_admin
 def videos_spirit():
     username = session.get('username')
     name = 'VIDEO ESPÍRITU'
@@ -124,7 +127,7 @@ def videos_spirit():
     return render_template('admin/uploads.html', username=username,name=name,action=action)
 
 @bp.route('/videos/spirit/delete', methods=['POST'])
-@login_required
+@is_admin
 def delete_video_spirit():
         
 
@@ -147,7 +150,7 @@ def delete_video_spirit():
 
 
 @bp.route('/view/videos_spirit')
-@login_required
+@is_admin
 def view_videos_spirit():
      username = session.get('username')
      db = get_db()
@@ -159,7 +162,7 @@ def view_videos_spirit():
 
 # Users
 @bp.route('/view_users')
-@login_required
+@is_admin
 def view_users():
     db = get_db()
     cursor = db.cursor()
@@ -170,7 +173,7 @@ def view_users():
 # Preguntas
     
 @bp.route('/view_questions')
-@login_required
+@is_admin
 def view_questions():
     db = get_db()
     cursor = db.cursor()
@@ -181,6 +184,7 @@ def view_questions():
 #   Borrar por ID
 
 @bp.route('/question/delete',methods=['POST'])
+@is_admin
 def delete_question():
       db = get_db()
       cursor = db.cursor()
@@ -202,6 +206,7 @@ def delete_question():
 
 #  Borrar todas
 @bp.route('/question/wipe',methods=['POST'])
+@is_admin
 def wipe_questions():
       db = get_db()
       cursor = db.cursor()
@@ -222,7 +227,7 @@ def wipe_questions():
 #  Tarot
 
 @bp.route('/view_tarot_questions')
-@login_required
+@is_admin
 def view_tarot_questions():
     db = get_db()
     cursor = db.cursor()
@@ -233,6 +238,7 @@ def view_tarot_questions():
 
 
 @bp.route('/question/tarot/delete',methods=['POST'])
+@is_admin
 def delete_tarot_question():
       db = get_db()
       cursor = db.cursor()
@@ -253,6 +259,7 @@ def delete_tarot_question():
 
 
 @bp.route('/question/live',methods=['POST','GET'])
+@is_admin
 def live_question():
       db = get_db()
       cursor = db.cursor()

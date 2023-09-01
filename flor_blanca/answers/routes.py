@@ -5,7 +5,7 @@ from flor_blanca.postDb import get_links, get_db,get_videos
 
 @bp.route('/answers', methods=['GET'])
 @login_required
-# @required_soul_plan
+@required_soul_plan
 def index():
     links = get_links()
     username = session.get('username')
@@ -29,7 +29,7 @@ def basic():
 
 
 @bp.route('/medium')
-# @required_spirit_plan
+@required_spirit_plan
 def soul_view():
     links = get_links()
     username = session.get('username')
@@ -37,7 +37,7 @@ def soul_view():
 
 
 @bp.route('/premium')
-# @required_spirit_plan
+@required_spirit_plan
 def spirit_view():
     links = get_videos()
     username = session.get('username')

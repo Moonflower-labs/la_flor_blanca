@@ -105,7 +105,7 @@ def message_sent():
 
 @bp.route('/questions/tarot', methods=['POST'])
 @login_required
-# @required_soul_plan
+@required_soul_plan
 def save_tarot_query():
         email= session.get('email')
         username = session.get('username')
@@ -145,7 +145,7 @@ def save_tarot_query():
 
 @bp.route('/questions/live', methods=['POST','GET'])
 @login_required
-# @required_spirit_plan
+@required_spirit_plan
 def live_query():
         email= session.get('email')
         username = session.get('username')

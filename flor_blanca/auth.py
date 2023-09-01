@@ -144,10 +144,16 @@ def required_spirit_plan(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         email = session.get('email')
+        role = session.get('role')  
+
+        if role == 'admin':
+            return view(**kwargs)
+
         db = get_db()
         cursor = db.cursor()
         cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
         subscription_plan = cursor.fetchone()
+    
         if subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
             return redirect(url_for('index'))
 
@@ -160,12 +166,33 @@ def required_soul_plan(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         email = session.get('email')
+        role = session.get('role')  
+
+        if role == 'admin':
+            return view(**kwargs)
+        
         db = get_db()
         cursor = db.cursor()
         cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
         subscription_plan = cursor.fetchone()
         print(subscription_plan) 
         if subscription_plan[0]  != 'price_1Ng3KKAEZk4zaxmwLuapT9kg' and subscription_plan[0] != 'price_1Ng3GzAEZk4zaxmwyZRkXBiW' :
+            return redirect(url_for('index'))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+def is_admin(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        email = session.get('email')
+        role = session.get('role')  
+
+        if role != 'admin':
+            
+        
+    
             return redirect(url_for('index'))
 
         return view(**kwargs)
