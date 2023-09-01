@@ -32,7 +32,7 @@ def index():
         cursor.execute("SELECT subscription_plan from users WHERE email = %s",(email,))
         plan = cursor.fetchone()
 
-        if plan[0] is None:
+        if plan[0] is None  or plan[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
             current_plan = "PERSONALIDAD"
         elif  plan[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
             current_plan = "ALMA"
