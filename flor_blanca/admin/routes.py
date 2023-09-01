@@ -173,7 +173,7 @@ def view_videos_spirit():
 def view_users():
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('SELECT * FROM users ')
+    cursor.execute('SELECT * FROM users ORDER BY id ASC')
     users = cursor.fetchall()
     return render_template('admin/users.html', users=users)
 
