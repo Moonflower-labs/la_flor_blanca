@@ -29,7 +29,7 @@ def basic():
 
 
 @bp.route('/medium')
-@required_spirit_plan
+@required_soul_plan
 def soul_view():
     links = get_links()
     username = session.get('username')
