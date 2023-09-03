@@ -154,7 +154,7 @@ def required_basic(view):
         cursor.execute('SELECT customer_id FROM users WHERE email = %s', (email,))
         customer_id = cursor.fetchone()
     
-        if  customer_id is not None:
+        if  customer_id is None:
             return redirect(url_for('index'))
 
         return view(**kwargs)
