@@ -1,5 +1,5 @@
 from flor_blanca.answers import bp
-from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
+from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic
 from flask import render_template,session,request,flash,redirect,url_for,abort
 from flor_blanca.postDb import get_links, get_db,get_videos
 
@@ -16,6 +16,7 @@ def index():
 
 @bp.route('/basic')
 @login_required
+@required_basic
 def basic():
     db = get_db()
     cursor = db.cursor()
