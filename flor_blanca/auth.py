@@ -69,7 +69,8 @@ def login():
             session['email'] = user[3]
             session['customer_id'] = user[5]
             session['used_questions'] = int(user[8])
-            print(session['used_questions'])
+            current_app.logger.info(session['used_questions'])
+          
         
             
             if session['email'] in ADMIN_LIST :
@@ -154,7 +155,7 @@ def required_basic(view):
         cursor.execute('SELECT customer_id FROM users WHERE email = %s', (email,))
         customer_id = cursor.fetchone()
     
-        if  customer_id is None:
+        if  customer_id[0] is None:
             return redirect(url_for('index'))
 
         return view(**kwargs)

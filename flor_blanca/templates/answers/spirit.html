@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block header %} {% block title %} ESPÍRITU {%
 endblock %} {% endblock %} {% block content %}
-<div class="container">
+<div class="container-fluid">
   <div class="row text-center mb-3">
     <div class="col- mx-auto text-center">
       <p class="text-center h3 mb-4">
@@ -13,15 +13,16 @@ endblock %} {% endblock %} {% block content %}
         Preguntas y Respuestas, Tarot o Mi Propio Proceso una vez al mes y/o lo
         que espontáneamente surja.
       </p>
+      <p class="h4 mb-3 text-center text-muted">
+        Si quieres ver la pregunta más detallada y completa del episodio dale a
+        "more info"
+      </p>
     </div>
   </div>
   <div class="row mb-4 align-items-end">
     <div class="col-md-6 mx-auto text-center mb-4">
       <p class="h3 mb-3 title">Respuestas de audio</p>
-      <p class="h6 mb-3 text-center text-muted">
-        Si quieres ver la pregunta más detallada y completa del episodio dale a
-        "more info"
-      </p>
+
       <div class="ratio ratio-16x9">
         <iframe
           class="rounded-3 border border-2 embed-responsive-item"
@@ -50,9 +51,9 @@ endblock %} {% endblock %} {% block content %}
     </div>
   </div>
 </div>
-<div class="container">
+<div class="container-fluid video">
   <div
-    class="row my-4 justify-content-center text-center frameContainer mx-auto"
+    class="row mt-4 pb-4 justify-content-center text-center frameContainer mx-auto"
   >
     <p class="h2 my-3 title">Respuestas de video</p>
     {% if links %} {% for link in links %}

@@ -21,7 +21,7 @@ header.title {
 
 a.nav-link {
   color: antiquewhite;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
 }
 a.nav-link:hover {
   color: #cfb142;
@@ -179,4 +179,14 @@ i.mail {
 img.tarot {
   height: 250px;
   width: 200px;
+}
+button.cartButton {
+  position: relative;
+  position: sticky;
+  position: -webkit-sticky;
+}
+nav.navbar {
+  /* position: relative; */
+  position: sticky;
+  top: 0%;
 }

@@ -1,10 +1,9 @@
 import os
 from flask import redirect,Blueprint,session,render_template,url_for
 from flor_blanca.postDb import save_customer_id, get_user_by_email, get_db
-from flor_blanca.auth import login_required
+from flor_blanca.auth import login_required,required_basic
 import stripe
 from flask import  jsonify, request, redirect,flash
-
 
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY') 
@@ -54,13 +53,69 @@ def create_checkout_session():
 
 @bp.route('/success')
 def success():
-
-    return render_template('checkout/success.html')
+    # session_id = request.args.get('session_id')
+    # if session_id:
+        # Code to handle successful payment using the session_id
+        return render_template('checkout/success.html')
+  
 
 @bp.route('/cancel')
 def cancel():
 
     return render_template('checkout/cancel.html')
+
+
+
+
+@bp.route('/products')
+@login_required
+@required_basic
+def products():
+
+    all_products = stripe.Product.list()
+    filtered_products = [product for product in all_products.data if product.metadata.get('app') == 'florblanca']
+    prices = stripe.Price.list()
+    
+    skus = {}
+    for product in filtered_products:
+        skus[product.id] = [price for price in prices.data if price.product == product.id]
+    
+    return render_template('products/shop.html', products=filtered_products, skus=skus)
+
+
+
+@bp.route('/shop_checkout', methods=['POST'])
+def shop_checkout():
+   
+    customer_id = session.get('customer_id')
+    cart = request.json  
+    line_items = []
+    
+    for item in cart:
+        price_id = item['price_id']
+        product_quantity = item['quantity']
+        line_item = {
+            'price': price_id,
+            'quantity': product_quantity
+        }
+        line_items.append(line_item)
+    # if customer_id:
+        try:
+        
+            checkout_session = stripe.checkout.Session.create(
+                line_items=line_items,
+                 mode='payment',
+                success_url=url_for('stripe.success', _external=True),
+                cancel_url=url_for('stripe.cancel', _external=True),
+                customer=customer_id
+                )
+
+            return   jsonify(checkout_session.url)
+            # return redirect(checkout_session.url, code=303) 
+        except Exception as e:
+            return jsonify({'error': str(e)})
+        
+  
 
 
 @bp.route('/webhook', methods=['POST'])
@@ -148,6 +203,7 @@ def webhook_received():
         print(customer_id)
         print(price_id)
         print(status)
+        print(stripe_subscription)
         db = get_db()
         cursor = db.cursor()
         cursor.execute('SELECT * FROM users WHERE customer_id= %s ', (customer_id,))

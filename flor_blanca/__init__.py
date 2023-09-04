@@ -1,9 +1,11 @@
 import os
-from flask import Flask, render_template, session
+from flask import Flask, render_template, session,request
 import logging
 from dotenv import load_dotenv
 from config import Config
 from apscheduler.schedulers.background import BackgroundScheduler
+
+
 
 load_dotenv()
 
@@ -17,7 +19,8 @@ def create_app(test_config=None):
       # create and configure the app
     app = Flask(__name__, instance_relative_config=True,static_url_path='',
            )
-    
+   
+
     app.config.from_mapping(
         
         DATABASE=os.getenv('DATABASE_URL') ,
@@ -29,6 +32,10 @@ def create_app(test_config=None):
         MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') == 'True',
         
     )
+    app.config.update(
+    SESSION_COOKIE_SECURE=True,  # Send the cookie only over HTTPS
+    SESSION_COOKIE_SAMESITE='None',  # Allow cross-site requests
+)
     app.config.from_object(Config)
    
 
@@ -44,7 +51,8 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
-
+    
+   
 
 
     from flor_blanca.postDb import init_app,get_db

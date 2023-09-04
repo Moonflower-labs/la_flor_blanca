@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link rel="icon" href="./images/la-flor-blanca.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <!-- * navbar -->
+    <nav class="navbar navbar-expand-lg bg-info-subtle sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="./images/la-flor-blanca.png"
+            alt="logo"
+            width="40"
+            height="30"
+            class="rounded-2"
+          />
+        </a>
+        <a href="./cart.html" class="navbar-brand">
+          <div class="bi-cart"><span class="cart-span">0</span></div></a
+        >
+        <button
+          class="navbar-toggler border-success"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown link
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- * Banner -->
+    <section class="banner container-fluid pb-3">
+      <div class="row pt-1 text-center">
+        <div class="col">
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-outline-success rounded-pill me-1 mt-2"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+          >
+            Registro
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    Modal title
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <!-- * Registration form -->
+                <div class="modal-body">
+                  <form action="" class="container-fluid">
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label for="email" class="form-label"
+                          >Email address</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="name@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                      <label for="password" class="col col-form-label"
+                        >Password</label
+                      >
+                      <div class="col-sm-12">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="password"
+                        />
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="inputPassword" class="col col-form-label"
+                        >Confirmar Password</label
+                      >
+                      <div class="col-sm-12">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="inputPassword"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success rounded-pill"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-success rounded-pill"
+                  >
+                    Aceptar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-outline-success rounded-pill ms-1 mt-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Acceder
+          </button>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Acceso
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form class="container-fluid">
+                    <div class="row me-4 mb-2 justify-content-end">
+                      <div class="col-auto">
+                        <label for="emailLogging" class="">Email</label>
+                      </div>
+
+                      <div class="col-auto">
+                        <input
+                          type="email"
+                          id="emailLogging"
+                          class="form-control"
+                          aria-labelledby="email"
+                        />
+                      </div>
+                    </div>
+                    <div class="row me-4 justify-content-end">
+                      <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label"
+                          >Password</label
+                        >
+                      </div>
+                      <div class="col-auto">
+                        <input
+                          type="password"
+                          id="inputPassword6"
+                          class="form-control"
+                          aria-labelledby="passwordHelpInline"
+                        />
+                      </div>
+                      <div class="col-auto">
+                        <span id="passwordHelpInline" class="form-text">
+                          Must be 8-20 characters long.
+                        </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success rounded-pill"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-success rounded-pill"
+                  >
+                    Acceder
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- * Items -->
+    <section>
+      <div class="container-fluid items">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-auto mb-3">
+            <div
+              class="card text-center shadow mx-auto rounded-5"
+              style="width: 18rem"
+            >
+              <img
+                src="./images/elabbaEssence.jpeg"
+                class="card-img-top rounded-top-5"
+                alt="..."
+              />
+              <div class="card-body" id="1">
+                <h5 class="card-title">Ëlabba Essence Angelical</h5>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                  id="product1"
+                >
+                  <!-- <option value="none" selected disabled hidden>Select an Option</option> -->
+                  <option value="3017">£30.17 15ml</option>
+                  <option value="4263">£42.63 30ml</option>
+                  <option value="5260">£52.60 50ml</option>
+                </select>
+                <label for="quantity1" class="form-label">Cantidad</label>
+                <input
+                  type="number"
+                  min="0"
+                  value="1"
+                  id="quantity1"
+                  class="item form-control mb-3"
+                />
+                <a href="#" class="add btn btn-outline-success rounded-pill"
+                  >Añadir</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-auto mb-3">
+            <div
+              class="card card text-center shadow mx-auto rounded-5"
+              style="width: 18rem"
+            >
+              <img
+                src="./images/elabbaEssence.jpeg"
+                class="card-img-top rounded-top-5"
+                alt="..."
+              />
+              <div class="card-body" id="2">
+                <h5 class="card-title">Ëlabba Essence Reforzado</h5>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                  id="product2"
+                >
+                  <option value="3020">£30.2 15ml</option>
+                  <option value="4270">£42.70 30ml</option>
+                  <option value="5270">£52.70 50ml</option>
+                </select>
+                <label for="quantity2" class="form-label">Cantidad</label>
+                <input
+                  type="number"
+                  min="0"
+                  value="1"
+                  id="quantity2"
+                  class="item form-control mb-3"
+                />
+                <a href="#" class="add btn btn-outline-success rounded-pill"
+                  >Añadir</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-auto mb-3">
+            <div
+              class="card text-center rounded-5 shadow mb-3 mx-auto"
+              style="width: 18rem"
+            >
+              <img
+                src="./images/2bottles.jpeg"
+                class="card-img-top rounded-top-5"
+                alt="..."
+              />
+
+              <div class="card-body" id="3">
+                <h5 class="card-title">Ëlabba Essence Intenso</h5>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                  id="product3"
+                >
+                  <option value="3005">£30.05 15ml</option>
+                  <option value="4526">£45.26 30ml</option>
+                  <option value="5580">£55.80 50ml</option>
+                </select>
+                <label for="quantity3" class="form-label">Añadir</label>
+                <input
+                  type="number"
+                  min="0"
+                  id="quantity3"
+                  value="1"
+                  class="item form-control mb-3"
+                />
+                <a href="#" class="add btn btn-outline-success rounded-pill"
+                  >Añadir</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-auto mb-3">
+            <div
+              class="card rounded-5 text-center shadow mx-auto"
+              style="width: 18rem"
+            >
+              <img
+                src="./images/3bottles.jpeg"
+                class="card-img-top rounded-top-5"
+                alt="..."
+              />
+              <div class="card-body" id="4">
+                <h5 class="card-title">Ëlabba Essence Outdoors Intenso</h5>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                  id="product4"
+                >
+                  <option value="3017">£30.17 15ml</option>
+                  <option value="4243">£42.63 30ml</option>
+                  <option value="5260">£52.60 50ml</option>
+                </select>
+                <label for="quantity4" class="form-label">Añadir</label>
+                <input
+                  type="number"
+                  min="0"
+                  id="quantity4"
+                  value="1"
+                  class="form-control mb-3 item"
+                />
+                <a href="#" class="add btn btn-outline-success rounded-pill"
+                  >Comprar</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-auto mb-3">
+            <div
+              class="card rounded-5 text-center shadow mx-auto"
+              style="width: 18rem"
+            >
+              <img
+                src="./images/ElabbaIndoors.jpeg"
+                class="card-img-top rounded-top-5"
+                alt="..."
+              />
+              <div class="card-body" id="5">
+                <h5 class="card-title">Ëlabba Essence Indoors 100ml</h5>
+                <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-lg example"
+                  id="product5"
+                >
+                  <option value="6155">£61.55 Normal</option>
+                  <option value="7430">£74.30 Reforzado</option>
+                </select>
+                <label for="quantity5" class="form-label">Añadir</label>
+                <input
+                  type="number"
+                  min="0"
+                  id="quantity5"
+                  value="1"
+                  class="form-control mb-3 item"
+                />
+                <a href="#" class="add btn btn-outline-success rounded-pill"
+                  >Comprar</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- * Cart -->
+    <section class="h-100 h-custom">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12">
+            <div
+              class="card card-registration card-registration-2"
+              style="border-radius: 15px"
+            >
+              <div class="card-body p-0">
+                <div class="row g-0">
+                  <div class="col-lg-8">
+                    <div class="p-5">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-5"
+                      >
+                        <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                        <h6 class="mb-0 text-muted">3 items</h6>
+                      </div>
+                      <hr class="my-4" />
+
+                      <div
+                        class="row mb-4 d-flex justify-content-between align-items-center"
+                      >
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                          <img
+                            src="./images/elabbaEssence.jpeg"
+                            class="img-fluid rounded-3"
+                            alt="Cotton T-shirt"
+                          />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                          <h6 class="text-muted">Essence</h6>
+                          <h6 class="text-black mb-0">Elabba Essence</h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                          >
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input
+                            id="form1"
+                            min="0"
+                            name="quantity"
+                            value="1"
+                            type="number"
+                            class="form-control form-control-sm"
+                          />
+
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                          >
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                          <h6 class="mb-0">€ 44.00</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                          <a href="#!" class="text-muted"
+                            ><i class="fas fa-times"></i
+                          ></a>
+                        </div>
+                      </div>
+
+                      <hr class="my-4" />
+
+                      <div
+                        class="row mb-4 d-flex justify-content-between align-items-center"
+                      >
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                          <img
+                            src="./images/ElabbaIndoors.jpeg"
+                            class="img-fluid rounded-3"
+                            alt="Cotton T-shirt"
+                          />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                          <h6 class="text-muted">Shirt</h6>
+                          <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                          >
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input
+                            id="form1"
+                            min="0"
+                            name="quantity"
+                            value="1"
+                            type="number"
+                            class="form-control form-control-sm"
+                          />
+
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                          >
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                          <h6 class="mb-0">€ 44.00</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                          <a href="#!" class="text-muted"
+                            ><i class="fas fa-times"></i
+                          ></a>
+                        </div>
+                      </div>
+
+                      <hr class="my-4" />
+
+                      <div
+                        class="row mb-4 d-flex justify-content-between align-items-center"
+                      >
+                        <div class="col-md-2 col-lg-2 col-xl-2">
+                          <img
+                            src="./images/3bottles.jpeg"
+                            class="img-fluid rounded-3"
+                            alt="Cotton T-shirt"
+                          />
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                          <h6 class="text-muted">Shirt</h6>
+                          <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                          >
+                            <i class="fas fa-minus"></i>
+                          </button>
+
+                          <input
+                            id="form1"
+                            min="0"
+                            name="quantity"
+                            value="1"
+                            type="number"
+                            class="form-control form-control-sm"
+                          />
+
+                          <button
+                            class="btn btn-link px-2"
+                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                          >
+                            <i class="fas fa-plus"></i>
+                          </button>
+                        </div>
+                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                          <h6 class="mb-0">€ 44.00</h6>
+                        </div>
+                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                          <a href="#!" class="text-muted"
+                            ><i class="fas fa-times"></i
+                          ></a>
+                        </div>
+                      </div>
+
+                      <hr class="my-4" />
+
+                      <div class="pt-5">
+                        <h6 class="mb-0">
+                          <a href="#!" class="text-body"
+                            ><i class="fas fa-long-arrow-alt-left me-2"></i>Back
+                            to shop</a
+                          >
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 bg-grey">
+                    <div class="p-5">
+                      <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                      <hr class="my-4" />
+
+                      <div class="d-flex justify-content-between mb-4">
+                        <h5 class="text-uppercase">items 3</h5>
+                        <h5>€ 132.00</h5>
+                      </div>
+
+                      <hr class="my-4" />
+
+                      <div class="d-flex justify-content-between mb-5">
+                        <h5 class="text-uppercase">Total price</h5>
+                        <h5>€137.00</h5>
+                      </div>
+
+                      <button
+                        type="button"
+                        class="btn btn-dark btn-block btn-lg"
+                        data-mdb-ripple-color="dark"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="./scripts/main.js" type="module"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

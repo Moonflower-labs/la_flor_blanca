@@ -4,7 +4,7 @@ from flor_blanca.postDb import save_message,get_db,tarot_query,live_query_save
 from flask import render_template,session,request,redirect,url_for,flash
 from flask_mail import Message
 from flor_blanca.extensions import mail
-from flor_blanca.auth  import increment_used_count,save_question_count
+from flor_blanca.auth  import increment_used_count,save_question_count,required_basic
 
   
 
@@ -24,6 +24,7 @@ def question_page():
 
 @bp.route('/questions', methods=['GET', 'POST'])
 @login_required
+@required_basic
 def index():
         email= session.get('email')
         username = session.get('username')
