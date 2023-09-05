@@ -1,5 +1,5 @@
 import os
-from flask import redirect,Blueprint,session,render_template,url_for
+from flask import redirect,Blueprint,session,render_template,url_for,current_app
 from flor_blanca.postDb import save_customer_id, get_user_by_email, get_db
 from flor_blanca.auth import login_required,required_basic
 import stripe
@@ -200,21 +200,25 @@ def webhook_received():
         price_id = stripe_subscription['phases'][0]['items'][0]['price']
         status = stripe_subscription['status']
 
-     # !  TODO  update users details
-        print(customer_id)
-        print(price_id)
-        print(status)
-        print(stripe_subscription)
+   
+        print(customer_id) #  cus_OaC5Zh9VxqAuun  subscription_schedule.canceled
+ 
+  
+ 
+        print(price_id)# price_1Nn1gyAEZk4zaxmwzI8QaVIO
+        print(status)# canceled
+       
         db = get_db()
         cursor = db.cursor()
         cursor.execute('SELECT * FROM users WHERE customer_id= %s ', (customer_id,))
         user = cursor.fetchone()
     
         if user is not None:
+                cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',("inactive",None,customer_id))
+                db.commit()
+                current_app.logger.info('Customer subscription canceled, plan succesfully deleted')
 
-            pass
-
-        # !  TODO  update users details remove plan and det INACTIVE
+       
         
     return jsonify({'status': 'successfull'})
 

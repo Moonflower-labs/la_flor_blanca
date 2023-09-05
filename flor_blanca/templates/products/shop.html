@@ -71,7 +71,7 @@
             {% for sku in skus[product.id] %}
             <option
               value="{{ sku.id }}"
-              data-price="{{  sku.unit_amount }}"
+              data-price="{{ sku.unit_amount }}"
               data-name="{{ product.name }}"
               data-image="{{ product.images[0] }}"
             >
