@@ -2,11 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const addToCartButtons = document.querySelectorAll(".add");
   const cartItemsContainer = document.getElementById("cart-items");
   const checkoutButton = document.getElementById("checkout-button");
+  const totalSpan = document.getElementById("total");
   let cart = [];
 
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
+
+      const quantityInput = button.parentNode.querySelector(".item");
+      let quantity = parseInt(quantityInput.value);
+
+      if (!quantity || quantity < 1) {
+        quantity = 1; // Set quantity as 1 if it is less than 1
+        quantityInput.value = quantity;
+      }
 
       const productId = button.parentNode.id.replace("product-", "");
       const selectedOption = document.getElementById(
@@ -48,9 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(cart);
 
       displayCartItems();
-      // displayTotalAmount();
+      showToast();
     });
   });
+
+  function showToast() {
+    const toast = document.getElementById("toast");
+    toast.classList.remove("hide");
+    setTimeout(function () {
+      toast.classList.add("hide");
+    }, 2000);
+  }
+
+  // Call showToast() whenever an item is added to the cart
 
   function displayCartItems() {
     // Clear the existing cart items
@@ -59,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
       cart = storedCart || [];
       let totalCount = 0;
-
+      let totalAmount = 0;
       // Add each cart item to the cart items container
       cart.forEach((cartItem, index) => {
         const cartItemElement = document.createElement("div");
@@ -73,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Calculate the total per item
         const total = (price * cartItem.quantity) / 100;
+        totalAmount += total;
         totalCount += parseInt(cartItem.quantity);
-        // Create the HTML elements to display the item details
-        // <p>Price: £${price.toFixed(2)}</p>
+
         cartItemElement.innerHTML = `
       
       <div class="row text-center">
@@ -104,6 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
         cartItemsContainer.appendChild(cartItemElement);
       });
+
+      totalSpan.innerHTML = totalAmount.toFixed(2);
 
       const itemCountElement = document.querySelector(".itemCount");
       if (itemCountElement) itemCountElement.textContent = totalCount;
@@ -141,40 +162,32 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-  // const totalSpan = document.getElementById("total");
-  // let displayTotalAmount = () => {
-  //   cart.forEach((cartItem) => {
-  //     let total = 0;
-  //     let result =
-  //       (parseInt(cartItem.quantity) * parseInt(cartItem.price)) / 100;
-  //     console.log(cartItem.price);
-
-  //     total += result;
-
-  //     totalSpan.innerHTML = total;
-  //   });
-  // };
 
   if (checkoutButton) {
-    checkoutButton.addEventListener("click", () => {
+    checkoutButton.addEventListener("click", async () => {
       if (cart.length > 0) {
-        fetch("/shop_checkout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(cart),
-        })
-          .then((response) => response.json())
-          .then((data) => {
+        try {
+          const response = await fetch("/shop_checkout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(cart),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
             // Redirect to the success_url
             window.location.href = data;
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+          } else {
+            throw new Error("Error occurred during checkout");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
       }
     });
   }
+
   displayCartItems();
 });

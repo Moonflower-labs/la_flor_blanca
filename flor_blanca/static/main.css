@@ -8,8 +8,8 @@ div.footer {
   );
   z-index: 100;
 }
-html,
-body {
+
+html {
   overflow-x: hidden;
 }
 p.title,
@@ -186,7 +186,27 @@ button.cartButton {
   position: -webkit-sticky;
 }
 nav.navbar {
-  /* position: relative; */
+  position: -webkit-sticky; /* Safari/WebKit */
   position: sticky;
-  top: 0%;
+  top: 0;
+  z-index: 100;
+}
+footer {
+  width: 100%;
+}
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+#toast.hide {
+  opacity: 0;
+  visibility: hidden;
 }
