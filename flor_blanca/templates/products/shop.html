@@ -51,7 +51,7 @@
     {% for product in products %}
     <div class="col-md-4 text-center mx-auto my-3">
       <div
-        class="card rounded-3 shadow mx-auto overflow-hidden"
+        class="card rounded-3 shadow mx-auto overflow-hidden h-100"
         style="width: 18rem"
       >
         <img
@@ -62,7 +62,7 @@
 
         <div class="card-body" id="{{ product.id }}">
           <h5 class="card-title">{{ product.name }}</h5>
-          <p class="h6">Price</p>
+          <p class="h6">Opción</p>
           <select
             class="form-select form-select-sm mb-3"
             aria-label=".form-select-lg example"
@@ -76,7 +76,7 @@
               data-image="{{ product.images[0] }}"
             >
               {{ sku.unit_amount / 100 }} {{ sku.currency.upper() }} {{
-              sku.metadata.size }}
+              sku.metadata.size }} {{ sku.metadata.color}}
             </option>
 
             {% endfor %}
