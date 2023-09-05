@@ -179,6 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             // Redirect to the success_url
             window.location.href = data;
+
+            localStorage.removeItem("cart");
+            // Clear the cart array
+            cart = [];
+            // Display updated cart items
+            displayCartItems();
           } else {
             throw new Error("Error occurred during checkout");
           }
