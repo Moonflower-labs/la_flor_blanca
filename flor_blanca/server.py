@@ -88,19 +88,20 @@ def products():
 def shop_checkout():
    
     customer_id = session.get('customer_id')
-    cart = request.json  
+    # cart = request.json  
+    cart = request.json['cart']
     line_items = []
-    
+      
     for item in cart:
-        price_id = item['price_id']
-        product_quantity = item['quantity']
+        price_id = item.get('price_id')
+        product_quantity = item.get('quantity')
         line_item = {
             'price': price_id,
             'quantity': product_quantity
         }
         line_items.append(line_item)
-    # if customer_id:
-        try:
+   
+    try:
         
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
@@ -112,7 +113,7 @@ def shop_checkout():
 
             return   jsonify(checkout_session.url)
             # return redirect(checkout_session.url, code=303) 
-        except Exception as e:
+    except Exception as e:
             return jsonify({'error': str(e)})
         
   

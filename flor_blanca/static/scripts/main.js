@@ -69,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-  // Call showToast() whenever an item is added to the cart
-
   function displayCartItems() {
     // Clear the existing cart items
     if (cartItemsContainer) {
@@ -172,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(cart),
+            // body: JSON.stringify(cart),
+            body: JSON.stringify({ cart: cart }),
           });
 
           if (response.ok) {
@@ -183,8 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("cart");
             // Clear the cart array
             cart = [];
-            // Display updated cart items
-            displayCartItems();
           } else {
             throw new Error("Error occurred during checkout");
           }
