@@ -152,15 +152,15 @@ endblock %} {% endblock %} {% block content %}
     </div>
   </div>
   <div class="row text-center mb-4">
-    <p class="h3 mb-3 title">Respuestas de Blog</p>
+    <p class="h2 mb-3 title">Respuestas de Blog</p>
   </div>
   {% for post in posts %}
   <article class="container">
-    <div class="row align-items-center">
-      <div class="col">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 text-center mx-auto">
         <header>
           <div>
-            <p class="h4 fw-bold title">{{ post[3] }}</p>
+            <p class="h5 fw-bold title">{{ post[3] }}</p>
             <div class="text-muted">
               La Flor Blanca el {{ post[2].strftime('%d-%m-%Y') }}
             </div>
