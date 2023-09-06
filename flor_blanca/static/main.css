@@ -210,3 +210,6 @@ footer {
   opacity: 0;
   visibility: hidden;
 }
+p.body {
+  white-space: pre-wrap;
+}
