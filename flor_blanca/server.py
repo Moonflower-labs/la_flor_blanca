@@ -71,18 +71,39 @@ def cancel():
 @login_required
 @required_basic
 def products():
+    products = []
+    has_more_products = True
+    starting_after_product = None
 
-    all_products = stripe.Product.list()
-    filtered_products = [product for product in all_products.data if product.metadata.get('app') == 'florblanca']
-    prices = stripe.Price.list(limit=100,active=True)
+    while has_more_products:
+        product_list = stripe.Product.search(
+                query="active:'true' AND metadata['app']:'florblanca'",
+                limit=100
+        )
+        products.extend(product_list.data)
+        has_more_products = product_list.has_more
+        if has_more_products:
+            starting_after_product = product_list.data[-1].id
+
     
+    prices = []
+    has_more_prices = True
+    starting_after = None
+
+    while has_more_prices:
+        price_list = stripe.Price.list(limit=100, active=True, starting_after=starting_after)
+        prices.extend(price_list.data)
+        has_more_prices = price_list.has_more
+        if has_more_prices:
+            starting_after = price_list.data[-1].id
+
     skus = {}
-    for product in filtered_products:
-      
-        skus[product.id] = [price for price in prices.data if price.product == product.id]
-        
-  
-    return render_template('products/shop.html', products=filtered_products, skus=skus)
+    for product in products:
+        skus[product.id] = [price for price in prices if price.product == product.id]
+
+
+    return render_template('products/shop.html', products=products, skus=skus)
+
 
 
 
