@@ -53,11 +53,13 @@ def create_checkout_session():
 
 @bp.route('/success')
 def success():
-    # session_id = request.args.get('session_id')
-    # if session_id:
-        # Code to handle successful payment using the session_id
+   
         return render_template('checkout/success.html')
   
+@bp.route('/purchase_success')
+def purchase_success():
+
+    return render_template('products/success.html')
 
 @bp.route('/cancel')
 def cancel():
@@ -129,7 +131,7 @@ def shop_checkout():
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
                  mode='payment',
-                success_url=url_for('stripe.success', _external=True),
+                success_url=url_for('stripe.purchase_success', _external=True),
                 cancel_url=url_for('stripe.cancel', _external=True),
                 customer=customer_id
                 )
@@ -163,7 +165,7 @@ def webhook_received():
         return jsonify({'error': str(e)})
     
     print(event.type)
-    #* Check  event type: 'checkout.session.completed', 'customer.subscription.updated'
+   
     if event.type == 'checkout.session.completed' :  
         stripe_session = event.data.object
 
