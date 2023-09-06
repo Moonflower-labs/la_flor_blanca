@@ -76,9 +76,9 @@
               data-image="{{ product.images[0] }}"
             >
               {{ sku.unit_amount / 100 }} {{ sku.currency.upper() }} {{
-              sku.metadata.size }} {{ sku.metadata.color}}
+              sku.metadata.size }}{% if sku.metadata.color %} {{
+              sku.metadata.color.title()}}{% endif %}
             </option>
-
             {% endfor %}
           </select>
 

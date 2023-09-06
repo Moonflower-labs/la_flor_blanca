@@ -74,12 +74,14 @@ def products():
 
     all_products = stripe.Product.list()
     filtered_products = [product for product in all_products.data if product.metadata.get('app') == 'florblanca']
-    prices = stripe.Price.list()
+    prices = stripe.Price.list(limit=100,active=True)
     
     skus = {}
     for product in filtered_products:
+      
         skus[product.id] = [price for price in prices.data if price.product == product.id]
-    
+        
+  
     return render_template('products/shop.html', products=filtered_products, skus=skus)
 
 

@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("cart");
             // Clear the cart array
             cart = [];
+            // displayCartItems();
           } else {
             throw new Error("Error occurred during checkout");
           }
