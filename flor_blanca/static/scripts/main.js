@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutButton = document.getElementById("checkout-button");
   const totalSpan = document.getElementById("total");
   let cart = [];
-
+  let metadata = {};
+  const productMetadata = [];
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -22,7 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
         `product-${productId}-select`
       );
       const selectedQuantity = document.getElementById(`quantity-${productId}`);
+      productMetadata.push({
+        info: selectedOption.options[selectedOption.selectedIndex].innerText,
+      });
 
+      metadata = {
+        info: productMetadata.map((item) => item.info),
+      };
       const cartItem = {
         price_id: selectedOption.value,
         quantity: selectedQuantity.value,
@@ -33,8 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
           selectedOption.options[selectedOption.selectedIndex].getAttribute(
             "data-image"
           ),
+        metadata: metadata,
       };
 
+      // Add the metadata to the cart item
+      cartItem.metadata = productMetadata;
       // Check if the cart item already exists
       const existingCartItemIndex = cart.findIndex(
         (item) => item.price_id === cartItem.price_id
@@ -45,16 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
         cart[existingCartItemIndex].quantity =
           parseInt(cart[existingCartItemIndex].quantity) +
           parseInt(cartItem.quantity);
-      } else {
-        // Add the cart item to the cart
-        cart.push(cartItem);
       }
+      cart.push(cartItem);
       // Store the cart items in local storage
       localStorage.setItem("cart", JSON.stringify(cart));
 
       // Store the cart item in your cart array or perform further actions
       console.log(cartItem);
       console.log(cart);
+      console.log(metadata);
 
       displayCartItems();
       showToast();
@@ -171,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/json",
             },
             // body: JSON.stringify(cart),
-            body: JSON.stringify({ cart: cart }),
+            body: JSON.stringify({ cart: cart, metadata: metadata }),
           });
 
           if (response.ok) {

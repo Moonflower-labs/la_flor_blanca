@@ -116,13 +116,21 @@ def shop_checkout():
     # cart = request.json  
     cart = request.json['cart']
     line_items = []
-      
+    metadata = request.json['metadata']
+    print(f"this is the raw meta: {metadata}")
+    # metadata = {}
     for item in cart:
         price_id = item.get('price_id')
         product_quantity = item.get('quantity')
+        for key in metadata:
+            metadata[key] = str(metadata[key])
+       
+     
         line_item = {
             'price': price_id,
-            'quantity': product_quantity
+            'quantity': product_quantity,
+           
+            
         }
         line_items.append(line_item)
    
@@ -133,7 +141,8 @@ def shop_checkout():
                  mode='payment',
                 success_url=url_for('stripe.purchase_success', _external=True),
                 cancel_url=url_for('stripe.cancel', _external=True),
-                customer=customer_id
+                customer=customer_id,
+                metadata=metadata
                 )
 
             return   jsonify(checkout_session.url)
@@ -168,7 +177,7 @@ def webhook_received():
    
     if event.type == 'checkout.session.completed' :  
         stripe_session = event.data.object
-
+        print(stripe_session)
         # Retrieve the customer ID from the completed checkout session
         customer_id = stripe_session['customer']
        
@@ -176,15 +185,26 @@ def webhook_received():
         customer = stripe.Customer.retrieve(customer_id)
         
         # Retrieve the email from the customer object
-        email = customer.email
-      
+        email = customer.email     
         get_user_by_email(email)
-
         session['customer_id']= customer_id
         
         # Save the customer ID in database
         save_customer_id(customer_id, email)
         
+
+
+        metadata = stripe_session.metadata
+        print(f"metadata for checkout session is: {metadata}")
+        # addind metadata to payment object
+        payment_intent_id = stripe_session.payment_intent
+
+        # Retrieve the payment_intent using payment_intent_id
+        payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
+
+        payment_intent.metadata = metadata
+        payment_intent.save()
+        print(f"payment intent data:  {payment_intent}")
        
         
 
@@ -218,6 +238,9 @@ def webhook_received():
                 
                 print(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
 
+    elif event.type == 'payment_intent.succeeded':
+        print(event.data.object)
+
 
     elif event.type == 'subscription_schedule.canceled':
         stripe_subscription = event.data.object
@@ -227,9 +250,6 @@ def webhook_received():
 
    
         print(customer_id) #  cus_OaC5Zh9VxqAuun  subscription_schedule.canceled
- 
-  
- 
         print(price_id)# price_1Nn1gyAEZk4zaxmwzI8QaVIO
         print(status)# canceled
        
