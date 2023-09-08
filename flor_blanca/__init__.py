@@ -16,7 +16,7 @@ load_dotenv()
 
 logging.basicConfig( level=logging.DEBUG)
 def create_app(test_config=None):
-      # create and configure the app
+     
     app = Flask(__name__, instance_relative_config=True,static_url_path='',
            )
    
@@ -28,14 +28,14 @@ def create_app(test_config=None):
         MAIL_PORT = int(os.getenv('MAIL_PORT')),
         MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
         MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
-        MAIL_USE_TLS = os.getenv('MAIL_USE_TLS') == 'True',
-        MAIL_USE_SSL = os.getenv('MAIL_USE_SSL') == 'True',
-        
+        MAIL_USE_TLS = True,
+        MAIL_USE_SSL = False
     )
     app.config.update(
-    SESSION_COOKIE_SECURE=True,  # Send the cookie only over HTTPS
-    SESSION_COOKIE_SAMESITE='None',  # Allow cross-site requests
-)
+        SESSION_COOKIE_SECURE=True,  # Send the cookie only over HTTPS
+        SESSION_COOKIE_SAMESITE='None',  # Allow cross-site requests
+    )
+    
     app.config.from_object(Config)
    
 

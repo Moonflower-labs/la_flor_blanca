@@ -4,7 +4,9 @@ from flor_blanca.postDb import save_customer_id, get_user_by_email, get_db
 from flor_blanca.auth import login_required,required_basic
 import stripe
 from flask import  jsonify, request, redirect,flash
-
+from flask_mail import Message
+from flor_blanca.extensions import mail
+import json
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY') 
 bp = Blueprint('stripe', __name__,)
@@ -76,7 +78,7 @@ def products():
     products = []
     has_more_products = True
     starting_after_product = None
-
+   
     while has_more_products:
         product_list = stripe.Product.search(
                 query="active:'true' AND metadata['app']:'florblanca'",
@@ -113,12 +115,11 @@ def products():
 def shop_checkout():
    
     customer_id = session.get('customer_id')
-    # cart = request.json  
     cart = request.json['cart']
     line_items = []
     metadata = request.json['metadata']
-    print(f"this is the raw meta: {metadata}")
-    # metadata = {}
+
+
     for item in cart:
         price_id = item.get('price_id')
         product_quantity = item.get('quantity')
@@ -173,11 +174,11 @@ def webhook_received():
         print("Invalid signature!")
         return jsonify({'error': str(e)})
     
-    print(event.type)
+    current_app.logger.info(event.type)
    
     if event.type == 'checkout.session.completed' :  
         stripe_session = event.data.object
-        print(stripe_session)
+        
         # Retrieve the customer ID from the completed checkout session
         customer_id = stripe_session['customer']
        
@@ -190,23 +191,57 @@ def webhook_received():
         session['customer_id']= customer_id
         
         # Save the customer ID in database
-        save_customer_id(customer_id, email)
+        # save_customer_id(customer_id, email)
         
 
 
         metadata = stripe_session.metadata
-        print(f"metadata for checkout session is: {metadata}")
+        
+        
+        
+
+
         # addind metadata to payment object
         payment_intent_id = stripe_session.payment_intent
 
         # Retrieve the payment_intent using payment_intent_id
         payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
-
         payment_intent.metadata = metadata
         payment_intent.save()
-        print(f"payment intent data:  {payment_intent}")
-       
+
+
         
+
+        formatted_info = ''.join([item.strip() for item in metadata['info']])
+    
+      
+       
+        try:
+             #  MAIL ADMIN
+            msg = Message('Hola de la Flor Blanca!', sender='LaFlorBlanca',
+                                  recipients=['alex.landin@hotmail.com'])
+            msg.body = f"email: {email},\ncustomer ID : {customer_id},\nmetadata order: {formatted_info},\n"
+            mail.send(msg)
+            current_app.logger.info('email sent to admin')
+        except Exception as e:
+            return current_app.logger.warning(str(e))
+        
+    elif event.type == 'customer.created':
+        stripe_session = event.data.object
+        
+        # Retrieve the customer ID from the completed checkout session
+        customer_id = stripe_session['customer']
+       
+        # Retrieve the customer object from the Stripe API
+        customer = stripe.Customer.retrieve(customer_id)
+        
+        # Retrieve the email from the customer object
+        email = customer.email     
+        get_user_by_email(email)
+        session['customer_id'] = customer_id
+        
+        # Save the customer ID in database
+        save_customer_id(customer_id, email)
 
     elif event.type == 'customer.subscription.updated':
         stripe_subscription = event.data.object
@@ -236,10 +271,10 @@ def webhook_received():
                 # save the details to DB
                 cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
                 
-                print(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
+                current_app.logger.info(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
 
     elif event.type == 'payment_intent.succeeded':
-        print(event.data.object)
+        current_app.logger.info(event.data.object)
 
 
     elif event.type == 'subscription_schedule.canceled':
