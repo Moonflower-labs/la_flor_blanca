@@ -23,9 +23,9 @@ def create_app(test_config=None):
 
     app.config.from_mapping(
         
-        DATABASE=os.getenv('DATABASE_URL') ,
-        MAIL_SERVER = os.getenv('MAIL_SERVER'),
-        MAIL_PORT = int(os.getenv('MAIL_PORT')),
+        DATABASE=os.getenv('DATABASE_URL') ,     
+        MAIL_SERVER='mail.uenimail.com',
+        MAIL_PORT = 587,
         MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
         MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
         MAIL_USE_TLS = True,

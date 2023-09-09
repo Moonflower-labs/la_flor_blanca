@@ -139,7 +139,7 @@ def shop_checkout():
         
             checkout_session = stripe.checkout.Session.create(
                 line_items=line_items,
-                 mode='payment',
+                mode='payment',
                 success_url=url_for('stripe.purchase_success', _external=True),
                 cancel_url=url_for('stripe.cancel', _external=True),
                 customer=customer_id,
@@ -167,11 +167,11 @@ def webhook_received():
             payload, sig_header, endpoint_secret
         )
     except ValueError as e:
-        print("Error while decoding event!")
+        current_app.logger.warning("Error while decoding event!")
         return jsonify({'error': str(e)})
     
     except stripe.error.SignatureVerificationError as e:
-        print("Invalid signature!")
+        current_app.logger.warning("Invalid signature!")
         return jsonify({'error': str(e)})
     
     current_app.logger.info(event.type)
@@ -194,13 +194,8 @@ def webhook_received():
         # save_customer_id(customer_id, email)
         
 
-
         metadata = stripe_session.metadata
         
-        
-        
-
-
         # addind metadata to payment object
         payment_intent_id = stripe_session.payment_intent
 
@@ -212,13 +207,13 @@ def webhook_received():
 
         
 
-        formatted_info = ''.join([item.strip() for item in metadata['info']])
+        formatted_info = ' '.join([item.strip() for item in metadata['info']])
     
       
        
         try:
              #  MAIL ADMIN
-            msg = Message('Hola de la Flor Blanca!', sender='LaFlorBlanca',
+            msg = Message('Hola de la Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com'])
             msg.body = f"email: {email},\ncustomer ID : {customer_id},\nmetadata order: {formatted_info},\n"
             mail.send(msg)

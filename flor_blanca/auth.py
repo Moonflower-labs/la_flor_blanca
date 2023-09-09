@@ -154,8 +154,10 @@ def required_basic(view):
         cursor = db.cursor()
         cursor.execute('SELECT customer_id FROM users WHERE email = %s', (email,))
         customer_id = cursor.fetchone()
+        print(customer_id[0] )
+        print(customer_id )
     
-        if  customer_id[0] is None:
+        if  customer_id[0] is None or customer_id[0] == '' :
             return redirect(url_for('index'))
 
         return view(**kwargs)
@@ -177,6 +179,7 @@ def required_spirit_plan(view):
         cursor = db.cursor()
         cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
         subscription_plan = cursor.fetchone()
+
     
         if  subscription_plan is None or subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
             return redirect(url_for('index'))

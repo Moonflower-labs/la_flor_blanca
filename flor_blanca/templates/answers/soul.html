@@ -53,21 +53,53 @@
     <p class="h2 my-3 title">Respuestas de video</p>
     {% if links %} {% for link in links %}
     <div class="col-md-6 mb-3">
-      <p class="h5">{{ link['title'] }}</p>
-      <div class="ratio ratio-16x9">
-        <iframe
-          class="rounded-3 embed-responsive-item"
-          src="{{link['link']}}"
-          height="100%"
-          width="100%"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+      <div class="flex-column align-items-center">
+        <p class="h5 overflow-hidden" style="height: 3rem">
+          {{ link['title'] }}
+        </p>
+        <div class="ratio ratio-16x9">
+          <iframe
+            class="rounded-3 embed-responsive-item"
+            src="{{link['link']}}"
+            height="100%"
+            width="100%"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
-      <p>{{ link['comment'] }}</p>
 
-      <p class="my-2 muted">subido el {{ link['created'] }}</p>
+      <div class="accordion mt-2 accordion-flush" id="accordion{{link['id']}}">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button shadow-none collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse{{link['id']}}"
+              aria-expanded="false"
+              aria-controls="collapse{{link['id']}}"
+              style="
+                background-color: inherit;
+                color: inherit;
+                text-decoration: none;
+              "
+            >
+              Ver descripción
+            </button>
+          </h2>
+          <div
+            id="collapse{{link['id']}}"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordion{{link['id']}}"
+          >
+            <div class="accordion-body">{{ link['comment'] }}</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="my-2 text-muted">subido el {{ link['created'] }}</p>
       <!-- Display the upload date -->
     </div>
     {% endfor %} {% endif %}

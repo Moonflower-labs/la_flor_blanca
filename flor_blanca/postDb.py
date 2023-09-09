@@ -65,9 +65,9 @@ def get_links():
     db = get_db()
     cursor = db.cursor()
     
-    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment FROM videos_soul ORDER BY created DESC LIMIT 30")
+    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment,id FROM videos_soul ORDER BY created DESC LIMIT 30")
     results = cursor.fetchall() if cursor else []
-    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3]} for row in results]
+    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3], 'id': row[4]} for row in results]
 
     if links:
         return links
@@ -78,9 +78,9 @@ def get_videos():
     db = get_db()
     cursor = db.cursor()
     
-    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment FROM videos_spirit ORDER BY created DESC LIMIT 30")
+    cursor.execute("SELECT link, TO_CHAR(created, 'DD-MM-YYYY'),title,comment,id FROM videos_spirit ORDER BY created DESC LIMIT 30")
     results = cursor.fetchall() if cursor else []
-    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3]} for row in results]
+    links = [{'link': row[0], 'created': row[1],'title': row[2],'comment': row[3],'id': row[4]} for row in results]
 
     if links:
         return links

@@ -69,7 +69,7 @@ def index():
 
                 if used_questions < 3:
                     try:
-                        msg = Message('Hola de la Flor Blanca!', sender='info.moonflowerlabs@gmail.com',
+                        msg = Message('Hola de la Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com'])
                         msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nsubscribe: {subscribe},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
                         mail.send(msg)
