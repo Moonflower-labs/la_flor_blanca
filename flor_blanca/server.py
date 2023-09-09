@@ -6,7 +6,8 @@ import stripe
 from flask import  jsonify, request, redirect,flash
 from flask_mail import Message
 from flor_blanca.extensions import mail
-import json
+import ast
+
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY') 
 bp = Blueprint('stripe', __name__,)
@@ -204,18 +205,15 @@ def webhook_received():
         payment_intent.metadata = metadata
         payment_intent.save()
 
-
-        
-
-        formatted_info = ' '.join([item.strip() for item in metadata['info']])
-    
-      
-       
+        # format metadata for email
+        metadata_info = ast.literal_eval(metadata['info'])
+        formatted_info = [item.strip() for item in metadata_info]
+             
         try:
              #  MAIL ADMIN
             msg = Message('Hola de la Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com'])
-            msg.body = f"email: {email},\ncustomer ID : {customer_id},\nmetadata order: {formatted_info},\n"
+            msg.body = f"email: {email},\ncustomer ID : {customer_id},\nmetadata order:\n {formatted_info},\n"
             mail.send(msg)
             current_app.logger.info('email sent to admin')
         except Exception as e:
