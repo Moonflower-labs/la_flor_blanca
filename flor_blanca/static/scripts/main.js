@@ -27,9 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
         info: selectedOption.options[selectedOption.selectedIndex].innerText,
       });
 
+      const metadataValue = productMetadata.map((item) => item.info).join(", ");
+      const trimmedMetadataValue = metadataValue.trim().replace(/\s+/g, " ");
+      const truncatedMetadataValue =
+        trimmedMetadataValue.length > 500
+          ? trimmedMetadataValue.substring(0, 497) + "..."
+          : trimmedMetadataValue;
+
       metadata = {
-        info: productMetadata.map((item) => item.info),
+        info: truncatedMetadataValue,
       };
+
       const cartItem = {
         price_id: selectedOption.value,
         quantity: selectedQuantity.value,
