@@ -152,7 +152,9 @@
         {% endfor %}
       </div>
     </section>
-    <div class="min-vh-100">{% block content %}{% endblock %}</div>
+    <div class="min-vh-100 overflow-x-hidden">
+      {% block content %}{% endblock %}
+    </div>
 
     <footer>
       <div
