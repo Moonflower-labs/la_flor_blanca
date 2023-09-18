@@ -190,12 +190,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", function () {
   const ratingSuns = [...document.getElementsByClassName("bi bi-sun")];
-  const submitBtn = [...document.getElementsByClassName("submitRating")];
+  const ratePost = [...document.getElementsByClassName("ratePost")];
   let rating = 0;
   let resultInput;
   const executeRating = (suns) => {
     const sunClassActive = "bi bi-sun-fill";
     const sunClassInactive = "bi bi-sun";
+
+    ratePost.map((btn) => {
+      btn.onclick = (e) => {
+        const ratingElement = e.target.nextSibling.nextSibling;
+        ratingElement.classList.toggle("d-none");
+        resetSun();
+      };
+    });
 
     suns.map((sun) => {
       sun.onclick = () => {
@@ -207,18 +215,19 @@ document.addEventListener("DOMContentLoaded", function () {
           for (i; i >= 0; --i) suns[i].className = sunClassActive;
           rating = sun.parentNode.previousElementSibling.value;
           resultInput.value = rating;
-          console.log(rating);
-          console.log(resultInput);
         } else {
           for (i; i < suns.length; ++i) suns[i].className = sunClassInactive;
           rating = sun.parentNode.previousElementSibling.value - 1;
           if (rating === 0) rating += 1;
           resultInput.value = rating;
-          console.log(rating);
-          console.log(resultInput);
         }
       };
     });
+    resetSun = () => {
+      suns.map((sun) => {
+        sun.className = sunClassInactive;
+      });
+    };
   };
 
   executeRating(ratingSuns);

@@ -188,58 +188,62 @@ endblock %} {% endblock %} {% block content %}
           method="POST"
           action="{{ url_for('answers.rating',post_id=post[0])}}"
         >
-          <p class="h6 mb-2 title">Valora esta respuesta</p>
-          <div class="rating d-flex justify-content-center mb-2">
-            <div>
-              <input
-                class="rating"
-                type="radio"
-                name="rating"
-                value="1"
-                id="rating-1-{{post[0]}}"
-                hidden
-              />
-              <label for="rating-1-{{post[0]}}"
-                ><i class="bi bi-sun"></i
-              ></label>
+          <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
+            Valora esta respuesta
+          </p>
+          <div class="d-none">
+            <div class="rating d-flex justify-content-center mb-2">
+              <div>
+                <input
+                  class="rating"
+                  type="radio"
+                  name="rating"
+                  value="1"
+                  id="rating-1-{{post[0]}}"
+                  hidden
+                />
+                <label for="rating-1-{{post[0]}}"
+                  ><i class="bi bi-sun"></i
+                ></label>
 
-              <input
-                class="rating"
-                type="radio"
-                name="rating"
-                value="2"
-                id="rating-2-{{post[0]}}"
-                hidden
-              />
-              <label for="rating-2-{{post[0]}}"
-                ><i class="bi bi-sun"></i
-              ></label>
+                <input
+                  class="rating"
+                  type="radio"
+                  name="rating"
+                  value="2"
+                  id="rating-2-{{post[0]}}"
+                  hidden
+                />
+                <label for="rating-2-{{post[0]}}"
+                  ><i class="bi bi-sun"></i
+                ></label>
 
-              <input
-                class="rating"
-                type="radio"
-                name="rating"
-                value="3"
-                id="rating-3-{{post[0]}}"
-                hidden
-              />
-              <label for="rating-3-{{post[0]}}"
-                ><i class="bi bi-sun"></i
-              ></label>
+                <input
+                  class="rating"
+                  type="radio"
+                  name="rating"
+                  value="3"
+                  id="rating-3-{{post[0]}}"
+                  hidden
+                />
+                <label for="rating-3-{{post[0]}}"
+                  ><i class="bi bi-sun"></i
+                ></label>
 
-              <input
-                class="ratingResul"
-                type="number"
-                name="result"
-                id="result-{{post[0]}}"
-                value="1"
-                data-post-id="{{post[0]}}"
-                hidden
-              />
-              <label for="result-{{post[0]}}" hidden></label>
+                <input
+                  class="ratingResul"
+                  type="number"
+                  name="result"
+                  id="result-{{post[0]}}"
+                  value="1"
+                  data-post-id="{{post[0]}}"
+                  hidden
+                />
+                <label for="result-{{post[0]}}" hidden></label>
+              </div>
             </div>
+            <button type="submit" class="btn submitRating mb-3">Aceptar</button>
           </div>
-          <button type="submit" class="btn submitRating mb-3">Aceptar</button>
         </form>
       </div>
     </div>

@@ -232,9 +232,9 @@ def webhook_received():
                 item = {"Id" : item.price.id,"price" : item.price.unit_amount/100 ,"quantity" : item.quantity,"metadata" : metadata}
                 formatted_order.append(item)
        
+                 #  EMAIL ADMIN
+             try:     
              
-             try:
-             #  MAIL ADMIN
                  msg = Message('Nuevo pedido para Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
            
@@ -290,10 +290,10 @@ def webhook_received():
                         subscription_status = "active"
                     else:
                         subscription_status = "inactive"    
-                            # save the details to DB
+                           
                         cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
                     
-                        current_app.logger.info(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
+                        current_app.logger.info(f" Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
 
         elif event.type == 'payment_intent.succeeded':
             payment_intent = event.data.object
@@ -317,7 +317,7 @@ def webhook_received():
             if user is not None:
                     cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',("inactive",None,customer_id))
                     db.commit()
-                    current_app.logger.info('Customer subscription canceled, plan succesfully deleted')
+                    current_app.logger.info(' Customer subscription canceled, plan succesfully deleted')
 
         
         

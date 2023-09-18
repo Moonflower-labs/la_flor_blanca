@@ -129,7 +129,7 @@ def save_message(*args):
     """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9]))
     
     # db.commit()
-    current_app.logger.info("Message correctly saved to questions table")
+    current_app.logger.info(" Message correctly saved to questions table")
 
 def tarot_query(*args): 
     db= get_db()

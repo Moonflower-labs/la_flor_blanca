@@ -37,7 +37,7 @@ def register():
                     (username, generate_password_hash(password), email),
 
                 )
-                # db.commit()
+
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
@@ -117,10 +117,10 @@ def save_question_count():
      db = get_db()
      cursor = db.cursor()
      cursor.execute('UPDATE users SET used_questions=%s WHERE email = %s',(used_questions,email))
-     current_app.logger.info(f"question count saved correctly\nValues\nUsed Questions: {used_questions}")
-     print(email,used_questions)
+     current_app.logger.info(f" Question count saved correctly\nValues\nUsed Questions: {used_questions}")
     
-# *  execute everytime a question is asked!!!!!!
+    
+
 def increment_used_count():
        
         used_questions = session.get('used_questions')
@@ -230,10 +230,3 @@ def denied():
 
     return render_template('auth/denied.html')
 
-"""This decorator returns a new view function that wraps 
-the original view it's applied to. The new function checks 
-if a user is loaded and redirects to the login page otherwise. 
-If a user is loaded the original view is called and continues normally. 
-You'll use this decorator when writing the blog views.
-
-"""

@@ -13,7 +13,7 @@ def question_page():
     user_id = session.get('id')
     used_questions = session.get('used_questions')
     if user_id:
-        # remaining_question_count = max(3 - used_questions, 0) 
+    
         remaining_question_count = 3 - int(used_questions) 
 
        
