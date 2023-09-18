@@ -47,8 +47,6 @@ def index():
                 name = request.form.get('name')
                 subject = request.form.get('flexRadioDefault')
                 question = request.form.get('question')
-                subscribe = request.form.get('subscribe')
-
                 age = request.form.get('ageGroup')
                 other = request.form.get('other')
                 country = request.form.get('country')
@@ -69,12 +67,12 @@ def index():
 
                 if used_questions < 3:
                     try:
-                        msg = Message('Hola de la Flor Blanca!', sender='admin@thechicnoir.com',
-                                  recipients=['alex.landin@hotmail.com'])
-                        msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nsubscribe: {subscribe},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
+                        msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
+                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
+                        msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
                         mail.send(msg)
-
-                        save_message(email, name, subject, question, gender, age, media, country, city, subscribe,current_plan)
+                                                                                                            
+                        save_message(email, name, subject, question, gender, age, media, country, city,current_plan)
                         
                         flash('Tu pregunta ha sido enviada correctamente.')                      
                         increment_used_count()

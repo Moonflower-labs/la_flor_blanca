@@ -124,9 +124,9 @@ def save_message(*args):
     media = ','.join(args[6])
 
     cursor.execute("""
-        INSERT INTO questions (email, name, subject, question, gender, age_group, media_choice, country, city, subscribe,current_plan)
-        VALUES (%s, %s, %s, %s , %s, %s, %s, %s, %s, %s, %s)
-    """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9],args[10]))
+        INSERT INTO questions (email, name, subject, question, gender, age_group, media_choice, country, city,current_plan)
+        VALUES (%s, %s, %s, %s , %s, %s, %s, %s, %s, %s)
+    """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9]))
     
     # db.commit()
     current_app.logger.info("Message correctly saved to questions table")
