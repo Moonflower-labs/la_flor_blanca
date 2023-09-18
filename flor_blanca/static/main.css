@@ -9,9 +9,6 @@ div.footer {
   z-index: 100;
 }
 
-html {
-  overflow-x: hidden;
-}
 p.title,
 hr.title,
 p.message,
@@ -210,6 +207,20 @@ footer {
   opacity: 0;
   visibility: hidden;
 }
-p.body {
+p.body,
+div.description {
   white-space: pre-wrap;
+}
+.rating input[type="radio"] {
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating label i,
+div.rating i {
+  font-size: 2rem;
+  color: orange;
 }

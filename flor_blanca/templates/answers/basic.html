@@ -159,12 +159,20 @@ endblock %} {% endblock %} {% block content %}
     <div class="row justify-content-center align-items-center">
       <div class="col-12 text-center mx-auto">
         <header>
-          <div>
-            <p class="h5 fw-bold title">{{ post[3] }}</p>
-            <div class="text-muted">
-              La Flor Blanca el {{ post[2].strftime('%d-%m-%Y') }}
-            </div>
+          <div class="rating justify-content-center align-items-center">
+            <p class="h5 fw-bold title me-3">{{ post[3] }}</p>
+            {% for score in scores %}{% if post[0] == score['scorePost'] %}
+            <p class="title float-end">
+              {{score['scoreTotal']/score['scoreCount']}}/{{score['scoreCount']}}
+            </p>
+
+            {% endif %} {% endfor %}
           </div>
+
+          <div class="text-muted">
+            La Flor Blanca el {{ post[2].strftime('%d-%m-%Y') }}
+          </div>
+
           {% if session['role'] == 'admin' %}
           <a
             class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
@@ -175,6 +183,63 @@ endblock %} {% endblock %} {% block content %}
           {% endif %}
         </header>
         <p class="body">{{ post[4] }}</p>
+        <form
+          method="POST"
+          action="{{ url_for('answers.rating')}}?post_id={{post[0]}}"
+        >
+          <p class="h4 mb-2">Valora esta respuesta</p>
+          <div class="rating d-flex justify-content-center mb-2">
+            <div>
+              <input
+                class="rating"
+                type="radio"
+                name="rating"
+                value="1"
+                id="rating-1-{{post[0]}}"
+                hidden
+              />
+              <label for="rating-1-{{post[0]}}"
+                ><i class="bi bi-sun"></i
+              ></label>
+
+              <input
+                class="rating"
+                type="radio"
+                name="rating"
+                value="2"
+                id="rating-2-{{post[0]}}"
+                hidden
+              />
+              <label for="rating-2-{{post[0]}}"
+                ><i class="bi bi-sun"></i
+              ></label>
+
+              <input
+                class="rating"
+                type="radio"
+                name="rating"
+                value="3"
+                id="rating-3-{{post[0]}}"
+                hidden
+              />
+              <label for="rating-3-{{post[0]}}"
+                ><i class="bi bi-sun"></i
+              ></label>
+
+              <input
+                class="ratingResul"
+                type="number"
+                name="result"
+                id="result-{{post[0]}}"
+                value="1"
+                data-post-id="{{post[0]}}"
+                hidden
+              />
+              <label for="result-{{post[0]}}" hidden></label>
+            </div>
+          </div>
+          <button type="submit" class="btn submitRating">Aceptar</button>
+        </form>
       </div>
     </div>
   </article>

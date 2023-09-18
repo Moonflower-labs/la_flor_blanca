@@ -107,6 +107,7 @@ def products():
         skus[product.id] = [price for price in prices if price.product == product.id]
 
 
+
     return render_template('products/shop.html', products=products, skus=skus)
 
 
@@ -115,24 +116,34 @@ def products():
 @bp.route('/shop_checkout', methods=['POST'])
 def shop_checkout():
    
+    shipping_raw_data = stripe.ShippingRate.list(
+               
+                active=True,
+                limit=16
+        )
+    shipping_data = shipping_raw_data['data']
+    shipping_options = []
+
+    for item in shipping_data :
+        if item.metadata =={ "app": "florblanca"}:
+            item = {"shipping_rate": item.id}
+            shipping_options.append(item)
+  
+  
     customer_id = session.get('customer_id')
-    cart = request.json['cart']
+    cart = request.json
     line_items = []
-    metadata = request.json['metadata']
+   
 
 
     for item in cart:
         price_id = item.get('price_id')
         product_quantity = item.get('quantity')
-        for key in metadata:
-            metadata[key] = str(metadata[key])
-       
-     
+        
+          
         line_item = {
             'price': price_id,
-            'quantity': product_quantity,
-           
-            
+            'quantity': product_quantity,           
         }
         line_items.append(line_item)
    
@@ -144,11 +155,12 @@ def shop_checkout():
                 success_url=url_for('stripe.purchase_success', _external=True),
                 cancel_url=url_for('stripe.cancel', _external=True),
                 customer=customer_id,
-                metadata=metadata
-                )
+                shipping_options=shipping_options,
+               
+            )
 
             return   jsonify(checkout_session.url)
-            # return redirect(checkout_session.url, code=303) 
+            
     except Exception as e:
             return jsonify({'error': str(e)})
         
@@ -168,154 +180,168 @@ def webhook_received():
             payload, sig_header, endpoint_secret
         )
     except ValueError as e:
-        current_app.logger.warning("Error while decoding event!")
+        current_app.logger.warning(" Error while decoding event!")
         return jsonify({'error': str(e)})
     
     except stripe.error.SignatureVerificationError as e:
-        current_app.logger.warning("Invalid signature!")
+        current_app.logger.warning(" Invalid signature!")
         return jsonify({'error': str(e)})
     
-    current_app.logger.info(event.type)
+
+    event_id = event.id 
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT event_id FROM webhooks WHERE event_id = %s', (event.id,))
+    stored_event = cursor.fetchone()
    
-    if event.type == 'checkout.session.completed' :  
-        stripe_session = event.data.object
-        
-        # Retrieve the customer ID from the completed checkout session
-        customer_id = stripe_session['customer']
-       
-        # Retrieve the customer object from the Stripe API
-        customer = stripe.Customer.retrieve(customer_id)
-        
-        # Retrieve the email from the customer object
-        email = customer.email     
-        get_user_by_email(email)
-        session['customer_id']= customer_id
-        
-        # Save the customer ID in database
-        # save_customer_id(customer_id, email)
-        
 
-        metadata = stripe_session.metadata
-        
-        # addind metadata to payment object
-        payment_intent_id = stripe_session.payment_intent
-
-        # Retrieve the payment_intent using payment_intent_id
-        payment_intent = stripe.PaymentIntent.retrieve(payment_intent_id)
-        payment_intent.metadata = metadata
-        payment_intent.save()
-
-        metadata_info = metadata['info'].split(',')
+    if stored_event :
+        current_app.logger.info(" Event has already been processed.")
+        return jsonify(success=True)
+    else:
+        cursor.execute('INSERT INTO webhooks(event_id) VALUES (%s)',(event_id,))
+        current_app.logger.info(" New event saved.")
+        current_app.logger.info(event.type)
+   
+        if event.type == 'checkout.session.completed' :  
+             checkout_session = event.data.object     
              
-        try:
+             customer_id = checkout_session['customer']       
+              
+             customer = stripe.Customer.retrieve(customer_id)       
+              
+             email = customer.email     
+             get_user_by_email(email)
+             session['customer_id']= customer_id
+        
+                # Save the customer ID in database
+               # save_customer_id(customer_id, email)
+
+             retrieved_session = stripe.checkout.Session.retrieve(
+                checkout_session.id,
+                expand=["line_items"],
+                )
+             line_items = retrieved_session.line_items
+             formatted_order =[]
+             for item in line_items:
+                metadata =[]
+                raw_meta = item.price.metadata
+                for key,value in raw_meta.items():
+                    meta = {key: value}
+                    metadata.append(meta)
+                item = {"Id" : item.price.id,"price" : item.price.unit_amount/100 ,"quantity" : item.quantity,"metadata" : metadata}
+                formatted_order.append(item)
+       
+             
+             try:
              #  MAIL ADMIN
-            msg = Message('Hola de la Flor Blanca!', sender='admin@thechicnoir.com',
-                                  recipients=['alex.landin@hotmail.com'])
-            msg.body = f"email: {email},\ncustomer ID : {customer_id},\nmetadata order:\n {metadata_info},\n"
-            mail.send(msg)
-            current_app.logger.info('email sent to admin')
-        except Exception as e:
-            return current_app.logger.warning(str(e))
-        
-    elif event.type == 'customer.created':
-        stripe_session = event.data.object
-        
-        # Retrieve the customer ID from the completed checkout session
-        customer_id = stripe_session['customer']
-       
-        # Retrieve the customer object from the Stripe API
-        customer = stripe.Customer.retrieve(customer_id)
-        
-        # Retrieve the email from the customer object
-        email = customer.email     
-        get_user_by_email(email)
-        session['customer_id'] = customer_id
-        
-        # Save the customer ID in database
-        save_customer_id(customer_id, email)
+                 msg = Message('Nuevo pedido para Flor Blanca!', sender='admin@thechicnoir.com',
+                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
+           
+           
+                 formatted_order_string = '\n'.join(str(item) for item in formatted_order)
+                 formatted_order_string = formatted_order_string.replace("'", "").replace("{", "").replace("}", "")
+                 msg.body = f"email: {email}\nCustomer ID: {customer_id}\n{formatted_order_string}"
+           
+                 mail.send(msg)
+                 current_app.logger.info(' Email sent to admin')
 
-    elif event.type == 'customer.subscription.updated':
-        stripe_subscription = event.data.object
-
-        # Retrieve the subscription ID, cus id, price id, prod id
-        subscription_id = stripe_subscription['id']
-        customer_id = stripe_subscription['customer']
-        price_id = stripe_subscription['items']['data'][0]['plan']['id']
-        product_id = stripe_subscription['items']['data'][0]['plan']['product']
-        subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
-        # Retrieve the customer object from the Stripe API
-        customer = stripe.Customer.retrieve(customer_id)       
-        # Retrieve the email from the customer object
-        email = customer.email
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute('SELECT * FROM users WHERE customer_id = %s ',(customer_id,))
-        user = cursor.fetchone()
+             except Exception as e:
+                 
+                 return current_app.logger.warning(str(e))
         
-        #* if customer_id same as user, add price_id,product_id,subscription_status
-        if user is not None:
-            if user[5] == customer_id:
-                if subscription_status == True:
-                    subscription_status = "active"
+        elif event.type == 'customer.created':
+            customer = event.data.object     
+            customer_id = customer['id']
+            email = customer.email    
+
+            user = get_user_by_email(email)
+            if user:
+                if user[5] is not None and user[5] == customer_id:
+                    current_app.logger.info(' User and Customer ID already in the system')
                 else:
-                 subscription_status = "inactive"    
-                # save the details to DB
-                cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
-                
-                current_app.logger.info(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
+                    # Save the customer ID in database
+                    save_customer_id(customer_id, email)
 
-    elif event.type == 'payment_intent.succeeded':
-        current_app.logger.info(event.data.object)
+            else:
+                current_app.logger.info(' unkown customer!')
+        elif event.type == 'customer.subscription.updated':
+            stripe_subscription = event.data.object
 
+            # Retrieve the subscription ID, cus id, price id, prod id
+            subscription_id = stripe_subscription['id']
+            customer_id = stripe_subscription['customer']
+            price_id = stripe_subscription['items']['data'][0]['plan']['id']
+            product_id = stripe_subscription['items']['data'][0]['plan']['product']
+            subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
+            # Retrieve the customer object from the Stripe API
+            customer = stripe.Customer.retrieve(customer_id)       
+            # Retrieve the email from the customer object
+            email = customer.email
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute('SELECT * FROM users WHERE customer_id = %s ',(customer_id,))
+            user = cursor.fetchone()
+            
+            
+            if user is not None:
+                if user[5] == customer_id:
+                    if subscription_status == True:
+                        subscription_status = "active"
+                    else:
+                        subscription_status = "inactive"    
+                            # save the details to DB
+                        cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
+                    
+                        current_app.logger.info(f"Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
 
-    elif event.type == 'subscription_schedule.canceled':
-        stripe_subscription = event.data.object
-        customer_id = stripe_subscription['customer']
-        price_id = stripe_subscription['phases'][0]['items'][0]['price']
-        status = stripe_subscription['status']
-
-   
-        print(customer_id) #  cus_OaC5Zh9VxqAuun  subscription_schedule.canceled
-        print(price_id)# price_1Nn1gyAEZk4zaxmwzI8QaVIO
-        print(status)# canceled
-       
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute('SELECT * FROM users WHERE customer_id= %s ', (customer_id,))
-        user = cursor.fetchone()
-    
-        if user is not None:
-                cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',("inactive",None,customer_id))
-                db.commit()
-                current_app.logger.info('Customer subscription canceled, plan succesfully deleted')
-
-       
+        elif event.type == 'payment_intent.succeeded':
+            payment_intent = event.data.object
         
-    return jsonify({'status': 'successfull'})
+
+
+        elif event.type == 'subscription_schedule.canceled':
+            stripe_subscription = event.data.object
+            customer_id = stripe_subscription['customer']
+            price_id = stripe_subscription['phases'][0]['items'][0]['price']
+            status = stripe_subscription['status']
+
+    
+        
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute('SELECT * FROM users WHERE customer_id= %s ', (customer_id,))
+            user = cursor.fetchone()
+        
+        
+            if user is not None:
+                    cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',("inactive",None,customer_id))
+                    db.commit()
+                    current_app.logger.info('Customer subscription canceled, plan succesfully deleted')
+
+        
+        
+    return jsonify(success=True)
 
    
 @bp.route('/customer-portal', methods=['POST','GET'])
 @login_required
 def customer_portal():
-    # Get the user session email
     email = session.get('email')
    
-
     if email:
-        # Retrieve user information
         user = get_user_by_email(email)
         
         if user:
-            customer_id =user[5]
+            customer_id = user[5]
                       
             if customer_id is not None  :
 
                 try:
                 
-                    # Create the customer portal session
                      billing_session = stripe.billing_portal.Session.create(
-                    customer=customer_id,
-                    return_url=url_for('stripe.customer_portal_redirect', _external=True)
+                        customer=customer_id,
+                        return_url=url_for('stripe.customer_portal_redirect', _external=True)
                     )
 
                      return redirect(billing_session.url)
@@ -326,7 +352,7 @@ def customer_portal():
                 flash("No pudimos encontrar una suscripcion asociada a tu cuenta")
 
     flash("Debes comprar una suscripción antes de acceder al Customer portal ")
-    # If email is missing or user does not have required attributes, handle the error
+   
     return redirect(url_for('index', _anchor='plans'))
 
 

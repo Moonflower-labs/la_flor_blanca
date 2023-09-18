@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutButton = document.getElementById("checkout-button");
   const totalSpan = document.getElementById("total");
   let cart = [];
-  let metadata = {};
-  const productMetadata = [];
+
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -23,20 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `product-${productId}-select`
       );
       const selectedQuantity = document.getElementById(`quantity-${productId}`);
-      productMetadata.push({
-        info: selectedOption.options[selectedOption.selectedIndex].innerText,
-      });
-
-      const metadataValue = productMetadata.map((item) => item.info).join(", ");
-      const trimmedMetadataValue = metadataValue.trim().replace(/\s+/g, " ");
-      const truncatedMetadataValue =
-        trimmedMetadataValue.length > 500
-          ? trimmedMetadataValue.substring(0, 497) + "..."
-          : trimmedMetadataValue;
-
-      metadata = {
-        info: truncatedMetadataValue,
-      };
 
       const cartItem = {
         price_id: selectedOption.value,
@@ -48,11 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
           selectedOption.options[selectedOption.selectedIndex].getAttribute(
             "data-image"
           ),
-        metadata: metadata,
       };
 
-      // Add the metadata to the cart item
-      cartItem.metadata = productMetadata;
       // Check if the cart item already exists
       const existingCartItemIndex = cart.findIndex(
         (item) => item.price_id === cartItem.price_id
@@ -67,11 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.push(cartItem);
       // Store the cart items in local storage
       localStorage.setItem("cart", JSON.stringify(cart));
-
-      // Store the cart item in your cart array or perform further actions
-      console.log(cartItem);
-      console.log(cart);
-      console.log(metadata);
 
       displayCartItems();
       showToast();
@@ -187,8 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: {
               "Content-Type": "application/json",
             },
-            // body: JSON.stringify(cart),
-            body: JSON.stringify({ cart: cart, metadata: metadata }),
+            body: JSON.stringify(cart),
           });
 
           if (response.ok) {
@@ -199,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("cart");
             // Clear the cart array
             cart = [];
-            // displayCartItems();
           } else {
             throw new Error("Error occurred during checkout");
           }
@@ -211,4 +186,40 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   displayCartItems();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const ratingSuns = [...document.getElementsByClassName("bi bi-sun")];
+  const submitBtn = [...document.getElementsByClassName("submitRating")];
+  let rating = 0;
+  let resultInput;
+  const executeRating = (suns) => {
+    const sunClassActive = "bi bi-sun-fill";
+    const sunClassInactive = "bi bi-sun";
+
+    suns.map((sun) => {
+      sun.onclick = () => {
+        let i = suns.indexOf(sun);
+        resultInput =
+          sun.parentNode.parentNode.lastChild.previousElementSibling
+            .previousElementSibling;
+        if (sun.className === sunClassInactive) {
+          for (i; i >= 0; --i) suns[i].className = sunClassActive;
+          rating = sun.parentNode.previousElementSibling.value;
+          resultInput.value = rating;
+          console.log(rating);
+          console.log(resultInput);
+        } else {
+          for (i; i < suns.length; ++i) suns[i].className = sunClassInactive;
+          rating = sun.parentNode.previousElementSibling.value - 1;
+          if (rating === 0) rating += 1;
+          resultInput.value = rating;
+          console.log(rating);
+          console.log(resultInput);
+        }
+      };
+    });
+  };
+
+  executeRating(ratingSuns);
 });

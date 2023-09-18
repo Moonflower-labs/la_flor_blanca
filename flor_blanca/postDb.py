@@ -113,8 +113,7 @@ def save_customer_id(customer_id, email):
            
         
         else:
-        # Handle the case where the customer_id is None
-        # print a message or raise an exception
+       
               current_app.logger.info("Customer ID is None. Cannot save.")
 
 

@@ -1,6 +1,6 @@
 from flor_blanca.answers import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic
-from flask import render_template,session,request,flash,redirect,url_for,abort
+from flask import render_template,session,request,flash,redirect,url_for,abort,current_app
 from flor_blanca.postDb import get_links, get_db,get_videos
 
 @bp.route('/answers', methods=['GET'])
@@ -26,7 +26,38 @@ def basic():
     )
     posts = cursor.fetchall()
 
-    return render_template('answers/basic.html', posts=posts)
+    cursor.execute('SELECT SUM(rating),count(rating),post_id FROM post_rating GROUP BY post_id;')
+    results = cursor.fetchall()
+    scores=[]
+    for result in results:
+        scoreTotal = result[0]
+        scoreCount = result[1]
+        scorePost = result[2]
+        result={"scoreTotal":scoreTotal,"scoreCount":scoreCount,"scorePost":scorePost}
+        scores.append(result)
+   
+
+
+    return render_template('answers/basic.html', posts=posts,scores=scores)
+
+
+@bp.route('/rating', methods=['POST'])
+def rating():
+    if request.method == 'POST':
+        rating = request.form['result']
+        print(rating)
+        username = session.get('username')
+        post_id = request.args.get('post_id')
+
+        db = get_db()
+        cursor = db.cursor()
+        if rating and username:
+              cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
+              current_app.logger.info(" Rating saved successfully.")
+
+
+
+        return   redirect(url_for('answers.basic'))
 
 
 @bp.route('/medium')

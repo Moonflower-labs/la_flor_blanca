@@ -26,8 +26,7 @@
     />
   </head>
 
-  <body class="overflow-x-hidden">
-    <!-- <div class="wrapper"> -->
+  <body>
     <nav class="navbar navbar-expand-xxl sticky-top">
       <div class="container-fluid z-3">
         <a class="navbar-brand" href="{{url_for('index')}}"
@@ -147,10 +146,6 @@
       <div class="header container-fluid py-3 bg-body">
         <header class="text-center display-6 title fw-medium">
           {% block header %}{% endblock %}
-          <!-- <img
-            src="{{url_for('static',filename='images/logoFb.jpeg')}}"
-            alt="logo"
-          /> -->
         </header>
         {% for message in get_flashed_messages() %}
         <div class="flash text-center text-danger h4">{{ message }}</div>
@@ -208,6 +203,5 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
-    <!-- </div> -->
   </body>
 </html>
