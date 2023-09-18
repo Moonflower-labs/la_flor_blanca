@@ -163,7 +163,8 @@ endblock %} {% endblock %} {% block content %}
             <p class="h5 fw-bold title me-3">{{ post[3] }}</p>
             {% for score in scores %}{% if post[0] == score['scorePost'] %}
             <p class="title float-end">
-              {{score['scoreTotal']/score['scoreCount']}}/{{score['scoreCount']}}
+              {{(score['scoreTotal']/score['scoreCount'])|round(2)
+              }}/{{score['scoreCount']}}
             </p>
 
             {% endif %} {% endfor %}
