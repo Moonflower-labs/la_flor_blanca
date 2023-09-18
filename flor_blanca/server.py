@@ -335,7 +335,7 @@ def customer_portal():
         if user:
             customer_id = user[5]
                       
-            if customer_id is not None  :
+            if customer_id is not None:
 
                 try:
                 
