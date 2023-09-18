@@ -186,7 +186,7 @@ endblock %} {% endblock %} {% block content %}
         <p class="body">{{ post[4] }}</p>
         <form
           method="POST"
-          action="{{ url_for('answers.rating')}}?post_id={{post[0]}}"
+          action="{{ url_for('answers.rating',post_id=post[0])}}"
         >
           <p class="h6 mb-2 title">Valora esta respuesta</p>
           <div class="rating d-flex justify-content-center mb-2">
