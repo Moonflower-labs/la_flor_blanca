@@ -59,7 +59,7 @@ def index():
                         media.append(key)
                 if other:
                         media.append(other)
-                        user_id = session.get('id')
+                user_id = session.get('id')
             except Exception as e:
                 return str(e)
 
