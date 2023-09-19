@@ -119,7 +119,7 @@ def shop_checkout():
     shipping_raw_data = stripe.ShippingRate.list(
                
                 active=True,
-                limit=16
+                limit=50
         )
     shipping_data = shipping_raw_data['data']
     shipping_options = []

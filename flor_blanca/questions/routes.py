@@ -1,7 +1,7 @@
 from flor_blanca.questions import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
 from flor_blanca.postDb import save_message,get_db,tarot_query,live_query_save
-from flask import render_template,session,request,redirect,url_for,flash
+from flask import render_template,session,request,redirect,url_for,flash,current_app
 from flask_mail import Message
 from flor_blanca.extensions import mail
 from flor_blanca.auth  import increment_used_count,save_question_count,required_basic
@@ -57,6 +57,8 @@ def index():
                 for key, value in request.form.items():
                     if value == 'on':
                         media.append(key)
+                if other:
+                        media.append(other)
                         user_id = session.get('id')
             except Exception as e:
                 return str(e)
@@ -67,10 +69,6 @@ def index():
 
                 if used_questions < 3:
                     try:
-                        msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
-                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                        msg.body = f"email: {email},\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nheard of us:{media},\nage group: {age},\nother: {other},\n{country},\n{city}"
-                        mail.send(msg)
                                                                                                             
                         save_message(email, name, subject, question, gender, age, media, country, city,current_plan)
                         
@@ -79,6 +77,12 @@ def index():
                         used_questions = session.get('used_questions')
                         save_question_count()
                         remaining_question_count = max(3 - used_questions, 0) 
+
+                        msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
+                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
+                        msg.body = f"email: {email},\nPlan: {current_plan}\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nheard of us:{media},\nage group: {age},\n{country},\n{city}"
+                        mail.send(msg)
+                        current_app.logger.info(" Question sent to admin")
                        
                         return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                     
@@ -126,7 +130,7 @@ def save_tarot_query():
             if tarot_used_questions == 0:
                 try:
                     tarot_query(question,info,current_plan,email)
-                    # * UPDATE TAROT COUNT FOR USER 
+                   
                
                     cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0

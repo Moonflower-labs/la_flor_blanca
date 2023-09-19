@@ -92,8 +92,6 @@ def upload():
 
     return render_template('admin/uploads.html', username=username,name=name,action=action)
 
-
-
 # SPIRIT
 
 @bp.route('/videos/spirit', methods=['GET','POST'])
@@ -135,7 +133,6 @@ def videos_spirit():
 @is_admin
 def delete_video_spirit():
         
-
     if request.method == 'POST':
         link_id = int(request.form['id'])
         

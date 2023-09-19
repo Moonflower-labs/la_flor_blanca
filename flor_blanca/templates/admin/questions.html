@@ -5,20 +5,19 @@
     <thead class="sticky-top z-0">
       <tr>
         <th scope="col">ID</th>
+        <th scope="col">Created</th>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Subject</th>
+        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
+        <th scope="col" class="border px-4">Question</th>
+        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
+        <th scope="col">Gender</th>
+        <th scope="col">AgeGroup</th>
+        <th scope="col">Media Choice</th>
+        <th scope="col">Country</th>
+        <th scope="col">City</th>
         <th scope="col">Plan</th>
-        <th scope="col">email</th>
-        <th scope="col">created</th>
-        <th scope="col">name</th>
-        <th scope="col">subject</th>
-        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
-        <th scope="col" class="border px-4">question</th>
-        <th scope="col"><i class="bi bi-question-diamond px-4"></i></th>
-        <th scope="col">gender</th>
-        <th scope="col">age_group</th>
-        <th scope="col">media_choice</th>
-        <th scope="col">country</th>
-        <th scope="col">city</th>
-        <th scope="col">subscribe</th>
         <th scope="col">delete</th>
       </tr>
     </thead>
@@ -26,9 +25,8 @@
       {% for question in questions %}
       <tr>
         <th scope="row">{{question[0]}}</th>
-        <th scope="row">{{question[12]}}</th>
+        <th>{{question[12]}}</th>
         <td>{{question[1]}}</td>
-        <td>{{question[2]}}</td>
         <td>{{question[3]}}</td>
         <td>{{question[4]}}</td>
         <td colspan="3" class="border">{{question[5]}}</td>
@@ -38,7 +36,6 @@
         <td>{{question[9]}}</td>
         <td>{{question[10]}}</td>
         <td>{{question[11]}}</td>
-
         <td>
           <form action="{{url_for('admin.delete_question')}}" method="post">
             <input type="text" name="id" value="{{question[0]}}" hidden />
