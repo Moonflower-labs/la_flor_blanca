@@ -230,7 +230,7 @@ def webhook_received():
                 checkout_session.id,
                 expand=["line_items"],
                 )
-             shipping_address = retrieved_session.custom_text.shipping_details
+             shipping_address = retrieved_session.shipping_details
             
              print(f"shipping_address :{shipping_address}")
            
