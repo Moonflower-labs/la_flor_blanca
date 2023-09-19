@@ -254,7 +254,7 @@ def webhook_received():
            
                  formatted_order_string = '\n'.join(str(item) for item in formatted_order)
                  formatted_order_string = formatted_order_string.replace("'", "").replace("{", "").replace("}", "")
-                 msg.body = f"email: {email}\nCustomer ID: {customer_id}\n{formatted_order_string}"
+                 msg.body = f"email: {email}\nCustomer ID: {customer_id}\n{formatted_order_string}\nShipping Address :{shipping_address}"
            
                  mail.send(msg)
                  current_app.logger.info(' Email sent to admin')
