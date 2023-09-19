@@ -33,13 +33,19 @@ body {
 }
 section.home {
   background-image: url("./images/Image.png");
-  /* background-size: 100% 100%; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   color: rgb(255, 201, 24);
-
   text-shadow: 2px 1px 3px #948181;
+}
+div.homeBg {
+  background: linear-gradient(
+    45deg,
+    #2929c876,
+    rgba(66, 158, 207, 0.472),
+    rgba(162, 31, 188, 0.527)
+  );
 }
 h1.title {
   color: #e5e5e5;
