@@ -232,7 +232,6 @@ def webhook_received():
                 )
              shipping_address = retrieved_session.shipping_details
             
-             print(f"shipping_address :{shipping_address}")
            
              line_items = retrieved_session.line_items
              formatted_order =[]
