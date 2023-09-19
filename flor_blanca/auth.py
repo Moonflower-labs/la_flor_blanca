@@ -212,7 +212,6 @@ def required_soul_plan(view):
 def is_admin(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        email = session.get('email')
         role = session.get('role')  
 
         if role != 'admin':

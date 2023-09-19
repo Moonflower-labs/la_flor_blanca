@@ -36,17 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       // Check if the cart item already exists
-      const existingCartItemIndex = cart.findIndex(
+      const existingCartItem = cart.find(
         (item) => item.price_id === cartItem.price_id
       );
 
-      if (existingCartItemIndex > -1) {
+      if (existingCartItem > -1) {
         // Update the quantity if the cart item already exists
-        cart[existingCartItemIndex].quantity =
-          parseInt(cart[existingCartItemIndex].quantity) +
-          parseInt(cartItem.quantity);
+        existingCartItem.quantity =
+          parseInt(existingCartItem.quantity) + parseInt(cartItem.quantity);
+      } else {
+        cart.push(cartItem);
       }
-      cart.push(cartItem);
       // Store the cart items in local storage
       localStorage.setItem("cart", JSON.stringify(cart));
 

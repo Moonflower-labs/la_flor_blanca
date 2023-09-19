@@ -1,5 +1,5 @@
 from flor_blanca.answers import bp
-from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic
+from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic,is_admin
 from flask import render_template,session,request,flash,redirect,url_for,abort,current_app
 from flor_blanca.postDb import get_links, get_db,get_videos
 
@@ -77,14 +77,15 @@ def spirit_view():
     username = session.get('username')
     return render_template('answers/spirit.html',links=links,username=username)
 
-@bp.route('/coming-soon')
 
-@required_spirit_plan
+
+@bp.route('/coming-soon')
 def soon_view():
     return render_template('coming-soon.html')
 
 @bp.route('/create-post', methods=('GET', 'POST'))
 @login_required
+@is_admin
 def create():
     if request.method == 'POST':
         title = request.form['title']
@@ -114,7 +115,7 @@ def get_post(id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
-        'SELECT * FROM posts WHERE id = %s',(id,)
+        'SELECT title,body FROM posts WHERE id = %s',(id,)
     )
     post = cursor.fetchone()
 
@@ -138,29 +139,31 @@ def delete(id):
 
 
 
-# @bp.route('/<int:id>/update', methods=('GET', 'POST'))
-# @login_required
-# def update(id):
-#     post = get_post(id)   
-#     if request.method == 'POST':
-#         title = request.form['title']
-#         body = request.form['body']
-#         error = None
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+@is_admin
+def update(id):
+    post = get_post(id)   
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        error = None
 
-#         if not title:
-#             error = 'Title is required.'
+        if not title:
+            error = 'Title is required.'
 
-#         if error is not None:
-#             flash(error)
-#         else:
-#             db = get_db()
-#             db.execute(
-#                 'UPDATE posts SET title = ?, body = ?'
-#                 ' WHERE id = ?',
-#                 (title, body, id)
-#             )
-#             db.commit()
-#             return redirect(url_for('blog.index'))
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'UPDATE posts SET title = %s, body = %s'
+                ' WHERE id = %s',
+                (title, body, id)
+            )
+
+            return redirect(url_for('answers.basic'))
     
-#     return render_template('blog/update.html', post=post)
+    return render_template('answers/update.html', post=post)
 
