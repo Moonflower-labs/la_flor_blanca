@@ -277,10 +277,14 @@ def webhook_received():
                 customer = stripe.Customer.retrieve(customer_id)       
                 # Retrieve the email from the customer object
                 email = customer.email
+                current_app.logger.info(f" customer email: {email}")
+                current_app.logger.info(f" price_id : {price_id}")
                 db = get_db()
                 cursor = db.cursor()
                 cursor.execute('SELECT * FROM users WHERE email = %s ',(email,))
                 user = cursor.fetchone()
+                current_app.logger.info(f" user: {user}")
+                current_app.logger.info(f" subscription_status: {subscription_status}")
             
             
                 if user is not None:
