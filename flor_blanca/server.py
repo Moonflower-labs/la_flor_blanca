@@ -120,7 +120,9 @@ def products():
 
 @bp.route('/shop_checkout', methods=['POST'])
 def shop_checkout():
-   
+    email = session.get('email')
+    user = get_user_by_email(email)
+    customer_id = user[5]
     shipping_raw_data = stripe.ShippingRate.list(
                
                 active=True,
@@ -130,12 +132,12 @@ def shop_checkout():
     shipping_options = []
 
     for item in shipping_data :
-        if item.metadata =={ "app": "florblanca"}:
+        if item.metadata == { "app": "florblanca"}:
             item = {"shipping_rate": item.id}
             shipping_options.append(item)
   
   
-    customer_id = session.get('customer_id')
+
     cart = request.json
     line_items = []
    
