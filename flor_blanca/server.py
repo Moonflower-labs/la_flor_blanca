@@ -225,10 +225,8 @@ def webhook_received():
               
              email = customer.email     
              get_user_by_email(email)
-             session['customer_id']= customer_id
-        
-                # Save the customer ID in database
-               # save_customer_id(customer_id, email)
+
+ 
 
              retrieved_session = stripe.checkout.Session.retrieve(
                 checkout_session.id,
@@ -265,22 +263,62 @@ def webhook_received():
              except Exception as e:
                  
                  return current_app.logger.warning(str(e))
-        
+             
+
+        elif event.type == 'customer.subscription.created':
+                stripe_subscription = event.data.object
+                 # Retrieve the subscription ID, cus id, price id, prod id
+                subscription_id = stripe_subscription['id']
+                customer_id = stripe_subscription['customer']
+                price_id = stripe_subscription['items']['data'][0]['plan']['id']
+                product_id = stripe_subscription['items']['data'][0]['plan']['product']
+                subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
+                 # Retrieve the customer object from the Stripe API
+                customer = stripe.Customer.retrieve(customer_id)       
+                # Retrieve the email from the customer object
+                email = customer.email
+                db = get_db()
+                cursor = db.cursor()
+                cursor.execute('SELECT * FROM users WHERE email = %s ',(email,))
+                user = cursor.fetchone()
+            
+            
+                if user is not None:
+                    
+                    if subscription_status == True:
+                        subscription_status = "active"
+                    else:
+                        subscription_status = "inactive"    
+                           
+                        cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
+                    
+                        current_app.logger.info(f" Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
+
+
+
+
+
         elif event.type == 'customer.created':
             customer = event.data.object     
             customer_id = customer['id']
-            email = customer.email    
+            email = customer.email   
+           
 
             user = get_user_by_email(email)
             if user:
-                if user[5] is not None and user[5] == customer_id:
+                if user[5] is not None:
                     current_app.logger.info(' User and Customer ID already in the system')
                 else:
                     # Save the customer ID in database
                     save_customer_id(customer_id, email)
+                       
+          
+                    
 
-            else:
-                current_app.logger.info(' unkown customer!')
+
+           
+
+
         elif event.type == 'customer.subscription.updated':
             stripe_subscription = event.data.object
 
@@ -301,7 +339,7 @@ def webhook_received():
             
             
             if user is not None:
-                if user[5] == customer_id:
+                
                     if subscription_status == True:
                         subscription_status = "active"
                     else:

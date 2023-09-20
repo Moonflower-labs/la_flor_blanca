@@ -175,17 +175,19 @@ def required_spirit_plan(view):
 
         if role == 'admin':
             return view(**kwargs)
+        
+        else:
 
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
-        subscription_plan = cursor.fetchone()
-
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
+            subscription_plan = cursor.fetchone()
+         
     
-        if  subscription_plan is None or subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
-            message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
-            flash(message)
-            return redirect(url_for('index'))
+            if  subscription_plan is None or subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
+                 message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
+                 flash(message)
+                 return redirect(url_for('index'))
 
         return view(**kwargs)
 
@@ -205,6 +207,7 @@ def required_soul_plan(view):
         cursor = db.cursor()
         cursor.execute('SELECT subscription_plan FROM users WHERE email = %s', (email,))
         subscription_plan = cursor.fetchone()
+
        
         if  subscription_plan is None or  subscription_plan[0]  != 'price_1Ng3KKAEZk4zaxmwLuapT9kg' and subscription_plan[0] != 'price_1Ng3GzAEZk4zaxmwyZRkXBiW' :
             message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
