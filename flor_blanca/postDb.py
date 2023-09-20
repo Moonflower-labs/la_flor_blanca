@@ -2,10 +2,7 @@
 import psycopg2
 import click
 from flask import current_app, g
-"""g is a special object that is unique for each request. 
-It is used to store data that might be accessed by multiple functions during the request.
- The connection is stored and reused instead of creating a new connection if get_db is
-   called a second time in the same request."""
+
 
 def get_db():
     if 'db' not in g:
@@ -40,7 +37,7 @@ def init_db():
        
        
 
-@click.command('init-db') # defines a new command line command
+@click.command('init-db') # define new command line command
 def init_db_command():
     #  Clear the existing data and create new tables.
     init_db()
@@ -108,8 +105,8 @@ def save_customer_id(customer_id, email):
         if customer_id is not None:
 
             cursor.execute('UPDATE users SET customer_id = %s WHERE email = %s', (customer_id, email))
-            # db.commit()
-            current_app.logger.info(f"Customer ID {customer_id} has been saved ")
+           
+            current_app.logger.info(f" Customer ID {customer_id} has been saved ")
            
         
         else:
@@ -128,7 +125,7 @@ def save_message(*args):
         VALUES (%s, %s, %s, %s , %s, %s, %s, %s, %s, %s)
     """, (args[0], args[1], args[2], args[3], args[4], args[5], media, args[7], args[8], args[9]))
     
-    # db.commit()
+
     current_app.logger.info(" Message correctly saved to questions table")
 
 def tarot_query(*args): 

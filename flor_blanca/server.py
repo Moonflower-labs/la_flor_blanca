@@ -166,7 +166,7 @@ def shop_checkout():
                 customer_update={'address':'auto','shipping':'auto'},
                 locale='auto',
                 custom_text={'shipping_address':{'message':'Rellena la dirección postal, y escoge el método de envío adecuado para tu producto/s.'},
-                             'submit':{'message':'Gracias por apoyar  La Misión'}},
+                             'submit':{'message':'Gracias por apoyar La Misión'}},
                 invoice_creation={'enabled':'true'},
                 shipping_address_collection={'allowed_countries':[ 'AC', 'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ', 'BR', 'BS', 'BT', 'BV', 'BW', 'BY', 'BZ', 'CA', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CV', 'CW', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'EH', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GF', 'GG', 'GH', 'GI', 'GL', 'GM', 'GN', 'GP', 'GQ', 'GR', 'GS', 'GT', 'GU', 'GW', 'GY', 'HK', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IO', 'IQ', 'IS', 'IT', 'JE', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MK', 'ML', 'MM', 'MN', 'MO', 'MQ', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PS', 'PT', 'PY', 'QA', 'RE', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SE', 'SG', 'SH', 'SI', 'SJ', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'SS', 'ST', 'SV', 'SX', 'SZ', 'TA', 'TC', 'TD', 'TF', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VN', 'VU', 'WF', 'WS', 'XK', 'YE', 'YT', 'ZA', 'ZM', 'ZW',  'ZZ']}
                
@@ -217,17 +217,13 @@ def webhook_received():
         current_app.logger.info(event.type)
    
         if event.type == 'checkout.session.completed' :  
-             checkout_session = event.data.object     
-             
-             customer_id = checkout_session['customer']       
-              
-             customer = stripe.Customer.retrieve(customer_id)       
-              
+             checkout_session = event.data.object                 
+             customer_id = checkout_session['customer']                  
+             customer = stripe.Customer.retrieve(customer_id)                
              email = customer.email     
-             get_user_by_email(email)
+
 
  
-
              retrieved_session = stripe.checkout.Session.retrieve(
                 checkout_session.id,
                 expand=["line_items"],
@@ -266,8 +262,7 @@ def webhook_received():
              
 
         elif event.type == 'customer.subscription.created':
-                stripe_subscription = event.data.object
-               
+                stripe_subscription = event.data.object       
                 customer_id = stripe_subscription['customer']
                 price_id = stripe_subscription['items']['data'][0]['plan']['id']
                 subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
@@ -305,10 +300,9 @@ def webhook_received():
            
 
             user = get_user_by_email(email)
-            if user:
-                if user[5] is not None:
-                    current_app.logger.info(' User and Customer ID already in the system')
-                else:
+            if user and user[5] is not None:
+                    current_app.logger.info(f" User and with Customer ID: {customer_id} already in the system")
+            else:
                     # Save the customer ID in database
                     save_customer_id(customer_id, email)
                        

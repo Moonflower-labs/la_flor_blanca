@@ -134,9 +134,11 @@ def save_tarot_query():
                
                     cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
+
+                    # SEND MAIL TO ADMIN
                     msg = Message('Pregunta TAROT para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
+                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question},\nInfo: {info}"
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
 
@@ -156,7 +158,6 @@ def save_tarot_query():
 @required_spirit_plan
 def live_query():
         email= session.get('email')
-        username = session.get('username')
         question = request.form.get('questionLive')
         db = get_db()
         cursor = db.cursor()
