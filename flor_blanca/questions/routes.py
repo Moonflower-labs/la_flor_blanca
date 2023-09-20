@@ -38,7 +38,7 @@ def index():
         elif  plan[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
             current_plan = "ALMA"
         elif plan[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
-            current_plan = "SPÍRITU"
+            current_plan = "ESPÍRITU"
 
         if request.method == 'POST':
             user_id = session.get('user_id')
@@ -98,11 +98,11 @@ def index():
 @bp.route('/questions/sent', methods=['GET', 'POST'])
 @login_required
 def message_sent():
-
+    username = session.get('username')
     remaining_question_count = request.args.get('remaining_question_count')
     
 
-    return render_template('questions/sent.html', remaining_question_count=remaining_question_count)
+    return render_template('questions/sent.html', remaining_question_count=remaining_question_count,username=username)
 
 
 
@@ -172,7 +172,7 @@ def live_query():
             elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
                 current_plan = "ALMA"
             elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
-                current_plan = "SPÍRITU"
+                current_plan = "ESPÍRITU"
 
             if live_used_questions == 0:
                 try:

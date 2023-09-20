@@ -1,9 +1,14 @@
-{% extends 'base.html' %} {% block header %} {% block title %}Preguntas {%
-endblock %} {% endblock %} {% block content %}
+{% extends 'base.html' %} {% block header %} {% block title %}Pronto recibirás
+tu respuesta{% endblock %} {% endblock %} {% block content %}
 
 <div class="container">
   <div class="row text-center align-items-center">
-    <div class="col-md-6 mx-auto mb-3">{% include 'logo.html' %}</div>
+    <div class="col-md-6 mx-auto mb-3">
+      <div class="col-md-6 text-center mx-auto mb-3">
+        <p class="h5 mb-3">Gracias {{username}}</p>
+        {% include ('logo.html') %}
+      </div>
+    </div>
     <div class="col-md-6 mx-auto mb-3">
       <p class="h3">Mensaje enviado</p>
       <p>Gracias por tu pregunta</p>
