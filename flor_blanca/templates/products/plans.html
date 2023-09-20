@@ -13,7 +13,7 @@
               alt=""
               width="300"
               height="300"
-              class="img-fluid rounded-2"
+              class="img-fluid rounded-2 logo"
             />
           </div>
           <ul class="list-unstyled text-start p-3">
@@ -61,7 +61,7 @@
               alt=""
               width="300"
               height="300"
-              class="img-fluid rounded-2"
+              class="img-fluid rounded-2 logo"
             />
           </div>
           <ul class="list-unstyled text-start p-3">
@@ -113,7 +113,7 @@
               alt=""
               width="300"
               height="300"
-              class="img-fluid rounded-2"
+              class="img-fluid rounded-2 logo"
             />
           </div>
           <ul class="list-unstyled text-start p-3">
@@ -149,6 +149,44 @@
               class="btn btn-lg btn-outline-dark"
             >
               Comprar por £14,95/mes
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mx-auto mb-3">
+      <div class="card text-center shadow h-100 plan1">
+        <div class="card-header fw-bold h3">ADMINISTRA TU SUSCRIPCIÓN</div>
+        <div class="card-body">
+          <div class="text-center my-3">
+            <img
+              src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
+              alt="logo"
+              class="rounded-2 shadow logo"
+              width="200px"
+              height="200px"
+            />
+          </div>
+          <p class="h5 py-3">
+            Accede al
+            <span class="text-warning fw-medium">customer portal</span> para
+            realizar cualquiera de las siguientes operaciones:
+          </p>
+          <ul class="list-unstyled text-start p-3">
+            <li>Cancela tu suscripción</li>
+            <li>Cambia tu plan de suscripción</li>
+            <li>Modifica o actualiza el método de pago</li>
+            <li>Modifica o actualiza tu dirección de correo</li>
+            <li>Ver historial de facturas</li>
+          </ul>
+          <form action="{{ url_for('stripe.customer_portal') }}" method="post">
+            <input type="hidden" name="email" value="{{ email }}" />
+            <button
+              type="submit"
+              class="btn btn-lg btn-outline-dark mx-1 rounded-2"
+            >
+              Portal del Cliente
             </button>
           </form>
         </div>
