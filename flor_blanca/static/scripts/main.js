@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         (item) => item.price_id === cartItem.price_id
       );
 
-      if (existingCartItem > -1) {
+      if (existingCartItem) {
         // Update the quantity if the cart item already exists
         existingCartItem.quantity =
           parseInt(existingCartItem.quantity) + parseInt(cartItem.quantity);
