@@ -209,7 +209,7 @@ def webhook_received():
    
 
     if stored_event :
-        current_app.logger.info(" Event has already been processed.")
+        current_app.logger.info(f" Event has already been processed.\nEvent: {event.type}")
         return jsonify(success=True)
     else:
         cursor.execute('INSERT INTO webhooks(event_id) VALUES (%s)',(event_id,))
@@ -268,23 +268,17 @@ def webhook_received():
         elif event.type == 'customer.subscription.created':
                 stripe_subscription = event.data.object
                
-                subscription_id = stripe_subscription['id']
                 customer_id = stripe_subscription['customer']
                 price_id = stripe_subscription['items']['data'][0]['plan']['id']
-                product_id = stripe_subscription['items']['data'][0]['plan']['product']
                 subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
-                 # Retrieve the customer object from the Stripe API
                 customer = stripe.Customer.retrieve(customer_id)       
-                # Retrieve the email from the customer object
                 email = customer.email
-                current_app.logger.info(f" customer email: {email}")
-                current_app.logger.info(f" price_id : {price_id}")
+   
                 db = get_db()
                 cursor = db.cursor()
                 cursor.execute('SELECT * FROM users WHERE email = %s ',(email,))
                 user = cursor.fetchone()
-                current_app.logger.info(f" user: {user}")
-                current_app.logger.info(f" subscription_status: {subscription_status}")
+
             
             
                 if user is not None:
@@ -300,7 +294,7 @@ def webhook_received():
 
                 else:
 
-                        current_app.logger.warning(f" Subcription details could not be saved")
+                    current_app.logger.warning(f" Subcription details could not be saved")
 
 
 
@@ -328,21 +322,16 @@ def webhook_received():
         elif event.type == 'customer.subscription.updated':
             stripe_subscription = event.data.object
 
-            # Retrieve the subscription ID, cus id, price id, prod id
-            subscription_id = stripe_subscription['id']
             customer_id = stripe_subscription['customer']
             price_id = stripe_subscription['items']['data'][0]['plan']['id']
-            product_id = stripe_subscription['items']['data'][0]['plan']['product']
             subscription_status = stripe_subscription['items']['data'][0]['plan']['active']
-            # Retrieve the customer object from the Stripe API
             customer = stripe.Customer.retrieve(customer_id)       
-            # Retrieve the email from the customer object
+
             email = customer.email
             db = get_db()
             cursor = db.cursor()
             cursor.execute('SELECT * FROM users WHERE customer_id = %s ',(customer_id,))
             user = cursor.fetchone()
-            
             
             if user is not None:
                 
@@ -353,7 +342,7 @@ def webhook_received():
                            
                     cursor.execute("""UPDATE users SET subscription_status = %s,subscription_plan=%s WHERE customer_id=%s  """,(subscription_status,price_id,customer_id))
                     
-                    current_app.logger.info(f" Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
+                    current_app.logger.info(f" Customer subscription Successfully Updated\n User: {user[1]}'s details.\nSubscription Status: {subscription_status}\nPrice_id: {price_id}")
 
         elif event.type == 'payment_intent.succeeded':
             payment_intent = event.data.object
