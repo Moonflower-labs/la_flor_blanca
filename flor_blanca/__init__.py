@@ -78,7 +78,8 @@ def create_app(test_config=None):
     def index():
        
         username = session.get('username') 
-        return render_template('index.html',username=username)
+        email = session.get('email') 
+        return render_template('index.html',username=username,email=email)
 
     from flor_blanca import auth
     app.register_blueprint(auth.bp)
@@ -98,11 +99,11 @@ def create_app(test_config=None):
     app.register_blueprint(server.bp)
 
 
-    @app.route('/dashboard')
-    def dashboard():
+    @app.route('/help')
+    def help_page():
        email = session.get('email')
        username = session.get('username')
-       return render_template('user/dashboard.html',email=email,username=username)
+       return render_template('user/help.html',email=email,username=username)
 
 
 

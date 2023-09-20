@@ -188,7 +188,7 @@ endblock %} {% endblock %} {% block content %}
           La Flor Blanca el {{ post[2].strftime('%d-%m-%Y') }}
         </div>
 
-        <p class="body">{{ post[4] }}</p>
+        <p class="body text-start">{{ post[4] }}</p>
         <form
           method="POST"
           action="{{ url_for('answers.rating',post_id=post[0])}}"
