@@ -10,6 +10,12 @@
       Tu apoyo y confianza significan mucho para nosotros.
     </p>
     <p>Para cualquier operación o problema ve al portal del cliente</p>
+    <form action="{{ url_for('stripe.customer_portal') }}" method="post">
+      <input type="hidden" name="email" value="{{ email }}" />
+      <button type="submit" class="btn btn-lg btn-outline-dark mx-1 rounded-2">
+        Portal del Cliente
+      </button>
+    </form>
   </div>
 </div>
 
