@@ -174,6 +174,21 @@ def view_users():
     users = cursor.fetchall()
     return render_template('admin/users.html', users=users)
 
+# Users by plan basic
+@bp.route('/filtered_users/<key>')
+@login_required
+@is_admin
+def filtered_users(key):
+    subscription_plan = key
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT id,username,email,customer_id,subscription_plan,subscription_status,used_questions,tarot_used_questions,live_used_questions FROM users WHERE subscription_plan=%s',(subscription_plan,))
+    users = cursor.fetchall()
+   
+
+    return render_template('admin/filtered_users.html', users=users)
+    
+
 # Preguntas
     
 @bp.route('/view_questions')

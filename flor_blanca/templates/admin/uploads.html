@@ -2,11 +2,13 @@
 endblock %} {% endblock %} {% block content %}
 <div class="container">
   <div class="row my-2 align-items-center">
-    {% include 'admin/panel.html' %}
+    <div class="col-md-4 border-3 border-info rounded-2 my-3 mx-auto h-100">
+      {% include 'admin/panel.html' %}
+    </div>
     <div class="col-md-8 text-center">
       <div class="col-md-6 text-center mx-auto">
         <form action="{{action}}" method="post">
-          <label for="link" class="form-label"
+          <label for="link" class="form-label mb-3"
             >Inserte el link del <strong>{{name}}</strong></label
           >
           <input type="text" name="link" class="form-control mb-3" id="link" />
@@ -28,7 +30,7 @@ endblock %} {% endblock %} {% block content %}
 
           <button
             type="submit"
-            class="btn w-25 btn-outline-info rounded-1 mb-3"
+            class="btn w-50 btn-outline-info rounded-1 mb-3"
           >
             Aceptar
           </button>

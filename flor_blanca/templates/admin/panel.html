@@ -1,103 +1,121 @@
-<div class="col-md-4 border-3 border-info rounded-2 my-3 mh-50 admin">
-  <ul class="list-unstyled mb-3 list-group text">
-    <li class="list-group-item list-group-item-action active">
-      LINKS ALMA<i class="bi bi-link float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.show_links')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver o
-        <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
-        <strong>VIDEO</strong><i class="bi bi-camera-video-fill float-end"></i
-      ></a>
-    </li>
+<ul class="list-unstyled list-group h-100 w-auto">
+  <li class="list-group-item list-group-item-action active">
+    LINKS ALMA<i class="bi bi-link float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.show_links')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver o
+      <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
+      <strong>VIDEO</strong><i class="bi bi-camera-video-fill float-end"></i
+    ></a>
+  </li>
 
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.upload')}}"
-        class="link-info link-underline-opacity-0"
-        ><i class="bi bi-plus-square-fill"></i> Añadir
-        <strong>VIDEO</strong> Link
-        <i class="bi bi-camera-video-fill float-end"></i
-      ></a>
-    </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.upload')}}"
+      class="link-info link-underline-opacity-0"
+      ><i class="bi bi-plus-square-fill"></i> Añadir <strong>VIDEO</strong> Link
+      <i class="bi bi-camera-video-fill float-end"></i
+    ></a>
+  </li>
 
-    <li class="list-group-item list-group-item-action active">
-      LINKS SPÍRITU<i class="bi bi-link float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.view_videos_spirit')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver o
-        <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
-        <strong>VIDEO</strong> links<i
-          class="bi bi-camera-video-fill float-end"
-        ></i
-      ></a>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.videos_spirit')}}"
-        class="link-info link-underline-opacity-0"
-        ><i class="bi bi-plus-square-fill"></i> Añadir
-        <strong>VIDEO</strong> Link
-        <i class="bi bi-camera-video-fill float-end"></i
-      ></a>
-    </li>
+  <li class="list-group-item list-group-item-action active">
+    LINKS SPÍRITU<i class="bi bi-link float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.view_videos_spirit')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver o
+      <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
+      <strong>VIDEO</strong> links<i
+        class="bi bi-camera-video-fill float-end"
+      ></i
+    ></a>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.videos_spirit')}}"
+      class="link-info link-underline-opacity-0"
+      ><i class="bi bi-plus-square-fill"></i> Añadir <strong>VIDEO</strong> Link
+      <i class="bi bi-camera-video-fill float-end"></i
+    ></a>
+  </li>
 
-    <li class="list-group-item list-group-item-action active">
-      PREGUNTAS<i class="bi bi-chat-text-fill float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.view_questions')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver todas</a
+  <li class="list-group-item list-group-item-action active">
+    PREGUNTAS<i class="bi bi-chat-text-fill float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.view_questions')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver todas</a
+    >
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <form action="{{url_for('admin.wipe_questions')}}" method="post">
+      <button
+        class="admin link-danger fw-bold"
+        type="submit"
+        onclick="return confirm('Confirma que quieres borrar todas las preguntas');"
       >
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <form action="{{url_for('admin.wipe_questions')}}" method="post">
-        <button
-          class="admin link-danger fw-bold"
-          type="submit"
-          onclick="return confirm('Confirma que quieres borrar todas las preguntas');"
-        >
-          <i class="bi bi-trash-fill"></i>Borrar todas
-        </button>
-      </form>
-    </li>
-    <li class="list-group-item list-group-item-action active">
-      PREGUNTAS TAROT<i class="bi bi-chat-text-fill float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.view_tarot_questions')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver todas</a
-      >
-    </li>
-    <li class="list-group-item list-group-item-action active">
-      PREGUNTAS LIVE<i class="bi bi-chat-text-fill float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.live_question')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver todas</a
-      >
-    </li>
+        <i class="bi bi-trash-fill"></i>Borrar todas
+      </button>
+    </form>
+  </li>
+  <li class="list-group-item list-group-item-action active">
+    PREGUNTAS TAROT<i class="bi bi-chat-text-fill float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.view_tarot_questions')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver todas</a
+    >
+  </li>
+  <li class="list-group-item list-group-item-action active">
+    PREGUNTAS LIVE<i class="bi bi-chat-text-fill float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.live_question')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver todas</a
+    >
+  </li>
 
-    <li class="list-group-item list-group-item-action active">
-      USUARIOS<i class="bi bi-people-fill float-end"></i>
-    </li>
-    <li class="list-group-item list-group-item-action">
-      <a
-        href="{{url_for('admin.view_users')}}"
-        class="link-info link-underline-opacity-0"
-        >Ver todos
-      </a>
-    </li>
-  </ul>
-</div>
+  <li class="list-group-item list-group-item-action active">
+    USUARIOS<i class="bi bi-people-fill float-end"></i>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.view_users')}}"
+      class="link-info link-underline-opacity-0"
+      >Ver todos
+    </a>
+  </li>
+
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.filtered_users',key='price_1Ng3CfAEZk4zaxmwMXEF9bfR')}}"
+      class="link-info link-underline-opacity-0"
+      >Personalidad
+    </a>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.filtered_users',key='price_1Ng3GzAEZk4zaxmwyZRkXBiW') }}"
+      class="link-info link-underline-opacity-0"
+      >Alma
+    </a>
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <a
+      href="{{url_for('admin.filtered_users',key='price_1Ng3KKAEZk4zaxmwLuapT9kg') }}"
+      class="link-info link-underline-opacity-0"
+      >Espíritu
+    </a>
+  </li>
+</ul>
