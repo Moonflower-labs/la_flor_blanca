@@ -64,8 +64,9 @@ def success():
   
 @bp.route('/purchase_success')
 def purchase_success():
+    username= session.get('username')
 
-    return render_template('products/success.html')
+    return render_template('products/success.html',username=username)
 
 @bp.route('/cancel')
 def cancel():
@@ -118,7 +119,7 @@ def products():
 
 @bp.route('/shop_checkout', methods=['POST'])
 def shop_checkout():
-   
+    username= session.get('username')
     shipping_raw_data = stripe.ShippingRate.list(
                
                 active=True,
