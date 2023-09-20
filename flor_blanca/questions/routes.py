@@ -80,7 +80,7 @@ def index():
 
                         msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                        msg.body = f"email: {email},\nPlan: {current_plan}\nname: {name},\nsubject: {subject},\ngender: {gender},\nquestion: {question},\nheard of us:{media},\nage group: {age},\n{country},\n{city}"
+                        msg.body = f"Email: {email},\nPlan: {current_plan}\nName: {name},\nSubject: {subject},\nGender: {gender},\nQuestion: {question},\nHeard of us:{media},\nAge group: {age},\n{country},\n{city}"
                         mail.send(msg)
                         current_app.logger.info(" Question sent to admin")
                        
@@ -134,6 +134,11 @@ def save_tarot_query():
                
                     cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
+                    msg = Message('Pregunta ALMA para La Flor Blanca!', sender='admin@thechicnoir.com',
+                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
+                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
+                    mail.send(msg)
+                    current_app.logger.info(" Question sent to admin")
 
                     return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                 except Exception as e:
@@ -172,6 +177,12 @@ def live_query():
                     # * UPDATE LIVE COUNT FOR USER                
                     cursor.execute('UPDATE users SET live_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
+
+                    msg = Message('Pregunta ALMA para La Flor Blanca!', sender='admin@thechicnoir.com',
+                                  recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
+                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
+                    mail.send(msg)
+                    current_app.logger.info(" Question sent to admin")
 
                     return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                 except Exception as e:

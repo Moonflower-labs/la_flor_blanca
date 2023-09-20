@@ -146,7 +146,7 @@
           {% block header %}{% endblock %}
         </header>
         {% for message in get_flashed_messages() %}
-        <div class="flash text-center text-danger h4">{{ message }}</div>
+        <div class="flash text-center text-danger h4 my-2">{{ message }}</div>
         {% endfor %}
       </div>
     </section>
@@ -192,7 +192,12 @@
             </div>
           </div>
           <div class="col text-end align-self-end">
-            <p>&copy; La Flor Blanca 2023.</p>
+            <p>&copy; La Flor Blanca 2023</p>
+            <a
+              href="https://moonflower-labs.github.io/Moonflowerlabs/"
+              class="link-warning link-underline-opacity-50"
+              >Website by Moonflower Labs</a
+            >
           </div>
         </div>
       </div>
