@@ -267,7 +267,7 @@ def webhook_received():
 
         elif event.type == 'customer.subscription.created':
                 stripe_subscription = event.data.object
-                 # Retrieve the subscription ID, cus id, price id, prod id
+               
                 subscription_id = stripe_subscription['id']
                 customer_id = stripe_subscription['customer']
                 price_id = stripe_subscription['items']['data'][0]['plan']['id']
@@ -298,7 +298,9 @@ def webhook_received():
                     
                         current_app.logger.info(f" Successfully saved {user[1]}'s details.\nsubscription_status: {subscription_status}\nprice_id: {price_id}")
 
+                else:
 
+                        current_app.logger.warning(f" Subcription details could not be saved")
 
 
 
