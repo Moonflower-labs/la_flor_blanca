@@ -175,13 +175,6 @@ endblock %} {% endblock %} {% block content %}
         {% endif %}
         <div class="rating text-center align-items-center mx-auto">
           <p class="h5 fw-bold title me-3">{{ post[3] }}</p>
-          {% for score in scores %}{% if post[0] == score['scorePost'] %}
-          <p class="title">
-            {{(score['scoreTotal']/score['scoreCount'])|round(2)
-            }}/{{score['scoreCount']}}
-          </p>
-
-          {% endif %} {% endfor %}
         </div>
 
         <div class="text-info mb-3">
@@ -194,7 +187,14 @@ endblock %} {% endblock %} {% block content %}
           action="{{ url_for('answers.rating',post_id=post[0])}}"
         >
           <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
-            Valora esta respuesta
+            Valora esta respuesta {% for score in scores %}{% if post[0] ==
+            score['scorePost'] %}
+            <span class="title ms-4">
+              {{(score['scoreTotal']/score['scoreCount'])|round(2)
+              }}/{{score['scoreCount']}}
+            </span>
+
+            {% endif %} {% endfor %}
           </p>
           <div class="d-none">
             <div class="rating d-flex justify-content-center mb-2">
