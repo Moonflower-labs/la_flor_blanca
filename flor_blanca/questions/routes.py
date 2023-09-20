@@ -1,5 +1,5 @@
 from flor_blanca.questions import bp
-from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan
+from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,is_admin
 from flor_blanca.postDb import save_message,get_db,tarot_query,live_query_save
 from flask import render_template,session,request,redirect,url_for,flash,current_app
 from flask_mail import Message
@@ -160,17 +160,19 @@ def live_query():
         question = request.form.get('questionLive')
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
-        results = cursor.fetchone()
-        live_used_questions = results[1]
-        if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
-            current_plan = "PERSONALIDAD"
-        elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
-            current_plan = "ALMA"
-        elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
-            current_plan = "SPÍRITU"
 
         if request.method == 'POST':
+          
+            cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
+            results = cursor.fetchone()
+            live_used_questions = results[1]
+            if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
+                current_plan = "PERSONALIDAD"
+            elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+                current_plan = "ALMA"
+            elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+                current_plan = "SPÍRITU"
+
             if live_used_questions == 0:
                 try:
                     live_query_save(question,current_plan,email)
@@ -195,4 +197,45 @@ def live_query():
                 return redirect(url_for('questions.live_query'))
             
         else:
-            return render_template('questions/live.html')
+            cursor.execute('SELECT *  FROM live_sessions')
+            live_sessions = cursor.fetchall()
+            print(live_sessions)
+        
+            return render_template('questions/live.html',live_sessions=live_sessions)
+        
+
+
+@bp.route('/add/live_session', methods=['POST'])
+@login_required
+@is_admin
+def add_live_session():
+    link = request.form.get('link')
+    title = request.form.get('title')
+    description = request.form.get('description')
+    extra_info = request.form.get('extra_info')
+
+    db = get_db()
+    cursor= db.cursor()
+    cursor.execute('INSERT INTO live_sessions(link,title,description,extra_info)VALUES(%s,%s,%s,%s) ',(link,title,description,extra_info))
+    message = " Sesión guardada con éxito"
+    flash(message)
+
+    return redirect(url_for('questions.live_query'))
+
+
+
+
+@bp.route('/delete/live_session', methods=['POST'])
+@login_required
+@is_admin
+def delete_live_session(): 
+    link = request.form.get('link_id')
+    print(link)
+
+    db = get_db()
+    cursor= db.cursor()
+    cursor.execute('DELETE FROM live_sessions WHERE id=%s',(link,))
+    message = " Sesión eliminada con éxito"
+    flash(message)
+
+    return redirect(url_for('questions.live_query'))

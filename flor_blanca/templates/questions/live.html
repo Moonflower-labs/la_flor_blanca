@@ -26,9 +26,8 @@
   </div>
 
   <div class="row my-4 justify-content-center text-center mx-auto">
-    <p class="h2 title">PREGUNTA CON RESPUESTA EN DIRECTO</p>
-
     <div class="col-md-6">
+      <p class="h2 title">PREGUNTA CON RESPUESTA EN DIRECTO</p>
       <form
         action="{{url_for('questions.live_query')}}"
         method="POST"
@@ -58,6 +57,104 @@
         </div>
       </form>
     </div>
+  </div>
+  <div class="row my-4 justify-content-center text-center mx-auto">
+    <div class="col-md-6">
+      <p class="h2 title">SESIONES EN DIRECTO</p>
+      <p class="h3 mb-3">Encuentra el link para la sessión a continuación:</p>
+      {% for link in live_sessions %}
+      <div class="border border-2 rounded-3 p-3 mb-3 shadow shadow-md">
+        <a
+          role="button"
+          href="{{link[2]}}"
+          class="link-info link-underline-opacity-0"
+          target="_blank"
+        >
+          <i class="bi bi-play-fill h2 me-3"></i> {{link[3]}}</a
+        >
+        {% if session['role']=='admin' %}
+        <form
+          action="{{url_for('questions.delete_live_session')}}"
+          method="post"
+          class="float-end"
+        >
+          <input
+            type="text"
+            id="link_id"
+            name="link_id"
+            value="{{link[0]}}"
+            hidden
+          />
+          <button
+            class="btn btn-sm"
+            type="submit"
+            onclick="return confirm('Confirma que quieres borrar este link');"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </form>
+
+        {% endif %} {% if link[4] and link[4].strip() != "" %}
+        <p class="fw-bold my-2">Descripción</p>
+        <p>{{link[4]}}</p>
+        {% endif %} {% if link[5] and link[5].strip() != "" %}
+        <p class="fw-bold mb-2">Información adicional</p>
+        <p>{{link[5]}}</p>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row my-4 justify-content-center text-center mx-auto">
+    {% if session['role']=='admin' %}
+    <div class="col-md-8 mx-auto my-3">
+      <form method="post" action="{{url_for('questions.add_live_session')}}">
+        <p class="h4 mb-3 title">Añadir un link</p>
+        <label for="link">Link</label>
+        <input
+          name="link"
+          type="text"
+          id="link"
+          required
+          class="form-control mb-3"
+        />
+        <label for="title">Title</label>
+        <input
+          name="title"
+          type="text"
+          id="title"
+          required
+          class="form-control mb-3"
+        />
+        <label for="description">Descripción</label>
+        <textarea
+          name="description"
+          id="description"
+          class="form-control mb-3"
+          rows="14"
+          cols="50"
+        >
+        </textarea>
+        <label for="extra_info">Extra Info</label>
+        <textarea
+          name="extra_info"
+          id="extra_info"
+          class="form-control mb-3"
+          rows="4"
+          cols="50"
+        >
+        </textarea>
+        <div class="text-center">
+          <input
+            type="submit"
+            value="Save"
+            class="btn btn-lg rounded-2 btn-success"
+          />
+        </div>
+      </form>
+    </div>
+
+    {% endif %}
   </div>
 </div>
 
