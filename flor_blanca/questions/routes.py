@@ -134,7 +134,7 @@ def save_tarot_query():
                
                     cursor.execute('UPDATE users SET tarot_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
-                    msg = Message('Pregunta ALMA para La Flor Blanca!', sender='admin@thechicnoir.com',
+                    msg = Message('Pregunta TAROT para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
                     msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
                     mail.send(msg)
@@ -178,7 +178,7 @@ def live_query():
                     cursor.execute('UPDATE users SET live_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
 
-                    msg = Message('Pregunta ALMA para La Flor Blanca!', sender='admin@thechicnoir.com',
+                    msg = Message('Pregunta LIVE para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
                     msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
                     mail.send(msg)
