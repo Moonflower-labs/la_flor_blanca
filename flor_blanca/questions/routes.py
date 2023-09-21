@@ -159,6 +159,7 @@ def save_tarot_query():
 def live_query():
         email= session.get('email')
         question = request.form.get('questionLive')
+        username = session.get('username')
         db = get_db()
         cursor = db.cursor()
 
@@ -202,7 +203,7 @@ def live_query():
             live_sessions = cursor.fetchall()
             print(live_sessions)
         
-            return render_template('questions/live.html',live_sessions=live_sessions)
+            return render_template('questions/live.html',live_sessions=live_sessions,username=username)
         
 
 

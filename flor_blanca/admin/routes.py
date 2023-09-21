@@ -12,7 +12,9 @@ def index():
         if session['role'] != 'admin':
             return redirect(url_for('auth.denied'))
         else:
-            return render_template('admin/index.html')
+            username = session.get('username')
+
+            return render_template('admin/index.html',username=username)
         
 
 @bp.route('/links/show')
@@ -21,19 +23,20 @@ def index():
 def show_links():
     db = get_db()
     cursor = db.cursor()
+    username = session.get('username')
     
     try:
                         
         cursor.execute("SELECT * FROM videos_soul ORDER BY id DESC  ")
         results = cursor.fetchall()
        
-        return render_template('admin/soul.html', results=results)
+        return render_template('admin/soul.html', results=results,username=username)
               
         
     except :
             pass
     
-    return render_template('admin/soul.html')
+    return render_template('admin/soul.html',username=username)
 
 
 
@@ -168,25 +171,26 @@ def view_videos_spirit():
 @login_required
 @is_admin
 def view_users():
+    username = session.get('username')
     db = get_db()
     cursor = db.cursor()
     cursor.execute('SELECT * FROM users ORDER BY id ASC')
     users = cursor.fetchall()
-    return render_template('admin/users.html', users=users)
+    return render_template('admin/users.html', users=users,username=username)
 
 # Users by plan basic
 @bp.route('/filtered_users/<key>')
 @login_required
 @is_admin
 def filtered_users(key):
+    username = session.get('username')
     subscription_plan = key
     db = get_db()
     cursor = db.cursor()
     cursor.execute('SELECT id,username,email,customer_id,subscription_plan,subscription_status,used_questions,tarot_used_questions,live_used_questions FROM users WHERE subscription_plan=%s',(subscription_plan,))
     users = cursor.fetchall()
-   
-
-    return render_template('admin/filtered_users.html', users=users)
+ 
+    return render_template('admin/filtered_users.html', users=users,username=username)
     
 
 # Preguntas
@@ -195,11 +199,12 @@ def filtered_users(key):
 @login_required
 @is_admin
 def view_questions():
+    username = session.get('username')
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM questions;")  
     questions = cursor.fetchall()
-    return render_template('admin/questions.html', questions=questions)
+    return render_template('admin/questions.html', questions=questions,username=username)
 
 #   Borrar por ID
 
@@ -252,11 +257,12 @@ def wipe_questions():
 @login_required
 @is_admin
 def view_tarot_questions():
+    username = session.get('username')
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM tarot;")  
     questions = cursor.fetchall()
-    return render_template('admin/tarot.html', questions=questions)
+    return render_template('admin/tarot.html', questions=questions,username=username)
 
 
 
@@ -302,9 +308,10 @@ def live_question():
     
             
       else:
+        username = session.get('username')
         db = get_db()
         cursor = db.cursor()
         cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM live;")  
         questions = cursor.fetchall()
           
-        return render_template('admin/live.html',questions=questions)
+        return render_template('admin/live.html',questions=questions,username=username)

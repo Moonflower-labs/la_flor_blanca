@@ -18,6 +18,7 @@ def index():
 @login_required
 @required_basic
 def basic():
+    username = session.get('username')
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
@@ -38,7 +39,7 @@ def basic():
    
 
 
-    return render_template('answers/basic.html', posts=posts,scores=scores)
+    return render_template('answers/basic.html', posts=posts,scores=scores,username=username)
 
 
 @bp.route('/rating', methods=['POST'])

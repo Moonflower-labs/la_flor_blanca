@@ -84,6 +84,7 @@ def products():
     products = []
     has_more_products = True
     starting_after_product = None
+    username=session.get('username')
    
     while has_more_products:
         product_list = stripe.Product.search(
@@ -113,7 +114,7 @@ def products():
 
 
 
-    return render_template('products/shop.html', products=products, skus=skus)
+    return render_template('products/shop.html', products=products, skus=skus,username=username)
 
 
 
