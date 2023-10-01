@@ -339,15 +339,11 @@ def webhook_received():
                     
                     current_app.logger.info(f" Customer subscription Successfully Updated\n User: {user[1]}'s details.\nSubscription Status: {subscription_status}\nPrice_id: {price_id}")
 
-        elif event.type == 'payment_intent.succeeded':
-            payment_intent = event.data.object
-        
 
 
-        elif event.type == 'subscription_schedule.canceled':
+        elif event.type == 'customer.subscription.deleted':
             stripe_subscription = event.data.object
             customer_id = stripe_subscription['customer']
-            price_id = stripe_subscription['phases'][0]['items'][0]['price']
             status = stripe_subscription['status']
 
          
@@ -358,9 +354,23 @@ def webhook_received():
         
         
             if user is not None:
-                    cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',("inactive",None,customer_id))
+                    cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',(None,None,customer_id))
                     db.commit()
-                    current_app.logger.info(' Customer subscription canceled, plan succesfully deleted')
+                    current_app.logger.info(f' Customer subscription {status}, plan succesfully deleted from Database')
+
+
+
+        elif event.type == 'payment_intent.succeeded':
+            payment_intent = event.data.object
+        
+
+
+        elif event.type == 'subscription_schedule.canceled':
+            stripe_subscription = event.data.object
+            customer_id = stripe_subscription['customer']
+            price_id = stripe_subscription['phases'][0]['items'][0]['price']            
+                    
+            current_app.logger.info(f' Customer subscription schedule canceled, customer id : {customer_id}')
 
         
         

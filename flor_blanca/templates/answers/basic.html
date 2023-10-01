@@ -185,6 +185,8 @@ endblock %} {% endblock %} {% block content %}
         <form
           method="POST"
           action="{{ url_for('answers.rating',post_id=post[0])}}"
+          id="form-{{ loop.index }}"
+          class="my-form"
         >
           <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
             Valora esta respuesta {% for score in scores %}{% if post[0] ==

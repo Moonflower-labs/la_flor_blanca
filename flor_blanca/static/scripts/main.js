@@ -189,11 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const ratingSuns = [...document.getElementsByClassName("bi bi-sun")];
   const ratePost = [...document.getElementsByClassName("ratePost")];
-  let rating = 0;
-  let resultInput;
-  const executeRating = (suns) => {
+
+  const executeRating = (suns, form) => {
     const sunClassActive = "bi bi-sun-fill";
     const sunClassInactive = "bi bi-sun";
 
@@ -201,34 +199,33 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.onclick = (e) => {
         const ratingElement = e.target.nextSibling.nextSibling;
         ratingElement.classList.toggle("d-none");
-        resetSun();
       };
     });
 
     suns.map((sun) => {
       sun.onclick = () => {
         let i = suns.indexOf(sun);
-        resultInput =
+        const resultInput =
           sun.parentNode.parentNode.lastChild.previousElementSibling
             .previousElementSibling;
         if (sun.className === sunClassInactive) {
           for (i; i >= 0; --i) suns[i].className = sunClassActive;
-          rating = sun.parentNode.previousElementSibling.value;
+          const rating = sun.parentNode.previousElementSibling.value;
           resultInput.value = rating;
         } else {
           for (i; i < suns.length; ++i) suns[i].className = sunClassInactive;
-          rating = sun.parentNode.previousElementSibling.value - 1;
+          let rating = sun.parentNode.previousElementSibling.value - 1;
           if (rating === 0) rating += 1;
           resultInput.value = rating;
         }
       };
     });
-    resetSun = () => {
-      suns.map((sun) => {
-        sun.className = sunClassInactive;
-      });
-    };
   };
 
-  executeRating(ratingSuns);
+  // Iterate over each form element and execute the rating logic separately for each form
+  const forms = document.getElementsByTagName("form");
+  for (let i = 0; i < forms.length; i++) {
+    const ratingSunsForForm = [...forms[i].getElementsByClassName("bi bi-sun")];
+    executeRating(ratingSunsForForm, forms[i]);
+  }
 });
