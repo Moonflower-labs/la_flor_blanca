@@ -1,4 +1,7 @@
 import functools,os
+import secrets
+from flask_mail import Message
+from flor_blanca.extensions import mail
 
 from flask import(
     Blueprint, flash , g, redirect, render_template, request, 
@@ -39,7 +42,7 @@ def register():
                 )
 
             except db.IntegrityError:
-                error = f"User {username} is already registered."
+                error = f"Nombre de usuario o email ya está registrado."
             else:
                 return redirect(url_for("auth.login"))
         
@@ -156,7 +159,7 @@ def required_basic(view):
         user = cursor.fetchone()
         customer_id = user[0]
     
-        if  customer_id is None or customer_id == '' :
+        if  customer_id is None:
                         message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
                         flash(message)
                         return redirect(url_for('index'))
@@ -237,4 +240,93 @@ def is_admin(view):
 def denied():
 
     return render_template('auth/denied.html')
+
+
+
+
+@bp.route('/reset_password',methods=['POST','GET'])
+def reset_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        # generate cookie
+        secret_token = secrets.token_hex(16)
+        # save cookie to users details
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute('UPDATE users set password_recovery=%s WHERE email=%s',(secret_token,email))
+
+
+        try:     
+             
+                 msg = Message('Resetea tu contraseña con la Flor Blanca', sender='admin@thechicnoir.com',
+                                  recipients=[email])
+           
+           
+               
+                 msg.body = f"Has recibido este email porque te has olvidado tu contraseña. Utiliza el siguiente código para proceder:\n{secret_token}"
+           
+                 mail.send(msg)
+                 current_app.logger.info(' Email sent to user')
+
+                 return redirect(url_for('auth.validate_password_reset',email=email))
+
+        except Exception as e:
+                 
+                 return current_app.logger.warning(str(e))
+
+    return render_template('auth/resetPassword.html')
+
+
+
+
+@bp.route('/validate_password_reset',methods=['POST','GET'])
+def validate_password_reset():
+     if request.method== 'POST':
+       cookie = request.form.get('cookie')
+       email = request.args.get('email')
+       if validate_cookie(cookie,email):
+            
+            return redirect(url_for('auth.newPassword',email=email))
+       
+       else:
+            error='El código no coincide con nuestros records'
+            flash(error)
+            return redirect(url_for('auth.login'))
+     
+     return render_template('auth/cookie_validate.html')
+       
+
+
+
+@bp.route('/newPassword',methods=['POST','GET'])
+def newPassword():
+      email = request.args.get('email')
+      if request.method== 'POST':
+           password = request.form.get('password')
+           db= get_db()
+           cursor = db.cursor()
+           cursor.execute( "UPDATE users set password=%s,password_recovery=%s WHERE email=%s",
+                    ( generate_password_hash(password),None, email),) 
+           return redirect(url_for('auth.login'))
+
+      return render_template('auth/newPassword.html')
+
+
+
+
+
+def validate_cookie(cookie,email):
+     
+     db = get_db()
+     cursor = db.cursor()
+     cursor.execute('SELECT password_recovery FROM users WHERE email=%s',(email,))
+     stored_cookie = cursor.fetchone()
+     if stored_cookie[0]!=cookie:
+          return False
+     else:
+          return True
+     
+     
+
+
 

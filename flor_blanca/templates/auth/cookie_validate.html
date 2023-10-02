@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% block header %}
 <p class="fw-75 display-6 text-center title">
-  {% block title %}Iniciar Sesión{% endblock %}{% endblock %}
+  {% block title %}Resetea tu Contraseña{% endblock %}{% endblock %}
 </p>
 {% block content %}
 
@@ -17,23 +17,8 @@
   <div class="col-md-6 mx-auto mt-5">
     <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
       <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          name="email"
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="name@example.com"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          name="password"
-          type="password"
-          class="form-control"
-          id="password"
-        />
+        <label for="cookie" class="form-label">Código </label>
+        <input name="cookie" type="password" class="form-control" id="cookie" />
       </div>
       <div class="mb-3 text-center">
         <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
@@ -49,10 +34,6 @@
 <div class="my-5">
   <p class="h4 text-center">
     ¿No estás registrado? <a href="{{url_for('auth.register')}}">Registro</a>
-  </p>
-  <p class="h4 text-center">
-    ¿Has olvidado tu contraseña?
-    <a href="{{url_for('auth.reset_password')}}">Resetear Contraseña</a>
   </p>
 </div>
 

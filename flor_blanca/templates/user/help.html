@@ -357,9 +357,9 @@
             data-bs-toggle="collapse"
             data-bs-target="#collapse13"
             aria-expanded="false"
-            aria-controls="collapse12"
+            aria-controls="collapse13"
           >
-            Accordion Item #13
+            13. Olvidé la contraseña de mi cuenta.
           </button>
         </h2>
         <div
@@ -368,14 +368,47 @@
           data-bs-parent="#accordionHelp"
         >
           <div class="accordion-body">
-            <strong>This is the third item's accordion body.</strong> It is
-            hidden by default, until the collapse plugin adds the appropriate
-            classes that we use to style each element. These classes control the
-            overall appearance, as well as the showing and hiding via CSS
-            transitions. You can modify any of this with custom CSS or
-            overriding our default variables. It's also worth noting that just
-            about any HTML can go within the <code>.accordion-body</code>,
-            though the transition does limit overflow.
+            Pincha el siguiente
+            <a href="{{url_for('auth.reset_password')}}">enlace</a> para
+            resetear tu contraseña. Una vez que insertes el email utilizado para
+            el registro en nuestra página te enviaremos un código a dicho email.
+            a continuación serás redireccionado/a a una página en la que debes
+            de insertar el código. Recomendamos copiar y pegar para asegurarte
+            de que el código coincida. una vez que el código introducido es
+            comprobado tendrás la opción de elegir una contraseña nueva.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse14"
+            aria-expanded="false"
+            aria-controls="collapse14"
+          >
+            14. Quiero dejar de ser miembro de la página sin cancelar mi plan de
+            suscripción
+          </button>
+        </h2>
+        <div
+          id="collapse14"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body">
+            Mandanos un email a admin@thechicnoir.com y eliminaremos tu
+            membresia inmediatamente. Si en un futuro quieres acceder a tu plan
+            necesitarás registrate de nuevo para tener acceso a esta sección de
+            miembros y a tu plan de suscripción. No puedes acceder a ningún
+            contenido (incluido el gratuito), de tu plan de suscripción sin ser
+            miembro también. Para cancelar tu plan de suscripción debes hacerlo
+            en el Portal del Cliente antes de que eliminemos tu membresía para
+            evitar pagos recurrentes no deseados esoecialmente si estás en los
+            planes Alma o Espíritu.
           </div>
         </div>
       </div>

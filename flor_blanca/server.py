@@ -311,7 +311,12 @@ def webhook_received():
                     # Save the customer ID in database
                     save_customer_id(customer_id, email)
                        
-          
+        elif event.type == 'customer.deleted':
+            customer = event.data.object
+            customer_id = customer['id']
+     
+           
+            current_app.logger.info(f' Customer with id: {customer_id} succesfully deleted from STRIPE')
               
 
 
@@ -360,6 +365,12 @@ def webhook_received():
                     db.commit()
                     current_app.logger.info(f' Customer subscription {status}, plan succesfully deleted from Database')
 
+                    try:
+                          stripe.Customer.delete(customer_id)
+
+                    except Exception as e:
+                        error_msg= str(e)
+                        current_app.logger.warning(f'The following error has ocurred: \n{error_msg}')    
 
         
 
