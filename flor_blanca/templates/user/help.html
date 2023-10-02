@@ -359,11 +359,42 @@
             aria-expanded="false"
             aria-controls="collapse13"
           >
-            13. Olvidé la contraseña de mi cuenta.
+            13. ¿Por qué no me llega mi pedido?😣
           </button>
         </h2>
         <div
           id="collapse13"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body">
+            Asegúrate que escogiste el método de envío adecuado. Puede que
+            seleccionaste la opción gratuita mi producto no necesita ser
+            entregado 'Free my product doesn't need a delivery'. En ese caso
+            nada te será enviado. Revisa tu email donde habrás recibido un
+            enlace de pago con la diferencia a abonar para tu entrega o ponte en
+            contacto con nosotros por email: admin@thechicnoir.com. Hasta que no
+            recibimos el pago completo correspondiente de tu compra, no
+            recibirás tu pedido.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse14"
+            aria-expanded="false"
+            aria-controls="collapse14"
+          >
+            14. Olvidé la contraseña de mi cuenta 😱
+          </button>
+        </h2>
+        <div
+          id="collapse14"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionHelp"
         >
@@ -386,15 +417,15 @@
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#collapse14"
+            data-bs-target="#collapse15"
             aria-expanded="false"
-            aria-controls="collapse14"
+            aria-controls="collapse15"
           >
-            14. Quiero borrar mi cuenta
+            15. Quiero borrar mi cuenta 🤬
           </button>
         </h2>
         <div
-          id="collapse14"
+          id="collapse15"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionHelp"
         >
@@ -402,12 +433,14 @@
             Para eliminar tu cuenta asegúrate de que has cancelado tu
             suscripción. Una vez cancelada podrás ver la fecha de cancelación en
             el portal del cliente y proceder a la eleminación de tu cuenta
-            después de dicha fecha.Pincha en el enlace para borrar tu cuenta
+            después de dicha fecha.
+            <br />
+            Pincha en el enlace para borrar tu cuenta
             <br />
             <a href="{{url_for('auth.delete_account')}}">Borrar mi cuenta</a>
             <br />
-            Recuerda que no puedes acceder a ningún contenido (incluido el
-            gratuito), sin ser miembro.
+            Recuerda que no puedes acceder a ningún contenido sin ser miembro
+            <span class="fw-bold">una vez que borraste tu cuenta.</span>.
           </div>
         </div>
       </div>

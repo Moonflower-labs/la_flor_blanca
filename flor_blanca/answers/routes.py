@@ -27,14 +27,15 @@ def basic():
     )
     posts = cursor.fetchall()
 
-    cursor.execute('SELECT SUM(rating),count(rating),post_id FROM post_rating GROUP BY post_id;')
+    cursor.execute('SELECT SUM(rating),count(rating),post_id,username FROM post_rating GROUP BY post_id,username;')
     results = cursor.fetchall()
     scores=[]
     for result in results:
         scoreTotal = result[0]
         scoreCount = result[1]
         scorePost = result[2]
-        result={"scoreTotal":scoreTotal,"scoreCount":scoreCount,"scorePost":scorePost}
+        scoreUser = result[3]
+        result={"scoreTotal":scoreTotal,"scoreCount":scoreCount,"scorePost":scorePost,"scoreUser":scoreUser}
         scores.append(result)
    
 
