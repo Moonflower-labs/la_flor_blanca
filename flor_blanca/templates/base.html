@@ -100,11 +100,12 @@
                 >Sesión en Directo</a
               >
             </li>
-
-            {% if g.user %}
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('help_page') }}">Ayuda</a>
             </li>
+
+            {% if g.user %}
+
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.logout') }}"
                 >Cerrar Sesión</a
@@ -129,14 +130,15 @@
             </li>
 
             {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('auth.register') }}"
-                >Registrate</a
-              >
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('auth.login')}}"
                 >Iniciar Sesión</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('auth.register') }}"
+                >Registrate</a
               >
             </li>
             {% endif %}

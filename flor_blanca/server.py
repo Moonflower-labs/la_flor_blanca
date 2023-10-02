@@ -275,9 +275,13 @@ def webhook_received():
                 cursor.execute('SELECT * FROM users WHERE email = %s ',(email,))
                 user = cursor.fetchone()
 
-            
-            
                 if user is not None:
+                     
+                    if user[5] is None:
+                        save_customer_id(customer_id, email)
+            
+            
+                
                     
                     if subscription_status == True:
                         subscription_status = "active"
@@ -308,10 +312,7 @@ def webhook_received():
                     save_customer_id(customer_id, email)
                        
           
-                    
-
-
-           
+              
 
 
         elif event.type == 'customer.subscription.updated':
@@ -351,17 +352,15 @@ def webhook_received():
             cursor = db.cursor()
             cursor.execute('SELECT * FROM users WHERE customer_id= %s ', (customer_id,))
             user = cursor.fetchone()
+            user_id = user[0]
         
         
             if user is not None:
-                    cursor.execute('UPDATE users SET subscription_plan=%s, subscription_status=%s WHERE customer_id= %s ',(None,None,customer_id))
+                    cursor.execute('UPDATE users SET subscription_plan=%s, customer_id=%s, subscription_status=%s WHERE id=%s ',(None,None,None,user_id))
                     db.commit()
                     current_app.logger.info(f' Customer subscription {status}, plan succesfully deleted from Database')
 
 
-
-        elif event.type == 'payment_intent.succeeded':
-            payment_intent = event.data.object
         
 
 
