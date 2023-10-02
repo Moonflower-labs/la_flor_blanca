@@ -312,7 +312,7 @@
         >
           <div class="accordion-body">
             Depende de por que via se responda: por escrito entre 24 y 48 horas.
-            Por audio entre 48 y 72 horas, por video entre 3 a 5 días
+            Por audio entre 48 y 72 horas, por video entre 3 a 5 días
             aproximadamente.
           </div>
         </div>
@@ -390,8 +390,7 @@
             aria-expanded="false"
             aria-controls="collapse14"
           >
-            14. Quiero dejar de ser miembro de la página sin cancelar mi plan de
-            suscripción
+            14. Quiero borrar mi cuenta
           </button>
         </h2>
         <div
@@ -400,15 +399,15 @@
           data-bs-parent="#accordionHelp"
         >
           <div class="accordion-body">
-            Mandanos un email a admin@thechicnoir.com y eliminaremos tu
-            membresia inmediatamente. Si en un futuro quieres acceder a tu plan
-            necesitarás registrate de nuevo para tener acceso a esta sección de
-            miembros y a tu plan de suscripción. No puedes acceder a ningún
-            contenido (incluido el gratuito), de tu plan de suscripción sin ser
-            miembro también. Para cancelar tu plan de suscripción debes hacerlo
-            en el Portal del Cliente antes de que eliminemos tu membresía para
-            evitar pagos recurrentes no deseados esoecialmente si estás en los
-            planes Alma o Espíritu.
+            Para eliminar tu cuenta asegúrate de que has cancelado tu
+            suscripción. Una vez cancelada podrás ver la fecha de cancelación en
+            el portal del cliente y proceder a la eleminación de tu cuenta
+            después de dicha fecha.Pincha en el enlace para borrar tu cuenta
+            <br />
+            <a href="{{url_for('auth.delete_account')}}">Borrar mi cuenta</a>
+            <br />
+            Recuerda que no puedes acceder a ningún contenido (incluido el
+            gratuito), sin ser miembro.
           </div>
         </div>
       </div>

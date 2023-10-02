@@ -328,5 +328,29 @@ def validate_cookie(cookie,email):
      
      
 
+@bp.route('/delete_account',methods=['POST','GET'])
+@login_required
+def delete_account():
+      email = session.get('email')
+      if request.method== 'POST':
+           db= get_db()
+           cursor = db.cursor()
+           cursor.execute( "SELECT customer_id,subscription_status,subscription_plan FROM users WHERE email=%s",
+                    (email,)) 
+           user = cursor.fetchone()
+           if user[0] is None and user[1] is None and user[2] is None:
+                cursor.execute( "DELETE FROM users WHERE email=%s",( email,)) 
+                current_app.logger.info(f'User with email: {email} succesfully deleted from Database')
+                session.clear()
+                message = 'Tu cuenta ha sido eliminada'
+                flash(message)
+                
+                return redirect(url_for('index'))
+           
+           else:
+                message = 'Tu cuenta no se ha podido borrar porque todavía tiene una suscripción activa'
+                flash(message)
+                return redirect(url_for('index'))
 
+      return render_template('auth/deleteAccount.html')
 
