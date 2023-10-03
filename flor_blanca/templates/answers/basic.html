@@ -222,14 +222,12 @@ endblock %} {% endblock %} {% block content %}
           class="my-form"
         >
           <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
-            Valora esta respuesta {% for score in scores %}{% if post[0] ==
-            score['scorePost'] %}
-            <span class="title ms-4">
+            Valora esta respuesta
+            <span class="title ms-4"
+              >{% for score in scores %}{% if post[0] == score['scorePost'] %}
               {{(score['scoreTotal']/score['scoreCount'])|round(2)
-              }}/{{score['scoreCount']}}
+              }}/{{score['scoreCount']}} {% endif %} {% endfor %}
             </span>
-
-            {% endif %} {% endfor %}
           </p>
           <div class="d-none">
             <div class="rating d-flex justify-content-center mb-2">

@@ -188,10 +188,10 @@ document.addEventListener("DOMContentLoaded", () => {
   displayCartItems();
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const ratePost = [...document.getElementsByClassName("ratePost")];
 
-  const executeRating = (suns, form) => {
+  const executeRating = (suns) => {
     const sunClassActive = "bi bi-sun-fill";
     const sunClassInactive = "bi bi-sun";
 
@@ -229,7 +229,8 @@ document.addEventListener("DOMContentLoaded", function () {
     executeRating(ratingSunsForForm, forms[i]);
   }
 });
-document.addEventListener("DOMContentLoaded", function () {
+
+document.addEventListener("DOMContentLoaded", () => {
   const accordionTitle = document.querySelectorAll(".helpTitle");
   const searchBox = document.getElementById("search");
   const searchForm = document.getElementById("searchForm");
@@ -261,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("search1");
   const postTitles = document.querySelectorAll(".postArticle");
   const searchForm1 = document.getElementById("searchForm1");
