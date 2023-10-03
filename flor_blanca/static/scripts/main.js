@@ -235,20 +235,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchForm = document.getElementById("searchForm");
 
   if (searchBox) {
-    searchBox.addEventListener("change", (e) => {
+    searchBox.addEventListener("input", (e) => {
       searchBox.value = e.target.value;
+
+      searchTitle(searchBox.value);
     });
 
     searchForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      searchTitle(searchBox.value);
     });
   }
   const searchTitle = (search) => {
-    search = searchBox.value.toLowerCase(); // Convert search query to lowercase
+    search = searchBox.value.toLowerCase();
 
     Array.from(accordionTitle).forEach((title) => {
-      const titleText = title.textContent.toLowerCase(); // Convert title to lowercase
+      const titleText = title.textContent.toLowerCase();
 
       if (titleText.includes(search)) {
         title.style.display = "block";
