@@ -258,7 +258,7 @@ def reset_password():
 
         try:     
              
-                 msg = Message('Resetea tu contraseña con la Flor Blanca', sender='admin@thechicnoir.com',
+                 msg = Message('Resetea tu contraseña con La Flor Blanca', sender='admin@thechicnoir.com',
                                   recipients=[email])
            
            
