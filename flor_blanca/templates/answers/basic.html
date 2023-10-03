@@ -170,8 +170,25 @@ endblock %} {% endblock %} {% block content %}
   <div class="row text-center mb-4">
     <p class="h2 mb-3 title">Respuestas de Blog</p>
   </div>
+  <div>
+    <form id="searchForm1">
+      <div class="input-group mb-3">
+        <label for="search1" hidden></label>
+
+        <input
+          id="search1"
+          type="text"
+          class="form-control rounded-1"
+          placeholder="Buscar"
+        />
+        <button class="btn btn-sm">
+          <i class="bi bi-search" role="button"></i>
+        </button>
+      </div>
+    </form>
+  </div>
   {% for post in posts %}
-  <article class="container">
+  <article class="container postArticle">
     <div class="row justify-content-center align-items-center">
       <div class="col-12 text-center mx-auto">
         {% if session['role'] == 'admin' %}
@@ -190,7 +207,7 @@ endblock %} {% endblock %} {% block content %}
         </div>
         {% endif %}
         <div class="text-center align-items-center mx-auto">
-          <p class="h5 fw-bold title me-3">{{ post[3] }}</p>
+          <p class="h5 fw-bold title postTitle me-3">{{ post[3] }}</p>
         </div>
 
         <div class="text-info mb-3">
@@ -270,11 +287,12 @@ endblock %} {% endblock %} {% block content %}
         </form>
       </div>
     </div>
+    {% if not loop.last %}
+    <hr class="title border-5" />
+    {% endif %}
   </article>
 
-  {% if not loop.last %}
-  <hr class="title border-5" />
-  {% endif %} {% endfor %}
+  {% endfor %}
 </div>
 
 {% endblock %}

@@ -259,3 +259,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("search1");
+  const postTitles = document.querySelectorAll(".postArticle");
+  const searchForm1 = document.getElementById("searchForm1");
+
+  if (searchInput) {
+    searchForm1.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    searchInput.addEventListener("input", (e) => {
+      searchInput.value = e.target.value;
+      searchPost(searchInput.value);
+    });
+  }
+
+  const searchPost = (search) => {
+    search = searchInput.value.toLowerCase();
+
+    Array.from(postTitles).forEach((title) => {
+      const titleText = title.textContent.toLowerCase();
+
+      if (titleText.includes(search)) {
+        title.style.display = "block";
+      } else {
+        title.style.display = "none";
+      }
+    });
+  };
+});
