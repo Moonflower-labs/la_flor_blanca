@@ -22,8 +22,8 @@ def create_checkout_session():
     user = get_user_by_email(email)
     customer_id =user[5]
     
-   
-    if customer_id is not None and price_id is not None:
+
+    if customer_id is not None:
         try:
        
             return  redirect(url_for('stripe.customer_portal')) 
@@ -306,7 +306,11 @@ def webhook_received():
 
             user = get_user_by_email(email)
             if user and user[5] is not None:
-                    current_app.logger.info(f" User and with Customer ID: {customer_id} already in the system")
+                    if user[5] != customer_id:
+                        current_app.logger.info(f" User and with Customer ID: {user[5]} already in the system, has been assigned new Stripe customer with ID: {customer_id}")
+                    else:
+                        current_app.logger.info(f" User and with Customer ID: {customer_id} already in the system")
+                         
             else:
                     # Save the customer ID in database
                     save_customer_id(customer_id, email)

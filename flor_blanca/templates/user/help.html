@@ -32,9 +32,24 @@
     <p class="h5 mb-4 mx-auto text-center">
       A continuación están las preguntas y soluciones más frecuentes:
     </p>
+    <form id="searchForm">
+      <div class="input-group mb-3">
+        <label for="search " hidden></label>
+
+        <input
+          id="search"
+          type="text"
+          class="form-control rounded-1"
+          placeholder="Buscar"
+        />
+        <button class="btn btn-sm">
+          <i class="bi bi-search" role="button"></i>
+        </button>
+      </div>
+    </form>
     <div class="accordion mb-4" id="accordionHelp">
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -58,7 +73,7 @@
         </div>
       </div>
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -76,17 +91,16 @@
           data-bs-parent="#accordionHelp"
         >
           <div class="accordion-body">
-            Necesitas ser miembro: registrarte en la página o iniciar sesión si
-            ya te registraste para poder disfrutar de los descuentos y/o
-            ofertas. No necesitas escoger ninguno de los tres planes de
-            suscripción, sólo registrarte en la página para tener acceso a la
-            tienda.
+            Necesitas ser miembro: registrarte en la página y escoger uno de los
+            tres Planes (Personalidad, Alma o Espíritu) o iniciar sesión si ya
+            te registraste con uno de los tres Planes para poder disfrutar de
+            los descuentos y/o ofertas.
           </div>
         </div>
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -111,7 +125,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -137,7 +151,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -162,7 +176,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -187,7 +201,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -213,7 +227,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -240,7 +254,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -266,7 +280,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -293,7 +307,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -311,15 +325,15 @@
           data-bs-parent="#accordionHelp"
         >
           <div class="accordion-body">
-            Depende de por que via se responda: por escrito entre 24 y 48 horas.
-            Por audio entre 48 y 72 horas, por video entre 3 a 5 días
+            Depende de por cual via se responda: por escrito entre 24 y 48
+            horas. Por audio entre 48 y 72 horas, por video entre 3 a 5 días
             aproximadamente.
           </div>
         </div>
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -350,7 +364,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -381,7 +395,7 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
@@ -390,11 +404,110 @@
             aria-expanded="false"
             aria-controls="collapse14"
           >
-            14. Olvidé la contraseña de mi cuenta 😱
+            14. ¿Por qué los pagos de mi Plan de suscripción varían de precio
+            entre un mes y otro?🤑
           </button>
         </h2>
         <div
           id="collapse14"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body">
+            Probablemente hayas cambiado o actualizado tu Plan en medio de tu
+            facturación mensual y hayas transicionado de uno más caro a otro más
+            económico. Ejemplo: pasar del Plan Espíritu a otro más económico
+            Alma o pasar de Alma a Personalidad. Como el cambio de planes es
+            efectivo inmediatamente, la diferencia de precio entre un Plan y
+            otro se te queda en el balance de tu cuenta puesto que no hay
+            devolución. Lo mismo que si accedes a un plan superior, de Alma a
+            Espíritu, de un plan más económico a uno más caro se te cobraría
+            sólo la diferencia de precio entre los días restantes de tu plan
+            anterior más económico (Alma) y el precio del nuevo Plan (Espíritu)
+            inmediatamente. Este exceso de balance o crédito de cambiar a un
+            plan más económico se usa como descuento en tu siguiente facturación
+            de tu Plan actual.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header helpTitle">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse15"
+            aria-expanded="false"
+            aria-controls="collapse15"
+          >
+            15. ¿Cómo funciona la facturación mensual?🙄
+          </button>
+        </h2>
+        <div
+          id="collapse15"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body">
+            Incluye desde el día que te registraste hasta el mismo día del mes
+            siguiente. Si te registraste a un Plan el 3 de Enero, la facturación
+            mensual sería del 3 de Enero al 3 de Febrero del mes siguiente. Si
+            escogiste tu Plan el 28 de Febrero, la facturación mensual sería del
+            28 de Febrero al 28 de Marzo del mes siguiente etc., etc.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header helpTitle">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse16"
+            aria-expanded="false"
+            aria-controls="collapse16"
+          >
+            16. ¿Qué pasa cuando cambio de Plan?🤔
+          </button>
+        </h2>
+        <div
+          id="collapse16"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body">
+            Cuando actualizas tu Plan de suscripción tu facturación mensual
+            cambia y empieza el día en que escogiste tu Nuevo Plan de
+            suscripción hasta el mismo día del mes siguiente. Ejemplo: si empece
+            con un plan inicial Espíritu el 3 de Enero, mi facturación
+            terminaría el 3 de Febrero del mes siguiente. Si el 15 de Enero
+            decido cambiar del Plan Espíritu a Alma; mi nueva facturación ya no
+            termina el 3 de Febrero sino el 15 de Febrero del mes siguiente con
+            mi Nuevo Plan Alma. Te cambiaría el periodo de facturación. Y el
+            plan anterior Espíritu sería cancelado y automáticamente el crédito
+            restante de tu Plan Espíritu pasaría a ser usado como descuento para
+            tu nueva facturación mensual en Alma.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header helpTitle">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse17"
+            aria-expanded="false"
+            aria-controls="collapse17"
+          >
+            17. Olvidé la contraseña de mi cuenta 😱
+          </button>
+        </h2>
+        <div
+          id="collapse17"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionHelp"
         >
@@ -412,20 +525,42 @@
       </div>
 
       <div class="accordion-item">
-        <h2 class="accordion-header">
+        <h2 class="accordion-header helpTitle">
           <button
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#collapse15"
+            data-bs-target="#collapse18"
             aria-expanded="false"
-            aria-controls="collapse15"
+            aria-controls="collapse18"
           >
-            15. Quiero borrar mi cuenta 🤬
+            18. Olvidé la contraseña de mi cuenta 😱
           </button>
         </h2>
         <div
-          id="collapse15"
+          id="collapse18"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionHelp"
+        >
+          <div class="accordion-body"></div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header helpTitle">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapse19"
+            aria-expanded="false"
+            aria-controls="collapse19"
+          >
+            19. Quiero borrar mi cuenta 🤬
+          </button>
+        </h2>
+        <div
+          id="collapse19"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionHelp"
         >

@@ -229,3 +229,32 @@ document.addEventListener("DOMContentLoaded", function () {
     executeRating(ratingSunsForForm, forms[i]);
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const accordionTitle = document.querySelectorAll(".helpTitle");
+  const searchBox = document.getElementById("search");
+  const searchForm = document.getElementById("searchForm");
+
+  if (searchBox) {
+    searchBox.addEventListener("change", (e) => {
+      searchBox.value = e.target.value;
+    });
+
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      searchTitle(searchBox.value);
+    });
+  }
+  const searchTitle = (search) => {
+    search = searchBox.value.toLowerCase(); // Convert search query to lowercase
+
+    Array.from(accordionTitle).forEach((title) => {
+      const titleText = title.textContent.toLowerCase(); // Convert title to lowercase
+
+      if (titleText.includes(search)) {
+        title.style.display = "block";
+      } else {
+        title.style.display = "none";
+      }
+    });
+  };
+});
