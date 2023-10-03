@@ -248,13 +248,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchTitle = (search) => {
     search = searchBox.value.toLowerCase();
 
-    Array.from(accordionTitle).forEach((title) => {
+    Array.from(accordionTitle, (title) => {
       const titleText = title.textContent.toLowerCase();
+      const titleContainer = title.parentElement;
 
       if (titleText.includes(search)) {
-        title.style.display = "block";
+        titleContainer.style.display = "block";
       } else {
-        title.style.display = "none";
+        titleContainer.style.display = "none";
       }
     });
   };
@@ -278,13 +279,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const searchPost = (search) => {
     search = searchInput.value.toLowerCase();
 
-    Array.from(postTitles).forEach((title) => {
-      const titleText = title.textContent.toLowerCase();
+    Array.from(postTitles, (title) => {
+      const postText = title.textContent.toLowerCase();
 
       if (titleText.includes(search)) {
-        title.style.display = "block";
+        postText.style.display = "block";
       } else {
-        title.style.display = "none";
+        postText.style.display = "none";
       }
     });
   };
