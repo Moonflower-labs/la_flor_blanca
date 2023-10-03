@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Array.from(postTitles, (title) => {
       const postText = title.textContent.toLowerCase();
 
-      if (titleText.includes(search)) {
+      if (title.includes(search)) {
         postText.style.display = "block";
       } else {
         postText.style.display = "none";
