@@ -283,9 +283,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const postText = title.textContent.toLowerCase();
 
       if (postText.includes(search)) {
-        postText.style.display = "block";
+        title.style.display = "block";
       } else {
-        postText.style.display = "none";
+        title.style.display = "none";
       }
     });
   };
