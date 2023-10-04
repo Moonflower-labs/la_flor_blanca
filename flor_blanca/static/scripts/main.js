@@ -263,6 +263,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  // navBar collapse
+  const collapseNav = () => {
+    const navToggler = document.getElementById("navbarNav");
+    navToggler.classList.remove("show");
+  };
+  document.addEventListener("click", collapseNav);
+
   const searchInput = document.getElementById("search1");
   const postTitles = document.querySelectorAll(".postArticle");
   const searchForm1 = document.getElementById("searchForm1");

@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-xxl sticky-top">
+    <nav class="navbar navbar-expand-xxl sticky-top" id="nav">
       <div class="container-fluid z-3">
         <a class="navbar-brand" href="{{url_for('index')}}"
           ><img
@@ -38,6 +38,7 @@
             class="d-inline-block align-text-top"
         /></a>
         <button
+          id="navToggler"
           class="navbar-toggler shadow-none"
           type="button"
           data-bs-toggle="collapse"
