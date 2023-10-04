@@ -1,7 +1,7 @@
 {% extends 'admin/index.html' %} {% block view %}
 
 <div class="overflow-scroll h-100">
-  <h4 class="text-center pt-3">VIDEOS ALMA</h4>
+  <h4 class="text-center pt-3 mx-auto">VIDEOS ALMA</h4>
 
   <table class="table table-hover">
     <thead class="sticky-top z-0">
@@ -11,7 +11,8 @@
         <th scope="col">uploaded</th>
         <th scope="col">Title</th>
         <th scope="col">Comment</th>
-        <th scope="col">delete</th>
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,13 @@
         <td>{{result[1]}}</td>
         <td>{{result[3]}}</td>
         <td>{{result[4]}}</td>
+        <td>
+          <a
+            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href="{{ url_for('admin.update_video_soul', id=result[0]) }}"
+            >Editar</a
+          >
+        </td>
         <td>
           <form action="{{url_for('admin.delete_link')}}" method="post">
             <input type="text" name="id" value=" {{result[0]}}" hidden />

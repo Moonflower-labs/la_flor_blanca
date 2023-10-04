@@ -1,14 +1,12 @@
 <ul class="list-unstyled list-group h-100">
   <li class="list-group-item list-group-item-action active">
-    LINKS ALMA<i class="bi bi-link float-end"></i>
+    VIDEOS ALMA<i class="bi bi-link float-end"></i>
   </li>
   <li class="list-group-item list-group-item-action">
     <a
       href="{{url_for('admin.show_links')}}"
       class="link-info link-underline-opacity-0"
-      >Ver o
-      <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
-      <strong>VIDEO</strong><i class="bi bi-camera-video-fill float-end"></i
+      >Ver, Borrar o Editar <i class="bi bi-camera-video-fill float-end"></i
     ></a>
   </li>
 
@@ -16,32 +14,28 @@
     <a
       href="{{url_for('admin.upload')}}"
       class="link-info link-underline-opacity-0"
-      ><i class="bi bi-plus-square-fill"></i> Añadir <strong>VIDEO</strong> Link
-      <i class="bi bi-camera-video-fill float-end"></i
-    ></a>
+      >Añadir <strong>VIDEO</strong>
+      <i class="bi bi-plus-square-fill float-end"></i>
+    </a>
   </li>
 
   <li class="list-group-item list-group-item-action active">
-    LINKS SPÍRITU<i class="bi bi-link float-end"></i>
+    VIDEOS ESPÍRITU<i class="bi bi-link float-end"></i>
   </li>
   <li class="list-group-item list-group-item-action">
     <a
       href="{{url_for('admin.view_videos_spirit')}}"
       class="link-info link-underline-opacity-0"
-      >Ver o
-      <span class="text-warning"><i class="bi bi-trash-fill"></i>Borrar</span>
-      <strong>VIDEO</strong> links<i
-        class="bi bi-camera-video-fill float-end"
-      ></i
+      >Ver, Borrar o Editar<i class="bi bi-camera-video-fill float-end"></i
     ></a>
   </li>
   <li class="list-group-item list-group-item-action">
     <a
       href="{{url_for('admin.videos_spirit')}}"
       class="link-info link-underline-opacity-0"
-      ><i class="bi bi-plus-square-fill"></i> Añadir <strong>VIDEO</strong> Link
-      <i class="bi bi-camera-video-fill float-end"></i
-    ></a>
+      >Añadir <strong>VIDEO</strong>
+      <i class="bi bi-plus-square-fill float-end"></i>
+    </a>
   </li>
 
   <li class="list-group-item list-group-item-action active">
@@ -57,11 +51,11 @@
   <li class="list-group-item list-group-item-action">
     <form action="{{url_for('admin.wipe_questions')}}" method="post">
       <button
-        class="admin link-danger fw-bold"
+        class="admin link-danger fw-bold w-100 text-start"
         type="submit"
         onclick="return confirm('Confirma que quieres borrar todas las preguntas');"
       >
-        <i class="bi bi-trash-fill"></i>Borrar todas
+        Borrar todas<i class="bi bi-trash-fill float-end"></i>
       </button>
     </form>
   </li>

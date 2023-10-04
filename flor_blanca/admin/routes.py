@@ -25,18 +25,16 @@ def show_links():
     cursor = db.cursor()
     username = session.get('username')
     
-    try:
-                        
-        cursor.execute("SELECT * FROM videos_soul ORDER BY id DESC  ")
-        results = cursor.fetchall()
-       
-        return render_template('admin/soul.html', results=results,username=username)
-              
-        
-    except :
-            pass
     
-    return render_template('admin/soul.html',username=username)
+                        
+    cursor.execute("SELECT * FROM videos_soul ORDER BY id DESC  ")
+    results = cursor.fetchall()
+    
+    return render_template('admin/soul.html', results=results,username=username)
+            
+        
+   
+
 
 
 
@@ -94,6 +92,43 @@ def upload():
 
 
     return render_template('admin/uploads.html', username=username,name=name,action=action)
+
+
+# edit video link
+@bp.route('/<int:id>/update/video/soul',methods=['GET','POST'])
+@login_required
+@is_admin
+def update_video_soul(id):
+     username = session.get('username')  
+     name ='Alma' 
+     db = get_db()
+     cursor = db.cursor()
+     cursor.execute('SELECT link,title,comment FROM videos_soul WHERE id=%s',(id,))
+     video = cursor.fetchone()
+     if request.method == 'POST':
+        link = request.form['link']
+        title = request.form['title']
+        comment = request.form['comment']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'UPDATE videos_soul SET link=%s,title =%s,comment=%s '
+                ' WHERE id = %s',
+                (link,title, comment,id)
+            )
+            info = "link editado con éxito!"
+            flash(info)
+            return redirect(url_for('admin.show_links'))
+    
+     return render_template('admin/updateLink.html', video=video,name=name, username=username)
 
 # SPIRIT
 
@@ -165,6 +200,42 @@ def view_videos_spirit():
      videos = cursor.fetchall()
     
      return render_template('admin/spirit.html', videos=videos, username=username)
+
+# edit video link
+@bp.route('/<int:id>/update/video/spirit',methods=['GET','POST'])
+@login_required
+@is_admin
+def update_video_spirit(id):
+     username = session.get('username')  
+     name ='Espíritu' 
+     db = get_db()
+     cursor = db.cursor()
+     cursor.execute('SELECT link,title,comment FROM videos_spirit WHERE id=%s',(id,))
+     video = cursor.fetchone()
+     if request.method == 'POST':
+        link = request.form['link']
+        title = request.form['title']
+        comment = request.form['comment']
+        error = None
+
+        if not title:
+            error = 'Title is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'UPDATE videos_spirit SET link=%s,title =%s,comment=%s '
+                ' WHERE id = %s',
+                (link,title, comment,id)
+            )
+            info = "link editado con éxito!"
+            flash(info)
+            return redirect(url_for('admin.view_videos_spirit'))
+    
+     return render_template('admin/updateLink.html', video=video,name=name, username=username)
 
 # Users
 @bp.route('/view_users')

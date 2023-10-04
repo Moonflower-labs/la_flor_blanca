@@ -10,7 +10,8 @@
         <th scope="col">Uploaded</th>
         <th scope="col">Title</th>
         <th scope="col">Comment</th>
-        <th scope="col">Delete</th>
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,13 @@
         <td>{{video[1]}}</td>
         <td>{{video[3]}}</td>
         <td>{{video[4]}}</td>
+        <td>
+          <a
+            class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            href="{{ url_for('admin.update_video_spirit', id=video[0]) }}"
+            >Editar</a
+          >
+        </td>
         <td>
           <form action="{{url_for('admin.delete_video_spirit')}}" method="post">
             <input type="text" name="id" value=" {{video[0]}}" hidden />
