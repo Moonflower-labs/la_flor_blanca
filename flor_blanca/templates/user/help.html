@@ -3,7 +3,9 @@
 <div class="container">
   <div class="row justify-content-center align-items-center">
     <div class="col-md-6 text-center mx-auto mb-3">
-      <p class="h5 mb-3">Hola {{username}}</p>
+      <p class="h5 mb-3">
+        Hola {% if username != None %}{{username}}{%endif %}
+      </p>
       {% include ('logo.html') %}
     </div>
     <div class="col text-center mx-auto mb-3">
