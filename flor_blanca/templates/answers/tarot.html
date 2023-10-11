@@ -31,6 +31,7 @@
       Nuestras lecturas son sin tiempo.
     </p>
     <form
+      id="questionForm"
       action="{{url_for('questions.save_tarot_query')}}"
       method="POST"
       class="bg-gradient p-3 my-3 rounded-3 shadow"
@@ -65,7 +66,11 @@
         <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
+        <button
+          id="submitBtn"
+          type="submit"
+          class="btn btn-outline-info mx-1 rounded-1"
+        >
           Enviar
         </button>
       </div>

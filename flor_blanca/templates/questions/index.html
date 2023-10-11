@@ -28,6 +28,7 @@ endblock %} {% endblock %} {% block content %}
           action="{{url_for('questions.index')}}"
           method="post"
           class="border border-1 px-4 pt-2 rounded-4 bg-body-tertiary questions"
+          id="questionForm"
         >
           <label for="name" class="form-label">Nombre</label>
           <div class="mb-4 input-group">
@@ -103,11 +104,11 @@ endblock %} {% endblock %} {% block content %}
               class="form-check-input"
               type="radio"
               name="flexRadioDefault"
-              id="habilidades"
+              id="other"
               value="otro"
               required
             />
-            <label class="form-check-label" for="habilidades">
+            <label class="form-check-label" for="other">
               Otro
               <span class="fw-bold"
                 >(siguiendo la línea de nuestro contenido)</span
@@ -319,7 +320,11 @@ endblock %} {% endblock %} {% block content %}
           />
 
           <div class="mb-4 text-center">
-            <button type="submit" class="btn w-25 btn-outline-info rounded-1">
+            <button
+              id="submitBtn"
+              type="submit"
+              class="btn w-25 btn-outline-info rounded-1"
+            >
               Enviar
             </button>
           </div>

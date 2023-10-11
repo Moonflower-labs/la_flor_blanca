@@ -43,6 +43,7 @@ def index():
         if request.method == 'POST':
             user_id = session.get('user_id')
             try:
+               
                 email = session.get('email')
                 name = request.form.get('name')
                 subject = request.form.get('flexRadioDefault')
@@ -61,7 +62,9 @@ def index():
                         media.append(other)
                 user_id = session.get('id')
             except Exception as e:
-                return str(e)
+                 current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
+                 flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
+                 return redirect(url_for('questions.index'))
 
             if user_id:
 
@@ -87,7 +90,9 @@ def index():
                         return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                     
                     except Exception as e:
-                        return str(e)
+                        current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
+                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
+                        return redirect(url_for('questions.index'))
                     
                 else:
                     flash('Has usado el máximo de 3 preguntas por mes.')
@@ -144,7 +149,9 @@ def save_tarot_query():
 
                     return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                 except Exception as e:
-                    return str(e)
+                        current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
+                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
+                        return redirect(url_for('questions.index'))
             
             else:
 
@@ -190,7 +197,9 @@ def live_query():
 
                     return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
                 except Exception as e:
-                    return str(e)
+                        current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
+                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
+                        return redirect(url_for('questions.index'))
             
             else:
 

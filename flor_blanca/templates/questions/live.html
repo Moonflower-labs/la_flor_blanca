@@ -29,6 +29,7 @@
     <div class="col-md-6">
       <p class="h2 title">PREGUNTA CON RESPUESTA EN DIRECTO</p>
       <form
+        id="questionForm"
         action="{{url_for('questions.live_query')}}"
         method="POST"
         class="bg-gradient p-3 my-3 rounded-3 shadow"
@@ -51,7 +52,11 @@
           <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
+          <button
+            id="submitBtn"
+            type="submit"
+            class="btn btn-outline-info mx-1 rounded-1"
+          >
             Enviar
           </button>
         </div>
