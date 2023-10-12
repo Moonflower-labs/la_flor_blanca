@@ -74,8 +74,7 @@ def index():
                     try:
                                                                                                             
                         save_message(email, name, subject, question, gender, age, media, country, city,current_plan)
-                        
-                        flash('Tu pregunta ha sido enviada correctamente.')                      
+                                            
                         increment_used_count()
                         used_questions = session.get('used_questions')
                         save_question_count()
