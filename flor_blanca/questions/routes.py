@@ -87,7 +87,7 @@ def index():
                         mail.send(msg)
                         current_app.logger.info(" Question sent to admin")
 
-                        flash(f'Mensaje enviado. Gracias por tu pregunta.    Preguntas restantes este mes {remaining_question_count}')
+                        flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
                        
                         return redirect(url_for('questions.index',remaining_question_count=remaining_question_count))
                     
@@ -148,8 +148,11 @@ def save_tarot_query():
                     msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question},\nInfo: {info}"
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
+                    
+                    flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
+                    
 
-                    return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
+                    return redirect(url_for('answers.index',remaining_question_count=remaining_question_count))
                 except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
                         flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
@@ -197,7 +200,9 @@ def live_query():
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
 
-                    return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
+                    flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
+
+                    return redirect(url_for('questions.live_query',remaining_question_count=remaining_question_count))
                 except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
                         flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
