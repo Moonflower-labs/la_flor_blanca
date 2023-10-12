@@ -15,6 +15,9 @@ p.message,
 header.title {
   color: #9d1ca8;
 }
+div.flash {
+  width: fit-content;
+}
 
 a.nav-link {
   color: antiquewhite;
