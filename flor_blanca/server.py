@@ -52,7 +52,9 @@ def create_checkout_session():
             return redirect(checkout_session.url, code=303)    
         
         except Exception as e:
-            return str(e)
+            current_app.logger.error('The following error has occurred: %s',str(e))
+            flash('La operación no se ha podido realizar, pruebe de nuevo más tarde') 
+            return redirect(url_for('index'))
 
 
 
@@ -176,9 +178,10 @@ def shop_checkout():
             return   jsonify(checkout_session.url)
             
     except Exception as e:
-            return jsonify({'error': str(e)})
-        
-  
+                
+            current_app.logger.error('The following error has occurred: %s',str(e))
+            flash('La operación no se ha podido realizar, pruebe de nuevo más tarde') 
+            return redirect(url_for('stripe.products'))
 
 
 @bp.route('/webhook', methods=['POST'])
@@ -186,9 +189,7 @@ def webhook_received():
     payload = request.data.decode("utf-8")
     sig_header = request.headers.get('Stripe-Signature')
     endpoint_secret = os.getenv('STRIPE_WEBHOOK_SECRET') 
-   
-    
-   
+     
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
@@ -377,8 +378,6 @@ def webhook_received():
                         current_app.logger.warning(f'The following error has ocurred: \n{error_msg}')    
 
         
-
-
         elif event.type == 'subscription_schedule.canceled':
             stripe_subscription = event.data.object
             customer_id = stripe_subscription['customer']
@@ -405,7 +404,7 @@ def customer_portal():
             if customer_id is not None:
 
                 try:
-                
+                                    
                      billing_session = stripe.billing_portal.Session.create(
                         customer=customer_id,
                         locale='auto',
@@ -415,7 +414,11 @@ def customer_portal():
                      return redirect(billing_session.url)
             
                 except Exception as e:
-                    return str(e)
+                    
+                    current_app.logger.error('The following error has occurred: %s',str(e))
+                    flash('La operación no se ha podido realizar, pruebe de nuevo más tarde') 
+                    return redirect(url_for('index'))
+
             else:
                 flash("No pudimos encontrar una suscripcion asociada a tu cuenta")
 
