@@ -151,9 +151,7 @@
           {% block header %}{% endblock %}
         </header>
         {% for message in get_flashed_messages() %}
-        <div
-          class="flash text-center text-info p-3 border border-2 border-info rounded-2 h4 my-2 mx-auto"
-        >
+        <div class="flash text-center text-info p-3 rounded-2 h4 my-3 mx-auto">
           {{ message }}
         </div>
         {% endfor %}
