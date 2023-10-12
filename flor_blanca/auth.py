@@ -61,9 +61,9 @@ def login():
         user = cursor.fetchone()
         
         if user is None:
-            error = 'Incorrect email address or password.'
+            error = 'Email o Contraseña incorrecto.'
         elif not check_password_hash(user[2], password):
-            error = 'Incorrect password.'
+            error = 'Contraseña incorrecta.'
 
         if error is None:          
             
