@@ -174,6 +174,8 @@ def live_query():
         username = session.get('username')
         db = get_db()
         cursor = db.cursor()
+        cursor.execute('SELECT live_used_questions FROM users WHERE username=%s',(username,))
+        used_questions=cursor.fetchone()
 
         if request.method == 'POST':
           
@@ -217,9 +219,10 @@ def live_query():
         else:
             cursor.execute('SELECT *  FROM live_sessions')
             live_sessions = cursor.fetchall()
-            print(live_sessions)
+
+            remaining_question_count = 1 - int(used_questions[0]) 
         
-            return render_template('questions/live.html',live_sessions=live_sessions,username=username)
+            return render_template('questions/live.html',live_sessions=live_sessions,username=username,remaining_question_count=remaining_question_count)
         
 
 

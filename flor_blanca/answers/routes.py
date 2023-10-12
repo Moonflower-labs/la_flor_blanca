@@ -3,15 +3,23 @@ from flor_blanca.auth import login_required,required_spirit_plan,required_soul_p
 from flask import render_template,session,request,flash,redirect,url_for,abort,current_app
 from flor_blanca.postDb import get_links, get_db,get_videos
 
+# tarot page
 @bp.route('/answers', methods=['GET'])
 @login_required
 @required_soul_plan
 def index():
     links = get_links()
     username = session.get('username')
+    db= get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT tarot_used_questions FROM users WHERE username=%s',(username,))
+    used_questions=cursor.fetchone()
+   
+
+    remaining_question_count = 1 - int(used_questions[0]) 
    
      
-    return render_template('answers/tarot.html', username=username, links=links)
+    return render_template('answers/tarot.html', username=username, links=links,remaining_question_count=remaining_question_count)
 
 
 @bp.route('/basic')

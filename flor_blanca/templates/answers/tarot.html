@@ -30,6 +30,11 @@
       respondidas a través de un videolink privado a tu email de tu plan.
       Nuestras lecturas son sin tiempo.
     </p>
+    <div class="h6 text-end mb-3">
+      Preguntas disponibles:
+      <span class="h4 text-warning">{{remaining_question_count}}</span> de
+      <span class="h4 text-warning">1</span>
+    </div>
     <form
       id="questionForm"
       action="{{url_for('questions.save_tarot_query')}}"
