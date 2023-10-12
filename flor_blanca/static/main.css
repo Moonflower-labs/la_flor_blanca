@@ -18,6 +18,7 @@ header.title {
 div.flash {
   width: fit-content;
   border: 2px solid #3164e6;
+  box-shadow: 2px 2px 8px 3px #b3b2b276;
 }
 
 a.nav-link {
