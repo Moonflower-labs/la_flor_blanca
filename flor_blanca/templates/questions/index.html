@@ -42,6 +42,7 @@ endblock %} {% endblock %} {% block content %}
               placeholder="e.g. Harry"
               name="name"
               required
+              autocomplete="true"
             />
           </div>
           <did class="p fw-bolder"
@@ -195,12 +196,13 @@ endblock %} {% endblock %} {% block content %}
             <label class="form-check-label" for="boca"> De boca en boca </label>
           </div>
           <div class="form-check my-2">
-            <label class="form-check-label" for="other"> Otro:</label>
+            <label class="form-check-label" for="another"> Otro:</label>
             <input
-              type="text "
+              id="another"
+              type="text"
               class="form-control form-control-plaintext"
               placeholder="Especifica aquí..."
-              name="other"
+              name="another"
             />
           </div>
 
@@ -286,7 +288,7 @@ endblock %} {% endblock %} {% block content %}
               Mayor de 75 años
             </label>
           </div>
-          <label for="subject" class="form-label fw-bolder"
+          <label for="gender" class="form-label fw-bolder"
             >5. ¿Cúal es tu Género?</label
           >
           <div class="input-group mb-4">
@@ -303,10 +305,11 @@ endblock %} {% endblock %} {% block content %}
           >
           <input
             name="country"
-            type="text "
+            type="text"
             class="form-control"
             id="country"
             required
+            autocomplete="true"
           />
           <label for="country" class="fw-bolder my-3"
             >7. ¿Desde qué ciudad nos contactas?</label

@@ -49,7 +49,7 @@ def index():
                 subject = request.form.get('flexRadioDefault')
                 question = request.form.get('question')
                 age = request.form.get('ageGroup')
-                other = request.form.get('other')
+                other = request.form.get('another')
                 country = request.form.get('country')
                 city = request.form.get('city')
                 gender = request.form.get('gender')
@@ -86,8 +86,10 @@ def index():
                         msg.body = f"Email: {email},\nPlan: {current_plan}\nName: {name},\nSubject: {subject},\nGender: {gender},\nQuestion: {question},\nHeard of us:{media},\nAge group: {age},\n{country},\n{city}"
                         mail.send(msg)
                         current_app.logger.info(" Question sent to admin")
+
+                        flash(f'Mensaje enviado. Gracias por tu pregunta.    Preguntas restantes este mes {remaining_question_count}')
                        
-                        return redirect(url_for('questions.message_sent',remaining_question_count=remaining_question_count))
+                        return redirect(url_for('questions.index',remaining_question_count=remaining_question_count))
                     
                     except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
