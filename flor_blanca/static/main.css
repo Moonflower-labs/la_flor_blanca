@@ -7,6 +7,7 @@ div.footer {
     rgb(162, 31, 188)
   );
   z-index: 100;
+  box-shadow: 2px 2px 8px 3px #b3b2b276;
 }
 
 p.title,
