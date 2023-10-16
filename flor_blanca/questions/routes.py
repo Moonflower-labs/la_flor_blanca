@@ -84,7 +84,7 @@ def index():
 
                         msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                        msg.body = f"Email: {email},\nPlan: {current_plan}\nName: {name},\nSubject: {subject},\nGender: {gender},\nQuestion: {question},\nHeard of us:{media},\nAge group: {age},\n{country},\n{city}"
+                        msg.body = f"Email: {email}\nPlan: {current_plan}\nName: {name}\nSubject: {subject}\nGender: {gender}\nQuestion: {question}\nHeard of us:{media}\nAge group: {age}\nCountry: {country}\nCity: {city}"
                         mail.send(msg)
                         current_app.logger.info(" Question sent to admin")
 
@@ -209,7 +209,7 @@ def live_query():
 
                     msg = Message('Pregunta LIVE para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question}"
+                    msg.body = f"Email: {email}\nPlan: {current_plan}\nQuestion: {question}"
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
 
