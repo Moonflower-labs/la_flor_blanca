@@ -114,13 +114,13 @@ def logout():
 
 
 
-def save_question_count():
-     email = session.get('email')    
-     used_questions = session.get('used_questions')   
-     db = get_db()
+def save_question_count(count):
+     email = session.get('email')  
+     db = get_db()  
      cursor = db.cursor()
-     cursor.execute('UPDATE users SET used_questions=%s WHERE email = %s',(used_questions,email))
-     current_app.logger.info(f" Question count saved correctly\nValues\nUsed Questions: {used_questions}")
+   
+     cursor.execute('UPDATE users SET used_questions=%s WHERE email = %s',(count,email))
+     current_app.logger.info(f" Question count saved correctly\nValues\nUsed Questions: {count}")
     
     
 

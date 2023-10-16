@@ -71,15 +71,15 @@ def index():
                 db = get_db().cursor()
                 db.execute('SELECT used_questions FROM users WHERE username =%s', (username,))
                 results = db.fetchone()
-                used_questions=int(results[0])+1
+                used_questions=int(results[0])
 
                 
                 try:
                                                                                                             
                         save_message(email, name, subject, question, gender, age, media, country, city,current_plan)
-                                            
-                        increment_used_count()
-                        save_question_count()
+
+                        used_questions += 1
+                        save_question_count(used_questions)
                         remaining_question_count = max(3 - used_questions, 0) 
 
                         msg = Message('Pregunta para La Flor Blanca!', sender='admin@thechicnoir.com',
