@@ -1,3 +1,20 @@
+// document.addEventListener("DOMContentLoaded", () => {
+//   const form = document.getElementById("questionForm");
+//   const submitBtn = document.getElementById("submitBtn");
+//   const data = Array.from(new FormData(form));
+
+//   console.log(data);
+//   console.log(data[0]);
+//   const formAction = form.getAttribute("action");
+//   console.log(formAction);
+//   formControl = () => {
+//     submitBtn.setAttribute("disabled", "true");
+//     submitBtn.textContent = "Enviando...";
+//   };
+
+//   if (form) form.addEventListener("submit", formControl);
+// });
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("questionForm");
   const submitBtn = document.getElementById("submitBtn");
@@ -42,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let count = parseInt(countSpan.textContent);
     console.log(count);
 
-    if (count < 0) {
+    if (count > 0) {
       submitBtn.textContent = "Enviando...";
       submitBtn.setAttribute("disabled", "true");
       toast.textContent = "Enviando tu pregunta...";
