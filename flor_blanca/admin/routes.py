@@ -273,7 +273,7 @@ def view_questions():
     username = session.get('username')
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM questions;")  
+    cursor.execute("SELECT *, to_char(created, 'DD Mon YYYY, HH:MI:SS') AS formatted_date FROM questions ORDER BY id DESC;")  
     questions = cursor.fetchall()
     return render_template('admin/questions.html', questions=questions,username=username)
 

@@ -31,7 +31,14 @@
         </td>
         <td>
           <form action="{{url_for('admin.delete_video_spirit')}}" method="post">
-            <input type="text" name="id" value=" {{video[0]}}" hidden />
+            <label for="spirit{{video[0]}}" hidden></label>
+            <input
+              type="text"
+              name="id"
+              value="{{video[0]}}"
+              hidden
+              id="spirit{{video[0]}}"
+            />
             <button
               class="btn btn-sm"
               type="submit"

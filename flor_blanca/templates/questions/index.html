@@ -2,6 +2,7 @@
 endblock %} {% endblock %} {% block content %}
 <section>
   <div class="container-fluid mb-3">
+    <div id="toastAlert" class="hide"></div>
     <div class="row">
       <div class="col-md-6 mx-auto text-center mb-3">
         <p class="display-6 fw-medium">Hola Almas Oscuras y Luminosas</p>
@@ -21,7 +22,10 @@ endblock %} {% endblock %} {% block content %}
       <div class="col-md-6">
         <div class="h6 text-end mb-3">
           Preguntas disponibles:
-          <span class="h4 text-warning">{{remaining_question_count}}</span> de
+          <span class="countSpan h4 text-warning"
+            >{{remaining_question_count}}</span
+          >
+          de
           <span class="h4 text-warning">3</span>
         </div>
         <form

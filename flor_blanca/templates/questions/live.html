@@ -2,6 +2,7 @@
 {% endblock %} {% endblock %} {% block content %}
 
 <div class="container-fluid tarot">
+  <div id="toastAlert" class="hide"></div>
   <div
     class="row my-4 justify-content-center text-center frameContainer mx-auto"
   >
@@ -30,7 +31,10 @@
       <p class="h2 title">PREGUNTA CON RESPUESTA EN DIRECTO</p>
       <div class="h6 text-end mb-3">
         Preguntas disponibles:
-        <span class="h4 text-warning">{{remaining_question_count}}</span> de
+        <span class="countSpan h4 text-warning"
+          >{{remaining_question_count}}</span
+        >
+        de
         <span class="h4 text-warning">1</span>
       </div>
       <form
