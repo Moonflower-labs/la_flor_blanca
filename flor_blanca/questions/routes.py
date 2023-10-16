@@ -1,7 +1,7 @@
 from flor_blanca.questions import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,is_admin
 from flor_blanca.postDb import save_message,get_db,tarot_query,live_query_save
-from flask import render_template,session,request,redirect,url_for,flash,current_app
+from flask import render_template,session,request,redirect,url_for,flash,current_app,jsonify
 from flask_mail import Message
 from flor_blanca.extensions import mail
 from flor_blanca.auth  import increment_used_count,save_question_count,required_basic
@@ -11,12 +11,14 @@ from flor_blanca.auth  import increment_used_count,save_question_count,required_
 def question_page():
     username = session.get('username')
     user_id = session.get('id')
-    used_questions = session.get('used_questions')
+    db = get_db().cursor()
+    db.execute('SELECT used_questions FROM users WHERE username =%s', (username,))
+    used_questions = db.fetchone()
+
     if user_id:
     
-        remaining_question_count = 3 - int(used_questions) 
-
-       
+        remaining_question_count = max(3 - int(used_questions[0]),0)
+      
         return render_template('questions/index.html', username=username, remaining_question_count=remaining_question_count)
     else:
         return redirect(url_for('login'))
@@ -63,20 +65,20 @@ def index():
                 user_id = session.get('id')
             except Exception as e:
                  current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
-                 flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
-                 return redirect(url_for('questions.index'))
-
+                 return jsonify({'message': 'Ha ocurrido un error y tu pregunta no se ha podido enviar.','error':str(e)}),500
+                 
             if user_id:
+                db = get_db().cursor()
+                db.execute('SELECT used_questions FROM users WHERE username =%s', (username,))
+                results = db.fetchone()
+                used_questions=int(results[0])
 
-                used_questions = session.get('used_questions')
-
-                if used_questions < 3:
-                    try:
+                
+                try:
                                                                                                             
                         save_message(email, name, subject, question, gender, age, media, country, city,current_plan)
                                             
                         increment_used_count()
-                        used_questions = session.get('used_questions')
                         save_question_count()
                         remaining_question_count = max(3 - used_questions, 0) 
 
@@ -86,30 +88,45 @@ def index():
                         mail.send(msg)
                         current_app.logger.info(" Question sent to admin")
 
-                        flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
-                       
-                        return redirect(url_for('questions.index',remaining_question_count=remaining_question_count))
+                        return jsonify({'message': f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}','count':remaining_question_count}),200
                     
-                    except Exception as e:
+                except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
-                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
-                        return redirect(url_for('questions.index'))
+                      
+                        return jsonify({'message': 'Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.','error':str(e)}),500
                     
-                else:
-                    flash('Has usado el máximo de 3 preguntas por mes.')
 
         return question_page()
 
 
-@bp.route('/questions/sent', methods=['GET', 'POST'])
-@login_required
-def message_sent():
-    username = session.get('username')
-    remaining_question_count = request.args.get('remaining_question_count')
-    
+@bp.route('/questions/count', methods=['GET', 'POST'])
+def questions_test():
+   username = session.get('username')  
+   db =get_db().cursor()
+   questionType = request.args.get('questionType') 
+   if questionType == 'basic':
+          db.execute('SELECT used_questions FROM users WHERE username =%s',(username,))
+          count = db.fetchone()
+          remainingCount = max((3 - int(count[0])),0)
 
-    return render_template('questions/sent.html', remaining_question_count=remaining_question_count,username=username)
+          return jsonify({'count':remainingCount,'message':'Count for plan Basic fetched correctly.'}),200
 
+   elif questionType== 'tarot':
+          db.execute('SELECT tarot_used_questions FROM users WHERE username =%s',(username,))
+          count = db.fetchone()
+          remainingCount = 1 - int(count[0])
+
+          return jsonify({'count':remainingCount,'message':'Count for tarot fetched correctly.'}),200
+   
+   elif questionType== 'live':
+          db.execute('SELECT live_used_questions FROM users WHERE username =%s',(username,))
+          count = db.fetchone()
+          remainingCount = 1 - int(count[0])
+
+          return jsonify({'count':remainingCount,'message':'Count for live fetched correctly.'}),200
+   
+  
+      
 
 
 @bp.route('/questions/tarot', methods=['POST'])
@@ -118,13 +135,11 @@ def message_sent():
 def save_tarot_query():
         email= session.get('email')
         username = session.get('username')
-        question = request.form.get('questionTarot')
-        info = request.form.get('info')
         db = get_db()
         cursor = db.cursor()
         cursor.execute("SELECT subscription_plan,tarot_used_questions from users WHERE email = %s",(email,))
         results = cursor.fetchone()
-        tarot_used_questions = results[1]
+
         if results[0] is None  or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
             current_plan = "PERSONALIDAD"
         elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
@@ -133,7 +148,9 @@ def save_tarot_query():
             current_plan = "SPÍRITU"
 
         if request.method == 'POST':
-            if tarot_used_questions == 0:
+           
+                question = request.form.get('questionTarot')
+                info = request.form.get('info')
                 try:
                     tarot_query(question,info,current_plan,email)
                    
@@ -144,22 +161,19 @@ def save_tarot_query():
                     # SEND MAIL TO ADMIN
                     msg = Message('Pregunta TAROT para La Flor Blanca!', sender='admin@thechicnoir.com',
                                   recipients=['alex.landin@hotmail.com','admin@thechicnoir.com'])
-                    msg.body = f"Email: {email},\nPlan: {current_plan},\nQuestion: {question},\nInfo: {info}"
+                    msg.body = f"Email: {email}\nPlan: {current_plan}\nQuestion: {question}\nInfo: {info}"
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
                     
-                    flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
-                    
-
-                    return redirect(url_for('answers.index',remaining_question_count=remaining_question_count))
+                
+                    return jsonify({'message': f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}','count':remaining_question_count}),200
                 except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
-                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
-                        return redirect(url_for('questions.index'))
+                        return jsonify({'message': 'Ha ocurrido un error y tu pregunta no se ha podido enviar.','error':str(e)}),500
+                        
             
-            else:
-
-                flash("No te quedan preguntas de tarot este mes")
+        else:
+                
 
                 return redirect(url_for('answers.index'))
 
@@ -180,18 +194,16 @@ def live_query():
           
             cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
             results = cursor.fetchone()
-            live_used_questions = results[1]
+            
             if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
                 current_plan = "PERSONALIDAD"
             elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
                 current_plan = "ALMA"
             elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
                 current_plan = "ESPÍRITU"
-
-            if live_used_questions == 0:
-                try:
-                    live_query_save(question,current_plan,email)
-                    # * UPDATE LIVE COUNT FOR USER                
+        
+            try:
+                    live_query_save(question,current_plan,email)              
                     cursor.execute('UPDATE users SET live_used_questions=%s WHERE email=%s', (1,email)) 
                     remaining_question_count = 0
 
@@ -201,20 +213,14 @@ def live_query():
                     mail.send(msg)
                     current_app.logger.info(" Question sent to admin")
 
-                    flash(f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}')
-
-                    return redirect(url_for('questions.live_query',remaining_question_count=remaining_question_count))
-                except Exception as e:
+                    return jsonify({'message': f'Tu pregunta ha sido enviada, gracias.    Preguntas restantes este mes {remaining_question_count}','count':remaining_question_count}),200
+                
+            except Exception as e:
+                        
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
-                        flash('Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.')
-                        return redirect(url_for('questions.index'))
-            
-            else:
+                        return jsonify({'message': 'Ha ocurrido un error y tu pregunta no se ha podido enviar.','error':str(e)}),500
 
-                flash("No te quedan preguntas en directo este mes")
-
-                return redirect(url_for('questions.live_query'))
-            
+                       
         else:
             cursor.execute('SELECT *  FROM live_sessions')
             live_sessions = cursor.fetchall()
