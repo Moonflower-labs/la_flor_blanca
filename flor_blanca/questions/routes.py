@@ -71,7 +71,7 @@ def index():
                 db = get_db().cursor()
                 db.execute('SELECT used_questions FROM users WHERE username =%s', (username,))
                 results = db.fetchone()
-                used_questions=int(results[0])
+                used_questions=int(results[0])+1
 
                 
                 try:
