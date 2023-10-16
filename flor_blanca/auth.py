@@ -122,13 +122,6 @@ def save_question_count(count):
      cursor.execute('UPDATE users SET used_questions=%s WHERE email = %s',(count,email))
      current_app.logger.info(f" Question count saved correctly\nValues\nUsed Questions: {count}")
     
-    
-
-def increment_used_count():
-       
-        used_questions = session.get('used_questions')
-        used_questions += 1
-        session['used_questions'] = used_questions
       
       
 
