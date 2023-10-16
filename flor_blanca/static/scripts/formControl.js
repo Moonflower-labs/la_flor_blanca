@@ -1,20 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   const form = document.getElementById("questionForm");
-//   const submitBtn = document.getElementById("submitBtn");
-//   const data = Array.from(new FormData(form));
-
-//   console.log(data);
-//   console.log(data[0]);
-//   const formAction = form.getAttribute("action");
-//   console.log(formAction);
-//   formControl = () => {
-//     submitBtn.setAttribute("disabled", "true");
-//     submitBtn.textContent = "Enviando...";
-//   };
-
-//   if (form) form.addEventListener("submit", formControl);
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("questionForm");
   const submitBtn = document.getElementById("submitBtn");
@@ -74,9 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
         toast.textContent = response.message;
         showToast();
         countSpan.textContent = response.count;
-
-        console.log(response);
       } catch (err) {
+        toast.textContent =
+          "Ha ocurrido un error procesando el formulario. Por favor pruebe más tarde.";
+        showToast();
         console.log(err.message);
       } finally {
         submitBtn.textContent = "Enviar";
