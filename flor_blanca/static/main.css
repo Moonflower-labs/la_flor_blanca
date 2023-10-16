@@ -203,17 +203,35 @@ footer {
 }
 #toast {
   position: fixed;
-  bottom: 20px;
+  top: 50%;
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
+  background: linear-gradient(45deg, #9b2a75, #cfb142, #e46849);
+  color: antiquewhite;
   border-radius: 5px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   z-index: 9999;
 }
-#toast.hide {
+#toastAlert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: linear-gradient(
+    45deg,
+    #2929c8,
+    rgb(66, 157, 207),
+    rgb(162, 31, 188)
+  );
+  color: antiquewhite;
+  border-radius: 5px;
+  transition: opacity 0.7s ease;
+  z-index: 9999;
+}
+#toast.hide,
+#toastAlert.hide {
   opacity: 0;
   visibility: hidden;
 }
