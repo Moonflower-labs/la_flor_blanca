@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = new FormData(form);
     toast.textContent = "Gracias por tu opinión";
     showToast();
+
     try {
       const request = await fetch(URL, {
         method: "POST",
@@ -93,9 +94,34 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await request.json();
       toast.textContent = response.message;
       showToast();
+      const postId = response.ratings[0][2];
+      const newRatingSum = response.ratings[0][0];
+      const newRatingTotal = response.ratings[0][1];
+      const ratingElement = document.getElementById(`rating-${postId}`);
+
+      if (ratingElement) {
+        const newScore = parseFloat(newRatingSum / newRatingTotal).toFixed(2);
+        if (newScore >= 2.4) {
+          ratingElement.append('<i class="bi bi-sun-fill text-warning"></i>');
+          ratingElement.innerHTML = `
+          <i class="bi bi-sun-fill text-warning"></i>
+          <i class="bi bi-sun-fill text-warning"></i>
+          <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
+          <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
+        } else if (newScore >= 1.4) {
+          ratingElement.innerHTML = `
+          <i class="bi bi-sun-fill text-warning"></i>
+          <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
+          <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
+        } else {
+          ratingElement.innerHTML = `
+          <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
+          <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
+        }
+      }
     } catch (err) {
       toast.textContent =
-        "Ha ocurrido un error en el proceso. Por favor pruebe más tarde.";
+        "Ha ocurrido un error en el proceso. Por favor pruebe de nuevo más tarde.";
       showToast();
       console.log(err.message);
     } finally {

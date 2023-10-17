@@ -217,7 +217,7 @@ endblock %} {% endblock %} {% block content %}
 
         <p class="body text-start">{{ post[4] }}</p>
         {% if post[5]>0 %}
-        <p class="title ms-4">
+        <div class="title ms-4" id="rating-{{post[0]}}">
           {% if (post[5]/post[6])|round(2) >= 2.4 %}<i
             class="bi bi-sun-fill text-warning"
           ></i
@@ -230,7 +230,9 @@ endblock %} {% endblock %} {% block content %}
           {% else %}
           <i class="bi bi-sun-fill text-warning"></i>
           {% endif %} {{(post[5]/post[6])|round(2)}}/{{post[6]}}
-        </p>
+        </div>
+        {% else %}
+        <p class="title ms-4" id="rating-{{post[0]}}"></p>
         {% endif %} {% if post[0] not in ratedPosts|map(attribute=0) %}
 
         <form
@@ -239,7 +241,7 @@ endblock %} {% endblock %} {% block content %}
           id="form-{{ loop.index }}"
           class="my-form"
         >
-          <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
+          <p class="h6 my-2 title ratePost" role="button" tabindex="0">
             Valora esta respuesta
           </p>
           <div class="d-none">
@@ -297,7 +299,7 @@ endblock %} {% endblock %} {% block content %}
           </div>
         </form>
         {% else %}
-        <p class="h6 mb-2 title">Ya has valorado esta respuesta 👍</p>
+        <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>
         {% endif %}
       </div>
     </div>

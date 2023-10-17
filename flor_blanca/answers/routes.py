@@ -66,8 +66,11 @@ def rating():
               try:
                 cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
                 current_app.logger.info(" Rating saved successfully.")
+                cursor.execute("""SELECT  SUM(rating) AS total_rating,
+                         COUNT(rating) AS rating_count,post_id FROM post_rating WHERE post_id=%s GROUP BY post_id """,(post_id,))
+                ratings= cursor.fetchall()
 
-                return jsonify({'message': f'Tu valoración ha sido guardada.\nMuchas gracias 😊',}),200
+                return jsonify({'message': f'Tu valoración ha sido guardada.\nMuchas gracias 😊',"ratings": ratings,}),200
                     
               except Exception as e:
                         current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
