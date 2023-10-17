@@ -11,9 +11,6 @@ load_dotenv()
 
 
 
-
-
-
 logging.basicConfig( level=logging.DEBUG)
 def create_app(test_config=None):
      

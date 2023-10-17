@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const countSpan = document.querySelector(".countSpan");
   let toastTimeout;
 
+  const submitRating = document.querySelectorAll(".submitRating");
+  const ratingForm = document.querySelectorAll(".my-form");
+
   const showToast = () => {
     toast.classList.remove("hide");
     if (toastTimeout) {
@@ -73,5 +76,37 @@ document.addEventListener("DOMContentLoaded", () => {
   if (form) {
     form.addEventListener("submit", handleSubmit);
     getQuestionCount();
+  }
+
+  const handleRating = async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const URL = form.getAttribute("action");
+    const data = new FormData(form);
+    toast.textContent = "Gracias por tu opinión";
+    showToast();
+    try {
+      const request = await fetch(URL, {
+        method: "POST",
+        body: data,
+      });
+      if (!request.ok) throw new Error();
+      const response = await request.json();
+      toast.textContent = response.message;
+      showToast();
+    } catch (err) {
+      toast.textContent =
+        "Ha ocurrido un error en el proceso. Por favor pruebe más tarde.";
+      showToast();
+      console.log(err.message);
+    } finally {
+      form.classList.add("d-none");
+      form.reset();
+    }
+  };
+  if (ratingForm) {
+    ratingForm.forEach((button) => {
+      button.addEventListener("submit", handleRating);
+    });
   }
 });

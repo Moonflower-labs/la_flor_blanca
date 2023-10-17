@@ -1,6 +1,6 @@
 from flor_blanca.answers import bp
 from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic,is_admin
-from flask import render_template,session,request,flash,redirect,url_for,abort,current_app
+from flask import render_template,session,request,flash,redirect,url_for,abort,current_app,jsonify
 from flor_blanca.postDb import get_links, get_db,get_videos
 
 # tarot page
@@ -63,11 +63,17 @@ def rating():
         db = get_db()
         cursor = db.cursor()
         if rating and username:
-              cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
-              current_app.logger.info(" Rating saved successfully.")
+              try:
+                cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
+                current_app.logger.info(" Rating saved successfully.")
 
+                return jsonify({'message': f'Tu valoración ha sido guardada.\nMuchas gracias 😊',}),200
+                    
+              except Exception as e:
+                        current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
+                      
+                        return jsonify({'error':str(e)}),500
 
-        return   redirect(url_for('answers.basic'))
 
 
 @bp.route('/medium')
