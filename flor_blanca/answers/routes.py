@@ -59,15 +59,27 @@ def rating():
         rating = request.form['result']
         username = session.get('username')
         post_id = request.args.get('post_id')
-
         db = get_db()
         cursor = db.cursor()
-        if rating and username:
+        cursor.execute('SELECT username FROM post_rating WHERE username=%s and post_id=%s',(username,post_id,))
+        extistingPost = cursor.fetchone()
+        print(f'existing post: {extistingPost}')
+        if extistingPost:
+             cursor.execute("""SELECT  SUM(rating) AS total_rating,
+                            COUNT(rating) AS rating_count,post_id 
+                            FROM post_rating WHERE post_id=%s 
+                            GROUP BY post_id """,(post_id,))
+             ratings= cursor.fetchall()
+             current_app.logger.info("Rating already in the system")
+             return jsonify({'message': f'Valoración previamente guardada.',"ratings": ratings,}),200
+        
+        elif rating and username:
               try:
-                cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
+                cursor.execute("""INSERT INTO post_rating(rating,username,post_id) 
+                                VALUES (%s,%s,%s)""",(rating,username,post_id))
                 current_app.logger.info(" Rating saved successfully.")
                 cursor.execute("""SELECT  SUM(rating) AS total_rating,
-                         COUNT(rating) AS rating_count,post_id FROM post_rating WHERE post_id=%s GROUP BY post_id """,(post_id,))
+                                COUNT(rating) AS rating_count,post_id FROM post_rating WHERE post_id=%s GROUP BY post_id """,(post_id,))
                 ratings= cursor.fetchall()
 
                 return jsonify({'message': f'Tu valoración ha sido guardada.\nMuchas gracias 😊',"ratings": ratings,}),200

@@ -94,28 +94,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await request.json();
       toast.textContent = response.message;
       showToast();
-      const postId = response.ratings[0][2];
-      const newRatingSum = response.ratings[0][0];
-      const newRatingTotal = response.ratings[0][1];
-      const ratingElement = document.getElementById(`rating-${postId}`);
 
-      if (ratingElement) {
-        const newScore = parseFloat(newRatingSum / newRatingTotal).toFixed(2);
-        if (newScore >= 2.4) {
-          ratingElement.innerHTML = `
+      if (response.ratings) {
+        const postId = response.ratings[0][2];
+        const newRatingSum = response.ratings[0][0];
+        const newRatingTotal = response.ratings[0][1];
+        const ratingElement = document.getElementById(`rating-${postId}`);
+        if (ratingElement) {
+          const newScore = parseFloat(newRatingSum / newRatingTotal).toFixed(2);
+          if (newScore >= 2.4) {
+            ratingElement.innerHTML = `
           <i class="bi bi-sun-fill text-warning"></i>
           <i class="bi bi-sun-fill text-warning"></i>
           <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
           <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
-        } else if (newScore >= 1.4) {
-          ratingElement.innerHTML = `
+          } else if (newScore >= 1.4) {
+            ratingElement.innerHTML = `
           <i class="bi bi-sun-fill text-warning"></i>
           <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
           <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
-        } else {
-          ratingElement.innerHTML = `
+          } else {
+            ratingElement.innerHTML = `
           <i class="bi bi-sun-fill text-warning"></i>${newScore}/${newRatingTotal}
           <p class="h6 my-2 title">Ya has valorado esta respuesta 👍</p>`;
+          }
         }
       }
     } catch (err) {
