@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const countSpan = document.querySelector(".countSpan");
   let toastTimeout;
 
-  const submitRating = document.querySelectorAll(".submitRating");
   const ratingForm = document.querySelectorAll(".my-form");
 
   const showToast = () => {
