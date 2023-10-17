@@ -215,6 +215,23 @@ endblock %} {% endblock %} {% block content %}
         </div>
 
         <p class="body text-start">{{ post[4] }}</p>
+        {% if post[5]>0 %}
+        <p class="title ms-4">
+          {% if (post[5]/post[6])|round(2) >= 2.4 %}<i
+            class="bi bi-sun-fill text-warning"
+          ></i
+          ><i class="bi bi-sun-fill text-warning"></i
+          ><i class="bi bi-sun-fill text-warning"></i>{% elif
+          (post[5]/post[6])|round(2) >=1.4 %}<i
+            class="bi bi-sun-fill text-warning"
+          ></i
+          ><i class="bi bi-sun-fill text-warning"></i>
+          {% else %}
+          <i class="bi bi-sun-fill text-warning"></i>
+          {% endif %} {{(post[5]/post[6])|round(2)}}/{{post[6]}}
+        </p>
+        {% endif %} {% if post[0] not in ratedPosts|map(attribute=0) %}
+
         <form
           method="POST"
           action="{{ url_for('answers.rating',post_id=post[0])}}"
@@ -223,11 +240,6 @@ endblock %} {% endblock %} {% block content %}
         >
           <p class="h6 mb-2 title ratePost" role="button" tabindex="0">
             Valora esta respuesta
-            <span class="title ms-4"
-              >{% for score in scores %}{% if post[0] == score['scorePost'] %}
-              {{(score['scoreTotal']/score['scoreCount'])|round(2)
-              }}/{{score['scoreCount']}} {% endif %} {% endfor %}
-            </span>
           </p>
           <div class="d-none">
             <div class="rating d-flex justify-content-center mb-2">
@@ -283,6 +295,9 @@ endblock %} {% endblock %} {% block content %}
             <button type="submit" class="btn submitRating mb-3">Aceptar</button>
           </div>
         </form>
+        {% else %}
+        <p class="h6 mb-2 title">Ya has valorado esta respuesta 👍</p>
+        {% endif %}
       </div>
     </div>
     {% if not loop.last %}

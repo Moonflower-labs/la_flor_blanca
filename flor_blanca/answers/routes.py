@@ -30,32 +30,33 @@ def basic():
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
-        'SELECT * FROM posts ORDER BY created DESC'
-        
-    )
+            """SELECT
+                p.id,
+                p.author_id,
+                p.created,
+                p.title,
+                p.body,
+                COALESCE( SUM(pr.rating),0) AS total_rating,
+                COALESCE( COUNT(pr.rating),0) AS rating_count
+                FROM posts p
+                LEFT JOIN post_rating pr ON p.id = pr.post_id
+                GROUP BY p.id, p.author_id, p.created, p.title, p.body
+                ORDER BY p.created DESC;"""
+        )
+
     posts = cursor.fetchall()
+    cursor.execute('SELECT post_id FROM post_rating WHERE username =%s',(username,))
+    ratedPosts= cursor.fetchall()
+  
+    
 
-    cursor.execute('SELECT SUM(rating),count(rating),post_id FROM post_rating GROUP BY post_id;')
-    results = cursor.fetchall()
-    scores=[]
-    for result in results:
-        scoreTotal = result[0]
-        scoreCount = result[1]
-        scorePost = result[2]
-       
-        result={"scoreTotal":scoreTotal,"scoreCount":scoreCount,"scorePost":scorePost}
-        scores.append(result)
-   
-
-
-    return render_template('answers/basic.html', posts=posts,scores=scores,username=username)
+    return render_template('answers/basic.html', posts=posts,username=username,ratedPosts=ratedPosts)
 
 
 @bp.route('/rating', methods=['POST'])
 def rating():
     if request.method == 'POST':
         rating = request.form['result']
-        print(rating)
         username = session.get('username')
         post_id = request.args.get('post_id')
 
@@ -64,7 +65,6 @@ def rating():
         if rating and username:
               cursor.execute('INSERT INTO post_rating(rating,username,post_id) VALUES (%s,%s,%s)',(rating,username,post_id))
               current_app.logger.info(" Rating saved successfully.")
-
 
 
         return   redirect(url_for('answers.basic'))

@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let count = parseInt(response["count"]);
         countSpan.textContent = count;
       }
-
-      console.log(response);
     } catch (err) {
       console.log(err.message);
     }
@@ -40,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = new FormData(form);
     const URL = form.getAttribute("action");
     let count = parseInt(countSpan.textContent);
-    console.log(count);
 
     if (count > 0) {
       submitBtn.textContent = "Enviando...";

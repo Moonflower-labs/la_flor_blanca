@@ -72,10 +72,7 @@ def login():
             session['email'] = user[3]
             session['customer_id'] = user[5]
             session['used_questions'] = int(user[8])
-            current_app.logger.info(session['used_questions'])
-          
-        
-            
+               
             if session['email'] in ADMIN_LIST :
                     session['role'] = 'admin'
             else:
