@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ratingElement) {
         const newScore = parseFloat(newRatingSum / newRatingTotal).toFixed(2);
         if (newScore >= 2.4) {
-          ratingElement.append('<i class="bi bi-sun-fill text-warning"></i>');
           ratingElement.innerHTML = `
           <i class="bi bi-sun-fill text-warning"></i>
           <i class="bi bi-sun-fill text-warning"></i>
