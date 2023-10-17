@@ -63,7 +63,7 @@ def rating():
         cursor = db.cursor()
         cursor.execute('SELECT username FROM post_rating WHERE username=%s and post_id=%s',(username,post_id,))
         extistingPost = cursor.fetchone()
-        print(f'existing post: {extistingPost}')
+       
         if extistingPost:
              cursor.execute("""SELECT  SUM(rating) AS total_rating,
                             COUNT(rating) AS rating_count,post_id 
