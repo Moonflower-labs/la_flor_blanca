@@ -135,3 +135,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+(() => {
+  window.onpageshow = (event) => {
+    if (event.persisted) window.location.reload();
+  };
+})();
