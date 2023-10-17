@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutButton = document.getElementById("checkout-button");
   const totalSpan = document.getElementById("total");
   let cart = [];
+  const yearSpan = document.getElementById("year");
+  if (yearSpan) {
+    const date = new Date();
+    yearSpan.textContent = date.getFullYear();
+  }
 
   addToCartButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
