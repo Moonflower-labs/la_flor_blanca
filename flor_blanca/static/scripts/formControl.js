@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
   if (ratingForm) {
-    ratingForm.forEach((button) => {
-      button.addEventListener("submit", handleRating);
+    ratingForm.forEach((form) => {
+      form.addEventListener("submit", handleRating);
     });
   }
 });

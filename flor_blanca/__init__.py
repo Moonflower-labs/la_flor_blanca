@@ -1,8 +1,8 @@
 import os
-from flask import Flask, render_template, session,request
+from flask import Flask, render_template, session
 import logging
 from dotenv import load_dotenv
-from config import Config,ProductionConfig
+from config import ProductionConfig
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -14,8 +14,7 @@ load_dotenv()
 logging.basicConfig(level=logging.DEBUG)
 def create_app(test_config=None):
      
-    app = Flask(__name__, instance_relative_config=True,static_url_path='',
-           )
+    app = Flask(__name__, instance_relative_config=True,static_url_path='',)
    
 
     

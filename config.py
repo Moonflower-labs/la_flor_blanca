@@ -1,7 +1,6 @@
 import os
 
 class Config(object):   
-
        SECRET_KEY=os.getenv('SECRET_KEY')
        SESSION_COOKIE_SECURE = True  # Ensure the session cookie is only sent over HTTPS
        SESSION_COOKIE_HTTPONLY = True  # Protect the cookie from JavaScript access
