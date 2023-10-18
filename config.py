@@ -11,9 +11,8 @@ class Config(object):
 class TestConfig(Config):
        TESTING=True
 
-class ProductionConfig(Config):
-        
-       DATABASE_URL = os.getenv('DATABASE_URL')
+class ProductionConfig(Config):       
+       DATABASE = os.getenv('DATABASE_URL')
        MAIL_SERVER = os.getenv('MAIL_SERVER')
        MAIL_PORT = os.getenv('MAIL_PORT')
        MAIL_USERNAME = os.getenv('MAIL_USERNAME')
@@ -23,6 +22,6 @@ class ProductionConfig(Config):
 
 
 
-
+ 
 
 

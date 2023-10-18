@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, session,request
 import logging
 from dotenv import load_dotenv
-from config import Config
+from config import Config,ProductionConfig
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
@@ -11,29 +11,15 @@ load_dotenv()
 
 
 
-logging.basicConfig( level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 def create_app(test_config=None):
      
     app = Flask(__name__, instance_relative_config=True,static_url_path='',
            )
    
 
-    app.config.from_mapping(
-        
-        DATABASE=os.getenv('DATABASE_URL') ,     
-        MAIL_SERVER='mail.uenimail.com',
-        MAIL_PORT = 587,
-        MAIL_USERNAME = os.getenv('MAIL_USERNAME'),
-        MAIL_PASSWORD = os.getenv('MAIL_PASSWORD'),
-        MAIL_USE_TLS = True,
-        MAIL_USE_SSL = False
-    )
-    app.config.update(
-        SESSION_COOKIE_SECURE=True,  # Send the cookie only over HTTPS
-        SESSION_COOKIE_SAMESITE='None',  # Allow cross-site requests
-    )
     
-    app.config.from_object(Config)
+    app.config.from_object(ProductionConfig)
    
 
     if test_config is None:
@@ -51,7 +37,6 @@ def create_app(test_config=None):
     
    
 
-
     from flor_blanca.postDb import init_app,get_db
     init_app(app)
 
@@ -68,7 +53,6 @@ def create_app(test_config=None):
 
     # Schedule job to run at the start of each month
     scheduler.add_job(reset_question_count, 'cron', month='*', day=1, hour=0, minute=0)
-    # scheduler.add_job(reset_question_count, 'interval', minutes=3)
     scheduler.start()
   
     @app.route('/')
@@ -101,9 +85,6 @@ def create_app(test_config=None):
        email = session.get('email')
        username = session.get('username')
        return render_template('user/help.html',email=email,username=username)
-
-
-
 
 
 
