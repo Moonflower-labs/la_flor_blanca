@@ -29,7 +29,9 @@ def create_checkout_session():
             return  redirect(url_for('stripe.customer_portal')) 
         
         except Exception as e:
-            return str(e)
+            current_app.logger.error(str(e))
+            flash('Ha ocurrido un error, pruebe de nuevo más tarde') 
+            return redirect(url_for('index'))
     else:
         email = session.get('email')
         try:
@@ -139,12 +141,10 @@ def shop_checkout():
             item = {"shipping_rate": item.id}
             shipping_options.append(item)
   
-  
 
     cart = request.json
     line_items = []
    
-
 
     for item in cart:
         price_id = item.get('price_id')
@@ -280,9 +280,6 @@ def webhook_received():
                      
                     if user[5] is None:
                         save_customer_id(customer_id, email)
-            
-            
-                
                     
                     if subscription_status == True:
                         subscription_status = "active"
@@ -298,7 +295,6 @@ def webhook_received():
                     current_app.logger.warning(f" Subcription details could not be saved")
 
 
-
         elif event.type == 'customer.created':
             customer = event.data.object     
             customer_id = customer['id']
@@ -308,12 +304,12 @@ def webhook_received():
             user = get_user_by_email(email)
             if user and user[5] is not None:
                     if user[5] != customer_id:
-                        current_app.logger.info(f" User and with Customer ID: {user[5]} already in the system, has been assigned new Stripe customer with ID: {customer_id}")
+                        current_app.logger.info(f" User with Customer ID: {user[5]} already in the system, has been assigned new Stripe customer with ID: {customer_id}")
                     else:
-                        current_app.logger.info(f" User and with Customer ID: {customer_id} already in the system")
+                        current_app.logger.info(f" User with Customer ID: {customer_id} already in the system")
                          
             else:
-                    # Save the customer ID in database
+                   
                     save_customer_id(customer_id, email)
                        
         elif event.type == 'customer.deleted':
