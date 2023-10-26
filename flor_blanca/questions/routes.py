@@ -35,7 +35,7 @@ def index():
         cursor.execute("SELECT subscription_plan from users WHERE email = %s",(email,))
         plan = cursor.fetchone()
 
-        if plan[0] is None  or plan[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
+        if plan[0] is None  or plan[0]=='price_1Nk5XdAEZk4zaxmwo8ZFYOEv':
             current_plan = "PERSONALIDAD"
         elif  plan[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
             current_plan = "ALMA"
@@ -140,7 +140,7 @@ def save_tarot_query():
         cursor.execute("SELECT subscription_plan,tarot_used_questions from users WHERE email = %s",(email,))
         results = cursor.fetchone()
 
-        if results[0] is None  or results[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
+        if results[0] is None  or results[0]=='price_1Nk5XdAEZk4zaxmwo8ZFYOEv':
             current_plan = "PERSONALIDAD"
         elif  results[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
             current_plan = "ALMA"
@@ -195,7 +195,7 @@ def live_query():
             cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
             results = cursor.fetchone()
             
-            if results[0] is None or results[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
+            if results[0] is None or results[0]=='price_1Nk5XdAEZk4zaxmwo8ZFYOEv':
                 current_plan = "PERSONALIDAD"
             elif  results[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
                 current_plan = "ALMA"
