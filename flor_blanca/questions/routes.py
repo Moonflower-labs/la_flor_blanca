@@ -35,11 +35,11 @@ def index():
         cursor.execute("SELECT subscription_plan from users WHERE email = %s",(email,))
         plan = cursor.fetchone()
 
-        if plan[0] is None  or plan[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
+        if plan[0] is None  or plan[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
             current_plan = "PERSONALIDAD"
-        elif  plan[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+        elif  plan[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
             current_plan = "ALMA"
-        elif plan[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+        elif plan[0] == "price_1Nk5YdAEZk4zaxmwEqqHWSS2":
             current_plan = "ESPÍRITU"
 
         if request.method == 'POST':
@@ -140,11 +140,11 @@ def save_tarot_query():
         cursor.execute("SELECT subscription_plan,tarot_used_questions from users WHERE email = %s",(email,))
         results = cursor.fetchone()
 
-        if results[0] is None  or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
+        if results[0] is None  or results[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
             current_plan = "PERSONALIDAD"
-        elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+        elif  results[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
             current_plan = "ALMA"
-        elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+        elif results[0] == "price_1Nk5YdAEZk4zaxmwEqqHWSS2":
             current_plan = "SPÍRITU"
 
         if request.method == 'POST':
@@ -195,11 +195,11 @@ def live_query():
             cursor.execute("SELECT subscription_plan,live_used_questions from users WHERE email = %s",(email,))
             results = cursor.fetchone()
             
-            if results[0] is None or results[0]=='price_1Ng3CfAEZk4zaxmwMXEF9bfR':
+            if results[0] is None or results[0]=='price_1Nk5XdAEZk4zaxmw082FYOEV':
                 current_plan = "PERSONALIDAD"
-            elif  results[0] == 'price_1Ng3GzAEZk4zaxmwyZRkXBiW':
+            elif  results[0] == 'price_1Nk5YMAEZk4zaxmws0AhQfIs':
                 current_plan = "ALMA"
-            elif results[0] == "price_1Ng3KKAEZk4zaxmwLuapT9kg":
+            elif results[0] == "price_1Nk5YdAEZk4zaxmwEqqHWSS2":
                 current_plan = "ESPÍRITU"
         
             try:

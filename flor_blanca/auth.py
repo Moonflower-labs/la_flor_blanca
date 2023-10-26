@@ -177,7 +177,7 @@ def required_spirit_plan(view):
             subscription_plan = cursor.fetchone()
          
     
-            if  subscription_plan is None or subscription_plan[0]  != "price_1Ng3KKAEZk4zaxmwLuapT9kg" :
+            if  subscription_plan is None or subscription_plan[0]  != "price_1Nk5YdAEZk4zaxmwEqqHWSS2" :
                  message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
                  flash(message)
                  return redirect(url_for('index'))
@@ -202,7 +202,7 @@ def required_soul_plan(view):
         subscription_plan = cursor.fetchone()
 
        
-        if  subscription_plan is None or  subscription_plan[0]  != 'price_1Ng3KKAEZk4zaxmwLuapT9kg' and subscription_plan[0] != 'price_1Ng3GzAEZk4zaxmwyZRkXBiW' :
+        if  subscription_plan is None or  subscription_plan[0]  != 'price_1Nk5YdAEZk4zaxmwEqqHWSS2' and subscription_plan[0] != 'price_1Nk5YMAEZk4zaxmws0AhQfIs' :
             message = 'No puedes acceder a los servicios de Tienda,  Preguntas, planes de Personalidad,  Alma o Espíritu, Tarot y Sesión en Directo. Para tener acceso a estos servicios debes comprar un plan de suscripción. Si tienes más dudas consulta nuestra sección de Ayuda.'
             flash(message)
             return redirect(url_for('index'))
