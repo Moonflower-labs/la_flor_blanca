@@ -196,11 +196,11 @@ def webhook_received():
         )
     except ValueError as e:
         current_app.logger.warning(" Error while decoding event!")
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}),400
     
     except stripe.error.SignatureVerificationError as e:
         current_app.logger.warning(" Invalid signature!")
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}),401
     
 
     event_id = event.id 
