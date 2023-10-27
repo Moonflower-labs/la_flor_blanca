@@ -48,7 +48,7 @@ def create_app(test_config=None):
         db = get_db()
         cursor = db.cursor()
         cursor.execute('UPDATE users SET used_questions=%s,tarot_used_questions=%s,live_used_questions=%s',(0,0,0))
-        print("reset_question_count executed")
+        app.logger.info("reset_question_count executed")
 
     # Schedule job to run at the start of each month
     scheduler.add_job(reset_question_count, 'cron', month='*', day=1, hour=0, minute=0)

@@ -256,7 +256,6 @@ def add_live_session():
 @is_admin
 def delete_live_session(): 
     link = request.form.get('link_id')
-    print(link)
 
     db = get_db()
     cursor= db.cursor()

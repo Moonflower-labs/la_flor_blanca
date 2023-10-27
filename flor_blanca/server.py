@@ -199,7 +199,7 @@ def webhook_received():
         return jsonify({'error': str(e)}),400
     
     except stripe.error.SignatureVerificationError as e:
-        current_app.logger.warning(" Invalid signature!")
+        current_app.logger.warning(f" Invalid signature!: {e}")
         return jsonify({'error': str(e)}),401
     
 

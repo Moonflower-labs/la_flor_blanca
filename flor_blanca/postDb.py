@@ -92,7 +92,7 @@ def get_user_by_email(email):
     user = cursor.fetchone()
 
     if user is None:
-        return None
+          return None
     
     return user
 
@@ -111,7 +111,7 @@ def save_customer_id(customer_id, email):
         
         else:
        
-              current_app.logger.info("Customer ID is None. Cannot save.")
+            current_app.logger.info("Customer ID is None. Cannot save.")
 
 
 def save_message(*args):

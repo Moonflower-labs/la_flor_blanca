@@ -81,7 +81,7 @@ def upload():
             flash(error)  
         else:
             try:
-                print(link)
+               
                 save_link(link,title,comment)
                 info = "link guardado con éxito!"
                 flash(info)
