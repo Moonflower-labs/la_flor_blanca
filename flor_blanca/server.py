@@ -149,11 +149,12 @@ def shop_checkout():
     for item in cart:
         price_id = item.get('price_id')
         product_quantity = item.get('quantity')
-        
-          
+                  
         line_item = {
             'price': price_id,
-            'quantity': product_quantity,           
+            'quantity': product_quantity,    
+            'adjustable_quantity': {"enabled": True, "maximum": 10},
+
         }
         line_items.append(line_item)
    

@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name: selectedOption.options[selectedOption.selectedIndex].getAttribute(
           "data-name"
         ),
+        description: selectedOption[selectedOption.selectedIndex].innerHTML,
         image:
           selectedOption.options[selectedOption.selectedIndex].getAttribute(
             "data-image"
@@ -103,7 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="increase btn btn-sm mt-2" data-index="${index}">+</button>
       </div>
       <div class="col-3">
-        <p><span class="fw-bold">Producto: </span>${cartItem.name}</p>
+        <p><span class="fw-bold">Producto: </span>${cartItem.name} ${
+          cartItem.description
+        }</p>
       </div>
       <div class="col-3">
         <p><span class="fw-bold">Cantidad: </span>${cartItem.quantity}</p>
