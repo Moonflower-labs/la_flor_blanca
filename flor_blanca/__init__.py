@@ -11,7 +11,7 @@ load_dotenv()
 
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 def create_app(test_config=None):
      
     app = Flask(__name__, instance_relative_config=True,static_url_path='',)
