@@ -107,21 +107,32 @@ def questions_test():
    if questionType == 'basic':
           db.execute('SELECT used_questions FROM users WHERE username =%s',(username,))
           count = db.fetchone()
-          remainingCount = max((3 - int(count[0])),0)
+          if count is not None:
+              remainingCount = max((3 - int(count[0])),0)
+          else:
+              remainingCount = 0
 
           return jsonify({'count':remainingCount,'message':'Count for plan Basic fetched correctly.'}),200
 
-   elif questionType== 'tarot':
+   elif questionType == 'tarot':
           db.execute('SELECT tarot_used_questions FROM users WHERE username =%s',(username,))
           count = db.fetchone()
-          remainingCount = 1 - int(count[0])
+          if count is not None:
+                remainingCount = 1 - int(count[0])
+          else:
+                remainingCount = 0
+          
 
           return jsonify({'count':remainingCount,'message':'Count for tarot fetched correctly.'}),200
    
-   elif questionType== 'live':
+   elif questionType == 'live':
           db.execute('SELECT live_used_questions FROM users WHERE username =%s',(username,))
           count = db.fetchone()
-          remainingCount = 1 - int(count[0])
+          if count is not None:
+                remainingCount = 1 - int(count[0])
+          else:
+                remainingCount = 0
+       
 
           return jsonify({'count':remainingCount,'message':'Count for live fetched correctly.'}),200
    
