@@ -1,40 +1,28 @@
-{% extends 'base.html' %}{% block header %}
-<p class="fw-75 display-6 text-center title">
-  {% block title %}Resetea tu Contraseña{% endblock %}{% endblock %}
+{% extends 'auth/layout.html' %}
+{% import "forms/auth_form.html" as forms %}
+{% block title %}Resetea tu Contraseña{% endblock %}
+
+{% block main_content %}
+<div class="col-md-6 mx-auto mt-5">
+  <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
+    <div class="mb-3">
+      <label for="cookie" class="form-label">Código </label>
+      <input name="cookie" type="password" class="form-control" id="cookie" />
+    </div>
+    <div class="mb-3 text-center">
+      <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
+        Aceptar
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block link %}
+<p class="h4 text-center">
+  ¿No estás registrado? <a href="{{url_for('auth.register')}}">Registro</a>
 </p>
-{% block content %}
-
-<div class="container-fluid">
-  <div class="container text-center my-4">
-    <img
-      src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
-      alt="logo"
-      class="rounded-2 shadow logo"
-      width="200px"
-      height="200px"
-    />
-  </div>
-  <div class="col-md-6 mx-auto mt-5">
-    <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
-      <div class="mb-3">
-        <label for="cookie" class="form-label">Código </label>
-        <input name="cookie" type="password" class="form-control" id="cookie" />
-      </div>
-      <div class="mb-3 text-center">
-        <button type="reset" class="btn btn-outline-info mx-1 rounded-1">
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-outline-info mx-1 rounded-1">
-          Aceptar
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
-<div class="my-5">
-  <p class="h4 text-center">
-    ¿No estás registrado? <a href="{{url_for('auth.register')}}">Registro</a>
-  </p>
-</div>
-
 {% endblock %}

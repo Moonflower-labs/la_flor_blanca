@@ -1,13 +1,15 @@
 nav.navbar,
 div.footer {
-  background: linear-gradient(
-    45deg,
-    #2929c8,
-    rgb(66, 157, 207),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      #2929c8,
+      rgb(66, 157, 207),
+      rgb(162, 31, 188));
   z-index: 100;
   box-shadow: 2px 2px 8px 3px #b3b2b276;
+}
+
+.main-content {
+  min-height: 80vh;
 }
 
 p.title,
@@ -17,9 +19,8 @@ p.message,
 header.title {
   color: #9d1ca8;
 }
+
 div.flash {
-  width: fit-content;
-  border: 2px solid #3164e6;
   box-shadow: 2px 2px 8px 3px #b3b2b276;
 }
 
@@ -27,17 +28,16 @@ a.nav-link {
   color: antiquewhite;
   font-size: 1.15rem;
 }
+
 a.nav-link:hover {
   color: #cfb142;
 }
-body {
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-}
+
+
 .frameContainer {
   max-width: 80%;
 }
+
 section.home {
   background-image: url("./images/Image.png");
   background-size: cover;
@@ -46,17 +46,18 @@ section.home {
   color: rgb(255, 201, 24);
   text-shadow: 2px 1px 3px #948181;
 }
+
 div.homeBg {
-  background: linear-gradient(
-    45deg,
-    #2929c876,
-    rgba(66, 158, 207, 0.472),
-    rgba(162, 31, 188, 0.527)
-  );
+  background: linear-gradient(45deg,
+      #2929c876,
+      rgba(66, 158, 207, 0.472),
+      rgba(162, 31, 188, 0.527));
 }
+
 h1.title {
   color: #e5e5e5;
 }
+
 h1.title {
   animation: beat, glow;
   animation-duration: 2s;
@@ -65,97 +66,105 @@ h1.title {
   transition: transform 0.3s;
   transition: glow 2s;
 }
+
 @keyframes glow {
+
   0%,
   100% {
     text-shadow: 1px 1px 2px #3a0147;
   }
+
   50% {
     text-shadow: 2px 2px 7px #3a0147;
   }
 }
+
 @keyframes beat {
+
   0%,
-  100% {
-  }
+  100% {}
+
   50% {
     transform: scale(1.2);
   }
 }
+
 .plan1 .card-header {
   background: linear-gradient(45deg, #9b2a75, #cfb142, #e46849);
   color: antiquewhite;
 }
+
 .card li {
   border-bottom: 1px dashed black;
 }
+
 .card img {
   width: 14rem;
   height: 14rem;
 }
+
 div.header .btn,
 .plan3 .card-header {
-  background: linear-gradient(
-    45deg,
-    rgb(214, 49, 49),
-    rgb(194, 88, 180),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      rgb(214, 49, 49),
+      rgb(194, 88, 180),
+      rgb(162, 31, 188));
   color: antiquewhite;
 }
+
 div.header .btn:hover {
-  background: linear-gradient(
-    45deg,
-    #2929c8,
-    rgb(66, 157, 207),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      #2929c8,
+      rgb(66, 157, 207),
+      rgb(162, 31, 188));
   color: antiquewhite;
 }
+
 .btn {
-  background: linear-gradient(
-    45deg,
-    #2929c8,
-    rgb(66, 157, 207),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      #2929c8,
+      rgb(66, 157, 207),
+      rgb(162, 31, 188));
   color: antiquewhite;
 }
+
 .btn:hover {
-  background: linear-gradient(
-    45deg,
-    rgb(214, 49, 49),
-    rgb(194, 88, 180),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      rgb(214, 49, 49),
+      rgb(194, 88, 180),
+      rgb(162, 31, 188));
   color: rgb(255, 255, 255);
 }
+
 .plan2 .card-header {
-  background: linear-gradient(
-    45deg,
-    #2929c8,
-    rgb(66, 157, 207),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      #2929c8,
+      rgb(66, 157, 207),
+      rgb(162, 31, 188));
   color: antiquewhite;
 }
+
 img.logo {
   filter: drop-shadow(5px 5px 0.7rem rgba(16, 118, 196, 1));
 }
+
 div.header .btn {
   width: 16rem;
 }
+
 header img {
   width: 10rem;
 }
+
 footer i {
   font-size: 2rem;
   color: antiquewhite;
 }
+
 button.btn {
-  border: solid 1px
-    linear-gradient(45deg, #2929c8, rgb(66, 157, 207), rgb(162, 31, 188));
+  border: solid 1px linear-gradient(45deg, #2929c8, rgb(66, 157, 207), rgb(162, 31, 188));
 }
+
 form.questions {
   box-shadow: 5px 5px 0.7rem rgba(16, 118, 196, 1);
 }
@@ -167,15 +176,15 @@ div.card {
   -o-transition: background-color 0.75s linear;
   background-color: rgb(255, 247, 238);
 }
+
 div.card:hover {
-  background: linear-gradient(
-    45deg,
-    #2929c875,
-    rgba(66, 158, 207, 0.485),
-    rgba(162, 31, 188, 0.443)
-  );
+  background: linear-gradient(45deg,
+      #2929c875,
+      rgba(66, 158, 207, 0.485),
+      rgba(162, 31, 188, 0.443));
   color: rgb(255, 237, 215);
 }
+
 button.admin {
   border: none;
   background: none;
@@ -184,24 +193,30 @@ button.admin {
 i.mail {
   font-size: 1.3rem;
 }
+
 img.tarot {
   height: 250px;
   width: 200px;
 }
+
 button.cartButton {
   position: relative;
   position: sticky;
   position: -webkit-sticky;
 }
+
 nav.navbar {
-  position: -webkit-sticky; /* Safari/WebKit */
+  position: -webkit-sticky;
+  /* Safari/WebKit */
   position: sticky;
   top: 0;
   z-index: 100;
 }
+
 footer {
   width: 100%;
 }
+
 #toast {
   position: fixed;
   top: 50%;
@@ -214,32 +229,34 @@ footer {
   transition: opacity 0.4s ease;
   z-index: 9999;
 }
+
 #toastAlert {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 20px;
-  background: linear-gradient(
-    45deg,
-    #2929c8,
-    rgb(66, 157, 207),
-    rgb(162, 31, 188)
-  );
+  background: linear-gradient(45deg,
+      #2929c8,
+      rgb(66, 157, 207),
+      rgb(162, 31, 188));
   color: antiquewhite;
   border-radius: 5px;
   transition: opacity 0.7s ease;
   z-index: 9999;
 }
+
 #toast.hide,
 #toastAlert.hide {
   opacity: 0;
   visibility: hidden;
 }
+
 p.body,
 div.description {
   white-space: pre-wrap;
 }
+
 .rating input[type="radio"] {
   display: none;
 }

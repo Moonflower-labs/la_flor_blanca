@@ -1,25 +1,26 @@
 from flor_blanca.answers import bp
-from flor_blanca.auth import login_required,required_spirit_plan,required_soul_plan,required_basic,is_admin
-from flask import render_template,session,request,flash,redirect,url_for,abort,current_app,jsonify
-from flor_blanca.postDb import get_links, get_db,get_videos
+from flor_blanca.auth import login_required, required_spirit_plan, required_soul_plan, required_basic, is_admin
+from flask import render_template, session, request, flash, redirect, url_for, abort, current_app, jsonify
+from flor_blanca.postDb import get_links, get_db, get_videos
 
 # tarot page
+
+
 @bp.route('/answers', methods=['GET'])
 @login_required
 @required_soul_plan
 def index():
     links = get_links()
     username = session.get('username')
-    db= get_db()
+    db = get_db()
     cursor = db.cursor()
-    cursor.execute('SELECT tarot_used_questions FROM users WHERE username=%s',(username,))
-    used_questions=cursor.fetchone()
-   
+    cursor.execute(
+        'SELECT tarot_used_questions FROM users WHERE username=%s', (username,))
+    used_questions = cursor.fetchone()
 
-    remaining_question_count = 1 - int(used_questions[0]) 
-   
-     
-    return render_template('answers/tarot.html', username=username, links=links,remaining_question_count=remaining_question_count)
+    remaining_question_count = 1 - int(used_questions[0])
+
+    return render_template('answers/tarot.html', username=username, links=links, remaining_question_count=remaining_question_count)
 
 
 @bp.route('/basic')
@@ -30,7 +31,7 @@ def basic():
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
-            """SELECT
+        """SELECT
                 p.id,
                 p.author_id,
                 p.created,
@@ -42,15 +43,14 @@ def basic():
                 LEFT JOIN post_rating pr ON p.id = pr.post_id
                 GROUP BY p.id, p.author_id, p.created, p.title, p.body
                 ORDER BY p.created DESC;"""
-        )
+    )
 
     posts = cursor.fetchall()
-    cursor.execute('SELECT post_id FROM post_rating WHERE username =%s',(username,))
-    ratedPosts= cursor.fetchall()
-  
-    
+    cursor.execute(
+        'SELECT post_id FROM post_rating WHERE username =%s', (username,))
+    ratedPosts = cursor.fetchall()
 
-    return render_template('answers/basic.html', posts=posts,username=username,ratedPosts=ratedPosts)
+    return render_template('answers/basic.html', posts=posts, username=username, ratedPosts=ratedPosts)
 
 
 @bp.route('/rating', methods=['POST'])
@@ -61,34 +61,35 @@ def rating():
         post_id = request.args.get('post_id')
         db = get_db()
         cursor = db.cursor()
-        cursor.execute('SELECT username FROM post_rating WHERE username=%s and post_id=%s',(username,post_id,))
+        cursor.execute(
+            'SELECT username FROM post_rating WHERE username=%s and post_id=%s', (username, post_id,))
         extistingPost = cursor.fetchone()
-       
+
         if extistingPost:
-             cursor.execute("""SELECT  SUM(rating) AS total_rating,
+            cursor.execute("""SELECT  SUM(rating) AS total_rating,
                             COUNT(rating) AS rating_count,post_id 
                             FROM post_rating WHERE post_id=%s 
-                            GROUP BY post_id """,(post_id,))
-             ratings= cursor.fetchall()
-             current_app.logger.info("Rating already in the system")
-             return jsonify({'message': f'Valoración previamente guardada.',"ratings": ratings,}),200
-        
+                            GROUP BY post_id """, (post_id,))
+            ratings = cursor.fetchall()
+            current_app.logger.info("Rating already in the system")
+            return jsonify({'message': f'Valoración previamente guardada.', "ratings": ratings, }), 200
+
         elif rating and username:
-              try:
+            try:
                 cursor.execute("""INSERT INTO post_rating(rating,username,post_id) 
-                                VALUES (%s,%s,%s)""",(rating,username,post_id))
+                                VALUES (%s,%s,%s)""", (rating, username, post_id))
                 current_app.logger.info(" Rating saved successfully.")
                 cursor.execute("""SELECT  SUM(rating) AS total_rating,
-                                COUNT(rating) AS rating_count,post_id FROM post_rating WHERE post_id=%s GROUP BY post_id """,(post_id,))
-                ratings= cursor.fetchall()
+                                COUNT(rating) AS rating_count,post_id FROM post_rating WHERE post_id=%s GROUP BY post_id """, (post_id,))
+                ratings = cursor.fetchall()
 
-                return jsonify({'message': f'Tu valoración ha sido guardada.\nMuchas gracias 😊',"ratings": ratings,}),200
-                    
-              except Exception as e:
-                        current_app.logger.error("An error occurred while processing the form submission: %s", str(e))
-                      
-                        return jsonify({'error':str(e)}),500
 
+                return jsonify({"message": f"Tu valoración ha sido guardada.\nMuchas gracias 😊", "ratings": rating}) , 200
+            except Exception as e:
+                current_app.logger.error(
+                    "An error occurred while processing the form submission: %s", str(e))
+
+                return jsonify({'error': str(e)}), 500
 
 
 @bp.route('/medium')
@@ -97,7 +98,7 @@ def rating():
 def soul_view():
     links = get_links()
     username = session.get('username')
-    return render_template('answers/soul.html',links=links,username=username)
+    return render_template('answers/soul.html', links=links, username=username)
 
 
 @bp.route('/premium')
@@ -106,13 +107,13 @@ def soul_view():
 def spirit_view():
     links = get_videos()
     username = session.get('username')
-    return render_template('answers/spirit.html',links=links,username=username)
-
+    return render_template('answers/spirit.html', links=links, username=username)
 
 
 @bp.route('/coming-soon')
 def soon_view():
     return render_template('coming-soon.html')
+
 
 @bp.route('/create-post', methods=('GET', 'POST'))
 @login_required
@@ -128,7 +129,7 @@ def create():
             error = 'Title is required.'
 
         if error is not None:
-            flash(error)
+            flash((error, 'danger'))
         else:
             db = get_db()
             cursor = db.cursor()
@@ -142,19 +143,19 @@ def create():
 
     return render_template('answers/create.html')
 
+
 def get_post(id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
-        'SELECT title,body FROM posts WHERE id = %s',(id,)
+        'SELECT title,body FROM posts WHERE id = %s', (id,)
     )
     post = cursor.fetchone()
 
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
-  
-    return post
 
+    return post
 
 
 @bp.route('/<int:id>/delete')
@@ -164,17 +165,15 @@ def delete(id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute('DELETE FROM posts WHERE id = %s', (id,))
-   
+
     return redirect(url_for('answers.basic'))
-
-
 
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 @is_admin
 def update(id):
-    post = get_post(id)   
+    post = get_post(id)
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
@@ -184,7 +183,7 @@ def update(id):
             error = 'Title is required.'
 
         if error is not None:
-            flash(error)
+            flash((error, 'danger'))
         else:
             db = get_db()
             cursor = db.cursor()
@@ -195,6 +194,5 @@ def update(id):
             )
 
             return redirect(url_for('answers.basic'))
-    
-    return render_template('answers/update.html', post=post)
 
+    return render_template('answers/update.html', post=post)

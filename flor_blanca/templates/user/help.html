@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block content %}
+{% extends 'layout.html' %}{% block content %}
 
 <div class="container">
   <div class="row justify-content-center align-items-center">
@@ -38,12 +38,7 @@
       <div class="input-group mb-3">
         <label for="search" hidden></label>
 
-        <input
-          id="search"
-          type="text"
-          class="form-control rounded-1"
-          placeholder="Buscar"
-        />
+        <input id="search" type="text" class="form-control rounded-1" placeholder="Buscar" />
         <button class="btn btn-sm">
           <i class="bi bi-search" role="button"></i>
         </button>
@@ -52,22 +47,12 @@
     <div class="accordion mb-4" id="accordionHelp">
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseOne"
-            aria-expanded="false"
-            aria-controls="collapseOne"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
             1. ¿Porqué no puedo acceder a la sección Preguntas?😔
           </button>
         </h2>
-        <div
-          id="collapseOne"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             No escogiste ninguno de los tres planes de suscripción aunque sea el
             gratuito que es el Plan Personalidad.
@@ -76,22 +61,12 @@
       </div>
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo"
-            aria-expanded="false"
-            aria-controls="collapseTwo"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             2. ¿Porqué no consigo entrar en la Tienda?😔
           </button>
         </h2>
-        <div
-          id="collapseTwo"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Necesitas ser miembro: registrarte en la página y escoger uno de los
             tres Planes (Personalidad, Alma o Espíritu) o iniciar sesión si ya
@@ -103,22 +78,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseThree"
-            aria-expanded="false"
-            aria-controls="collapseThree"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             3. ¿Porqué no consigo entrar en la sección Personalidad?😔
           </button>
         </h2>
-        <div
-          id="collapseThree"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Necesitas suscribirte al plan Personalidad, que es gratuito, para
             tener acceso a formular tus preguntas y al contenido.
@@ -128,22 +93,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse4"
-            aria-expanded="false"
-            aria-controls="collapse4"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
+            aria-expanded="false" aria-controls="collapse4">
             4. ¿Porqué no consigo entrar en la sección Tarot?😞
           </button>
         </h2>
-        <div
-          id="collapse4"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             La sección del Tarot está incluida sólo en los Planes de pago Alma y
             Espíritu. Si estás en el plan Personalidad o sólo eres miembro de la
@@ -154,22 +109,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse5"
-            aria-expanded="false"
-            aria-controls="collapse5"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5"
+            aria-expanded="false" aria-controls="collapse5">
             5. ¿Porqué no consigo entrar en la Sesión en Directo?😔
           </button>
         </h2>
-        <div
-          id="collapse5"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Necesitas estar suscrito al Plan Espíritu. Este servicio es
             exclusivo de este plan.
@@ -179,22 +124,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse6"
-            aria-expanded="false"
-            aria-controls="collapse6"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6"
+            aria-expanded="false" aria-controls="collapse6">
             6. ¿Porqué no consigo entrar en las secciones de Alma o Espíritu?😔
           </button>
         </h2>
-        <div
-          id="collapse6"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Necesitas suscribirte a estos planes Alma o Espíritu, que son de
             pago, para acceder a los servicios y beneficios que te ofrecen.
@@ -204,22 +139,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse7"
-            aria-expanded="false"
-            aria-controls="collapse7"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7"
+            aria-expanded="false" aria-controls="collapse7">
             7. ¿Cómo cambio mi dirección y datos personales?🤔
           </button>
         </h2>
-        <div
-          id="collapse7"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Debes entrar en el Portal del Cliente en Inicio o en la sección
             Ayuda. Esto te redireccionará a Stripe, a nuestro sistema de pago y
@@ -230,22 +155,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse8"
-            aria-expanded="false"
-            aria-controls="collapse8"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8"
+            aria-expanded="false" aria-controls="collapse8">
             8. ¿Qué significa que mi plan se cancela?🤔
           </button>
         </h2>
-        <div
-          id="collapse8"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Qué se paraliza la renovación automática de tu plan en la fecha
             indicada. Qué se suspenden los pagos o la suscripción gratuita
@@ -257,22 +172,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse9"
-            aria-expanded="false"
-            aria-controls="collapse9"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9"
+            aria-expanded="false" aria-controls="collapse9">
             9. ¿Qué significa cero preguntas disponibles?🤔
           </button>
         </h2>
-        <div
-          id="collapse9"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse9" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Que utilizaste el máximo permitido de preguntas para ese mes. Esto
             se renovará automáticamente el primer día de cada mes y volverás a
@@ -283,23 +188,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse10"
-            aria-expanded="false"
-            aria-controls="collapse10"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
             10. ¿Las preguntas no usadas durante un ciclo mensual se acumulan
             para el mes siguiente?🤔
           </button>
         </h2>
-        <div
-          id="collapse10"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse10" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             No. Si no usas las Preguntas disponibles en el mes en vigor se
             pierden. Pero se renuevan al mes siguiente, el primer día de cada
@@ -310,22 +205,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse11"
-            aria-expanded="false"
-            aria-controls="collapse11"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
             11. ¿Cuánto tiempo se tarda en recibir las respuestas?😃
           </button>
         </h2>
-        <div
-          id="collapse11"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse11" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Depende de por cual via se responda: por escrito entre 24 y 48
             horas. Por audio entre 48 y 72 horas, por video entre 3 a 5 días
@@ -336,22 +221,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse12"
-            aria-expanded="false"
-            aria-controls="collapse12"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
             12. ¿Dónde voy a recibir mi respuesta?😃
           </button>
         </h2>
-        <div
-          id="collapse12"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse12" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Las respuestas serán integradas en el plan de dónde fueron
             recibidas. Por ejemplo, si formas parte del plan Personalidad tu
@@ -367,22 +242,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse13"
-            aria-expanded="false"
-            aria-controls="collapse13"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
             13. ¿Por qué no me llega mi pedido?😣
           </button>
         </h2>
-        <div
-          id="collapse13"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse13" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Asegúrate que escogiste el método de envío adecuado. Puede que
             seleccionaste la opción gratuita mi producto no necesita ser
@@ -398,23 +263,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse14"
-            aria-expanded="false"
-            aria-controls="collapse14"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
             14. ¿Por qué los pagos de mi Plan de suscripción varían de precio
             entre un mes y otro?🤑
           </button>
         </h2>
-        <div
-          id="collapse14"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Probablemente hayas cambiado o actualizado tu Plan en medio de tu
             facturación mensual y hayas transicionado de uno más caro a otro más
@@ -435,22 +290,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse15"
-            aria-expanded="false"
-            aria-controls="collapse15"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
             15. ¿Cómo funciona la facturación mensual?🙄
           </button>
         </h2>
-        <div
-          id="collapse15"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse15" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Incluye desde el día que te registraste hasta el mismo día del mes
             siguiente. Si te registraste a un Plan el 3 de Enero, la facturación
@@ -463,22 +308,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse16"
-            aria-expanded="false"
-            aria-controls="collapse16"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
             16. ¿Qué pasa cuando cambio de Plan?🤔
           </button>
         </h2>
-        <div
-          id="collapse16"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse16" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Cuando actualizas tu Plan de suscripción tu facturación mensual
             cambia y empieza el día en que escogiste tu Nuevo Plan de
@@ -497,23 +332,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse17"
-            aria-expanded="false"
-            aria-controls="collapse17"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
             17. ¿Por qué veo el mensaje "nombre de usuario o email ya está
             registrado" al registrarme en la página?😓
           </button>
         </h2>
-        <div
-          id="collapse17"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse17" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Primero, el email que usaste en el registro de la página ya está
             registrado por algún usuario o por ti mismo. Si ya te registraste
@@ -527,22 +352,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse18"
-            aria-expanded="false"
-            aria-controls="collapse18"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
             18. ¿Cómo puedo ver el contenido de la página?🙄
           </button>
         </h2>
-        <div
-          id="collapse18"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse18" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Debes registrarte en la página usando un nuevo nombre de usuario,
             email y contraseña. Después debes iniciar sesión usando tu email y
@@ -554,23 +369,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse19"
-            aria-expanded="false"
-            aria-controls="collapse19"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
             19. ¿Cómo puedo dar mi opinión sobre algún contenido de la página o
             preguntar algo que no está en Ayuda?🤔
           </button>
         </h2>
-        <div
-          id="collapse19"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse19" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Nos puedes mandar un email o dejar tu mensaje a través de
             <a href="https://t.me/VisionesLaFlorBlanca">Telegram</a>
@@ -578,33 +383,21 @@
             Para opinar sobre los Contenidos Sorpresa de los planes Alma y
             Espíritu los links para opinar están en cada episodio de audio
             pinchando en "more info". Otra opción es dejarnos una reseña en
-            <a
-              href="https://search.google.com/local/writereview?placeid=ChIJk0NdUGecR2YRCbWFFw6jCfo"
-              >Google</a
-            >; no te preocupes podemos manejar las críticas.
+            <a href="https://search.google.com/local/writereview?placeid=ChIJk0NdUGecR2YRCbWFFw6jCfo">Google</a>; no te
+            preocupes podemos manejar las críticas.
           </div>
         </div>
       </div>
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse20"
-            aria-expanded="false"
-            aria-controls="collapse20"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
             20. ¿Por qué no recibo descuentos, ofertas, mis respuestas de Tarot
             o ningún tipo de comunicación?😞
           </button>
         </h2>
-        <div
-          id="collapse20"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse20" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Posiblemente hayas cometido un error y te hayas registrado con un
             email que no existe, falso o que no corresponde a nadie. En este
@@ -616,22 +409,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse21"
-            aria-expanded="false"
-            aria-controls="collapse21"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
             21. ¿Cada cuanto tiempo recibiré emails o notificaciones?😒
           </button>
         </h2>
-        <div
-          id="collapse21"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse21" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Lo menos posible y sólo si es estrictamente necesario. No
             molestaremos si no es para ofrecerte alguna ayuda. Recibirás emails
@@ -648,22 +431,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse22"
-            aria-expanded="false"
-            aria-controls="collapse22"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
             22. ¿Cómo funciona la Bonificación o Bonus?😃
           </button>
         </h2>
-        <div
-          id="collapse22"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse22" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Si el compartir es tu don serás recompensado por tu dedicación
             obteniendo una de las tres opciones: una pregunta de Tarot gratuita,
@@ -709,23 +482,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse23"
-            aria-expanded="false"
-            aria-controls="collapse23"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse23" aria-expanded="false" aria-controls="collapse23">
             23. ¿Cómo compruebo o demuestro que conseguí un suscritor o
             suscritores?🧐
           </button>
         </h2>
-        <div
-          id="collapse23"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse23" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Enviándonos el email de quién o quiénes se suscribieron por tu parte
             y la bonificación o bonus que deseas obtener por tu dedicación.
@@ -742,22 +505,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse24"
-            aria-expanded="false"
-            aria-controls="collapse24"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse24" aria-expanded="false" aria-controls="collapse24">
             24. ¿Cualquiera puede participar en los bonus o bonificaciones?🤗
           </button>
         </h2>
-        <div
-          id="collapse24"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse24" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Sí. Independientemente del plan en el que estés. Todos los que
             tengan un Plan, el que sea, pueden recibir bonificaciones.
@@ -767,23 +520,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse25"
-            aria-expanded="false"
-            aria-controls="collapse25"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse25" aria-expanded="false" aria-controls="collapse25">
             25. ¿A qué nos referimos con las preguntas de Emociones y
             Sentimientos?🥰
           </button>
         </h2>
-        <div
-          id="collapse25"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse25" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             No nos referimos a saber sobre vuestra vida sentimental y/o amorosa.
             No nos dedicamos a eso. Nos referimos a cualquier emoción o
@@ -808,23 +551,13 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse26"
-            aria-expanded="false"
-            aria-controls="collapse26"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse26" aria-expanded="false" aria-controls="collapse26">
             26. ¿Por qué cuando voy al checkout de la Tienda mi compra es tan
             cara?🤑
           </button>
         </h2>
-        <div
-          id="collapse26"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse26" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Asegúrate que escoges el correcto método de envío referente a tu
             pedido una vez que estés en el checkout con Stripe. Si es un
@@ -843,24 +576,14 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse27"
-            aria-expanded="false"
-            aria-controls="collapse27"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse27" aria-expanded="false" aria-controls="collapse27">
             27. ¿Por qué no veo en el checkout el color específico, la talla
             específica o el capítulo específico que escogí durante mi compra en
             la Tienda?😳
           </button>
         </h2>
-        <div
-          id="collapse27"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse27" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             No hay nada de lo que preocuparse, recibimos exactamente lo que has
             escogido. Asegúrate de escoger bien mientras estás en el carrito de
@@ -876,22 +599,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse28"
-            aria-expanded="false"
-            aria-controls="collapse28"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse28" aria-expanded="false" aria-controls="collapse28">
             28. Olvidé la contraseña de mi cuenta 😱
           </button>
         </h2>
-        <div
-          id="collapse28"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse28" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Pincha el siguiente
             <a href="{{url_for('auth.reset_password')}}">enlace</a> para
@@ -907,22 +620,12 @@
 
       <div class="accordion-item">
         <h2 class="accordion-header helpTitle">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapse29"
-            aria-expanded="false"
-            aria-controls="collapse29"
-          >
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse29" aria-expanded="false" aria-controls="collapse29">
             29. Quiero borrar mi cuenta 🤬
           </button>
         </h2>
-        <div
-          id="collapse29"
-          class="accordion-collapse collapse"
-          data-bs-parent="#accordionHelp"
-        >
+        <div id="collapse29" class="accordion-collapse collapse" data-bs-parent="#accordionHelp">
           <div class="accordion-body">
             Para eliminar tu cuenta asegúrate de que has cancelado tu
             suscripción. Una vez cancelada podrás ver la fecha de cancelación en

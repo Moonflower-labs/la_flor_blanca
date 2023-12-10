@@ -1,14 +1,14 @@
-{% extends 'base.html' %} {% block header %}
-<h1>Esperamos verte pronto</h1>
+{% extends 'layout.html' %} {% block header %}
+<h1 class="pt-3">Esperamos verte pronto</h1>
 {% endblock %} {% block content %}
 
-<div class="row align-items-center my-auto">
-  <div class="col-md-6 text-center mx-auto mb-3">
+<div class="row text-center align-items-center justify-content-evenly my-auto">
+  <div class="col-md-6 mb-3 pb-3 pb-md-0">
     <p class="h5 mb-3">Gracias {{username}}</p>
     {% include ('logo.html') %}
   </div>
-
-  <div class="col-md-6 text-center mx-auto p-5">
+  <hr class="d-inline-block d-md-none w-75 mt-3">
+  <div class="col-md-6 p-4 pt-md-0">
     <p>
       <span class="fw-bold"> Gracias por tu compra.</span>
       Tu apoyo y confianza significan mucho para nosotros.

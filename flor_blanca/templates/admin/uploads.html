@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block header %} {% block title %}Admin Panel {%
+{% extends 'layout.html' %} {% block header %} {% block title %}Admin Panel {%
 endblock %} {% endblock %} {% block content %}
 <div class="container">
   <div class="row my-2 align-items-center">
@@ -8,30 +8,14 @@ endblock %} {% endblock %} {% block content %}
     <div class="col-md-8 text-center">
       <div class="col-md-6 text-center mx-auto">
         <form action="{{action}}" method="post">
-          <label for="link" class="form-label mb-3"
-            >Inserte el link del <strong>{{name}}</strong></label
-          >
+          <label for="link" class="form-label mb-3">Inserte el link del <strong>{{name}}</strong></label>
           <input type="text" name="link" class="form-control mb-3" id="link" />
           <label for="title" class="form-label">Título </label>
-          <input
-            type="text"
-            name="title"
-            class="form-control mb-3"
-            id="title"
-          />
+          <input type="text" name="title" class="form-control mb-3" id="title" />
           <label for="comment" class="form-label">Descripción </label>
-          <textarea
-            name="comment"
-            id="comment"
-            cols="30"
-            rows="10"
-            class="form-control mb-3"
-          ></textarea>
+          <textarea name="comment" id="comment" cols="30" rows="10" class="form-control mb-3"></textarea>
 
-          <button
-            type="submit"
-            class="btn w-50 btn-outline-info rounded-1 mb-3"
-          >
+          <button type="submit" class="btn w-50 btn-outline-info rounded-1 mb-3">
             Aceptar
           </button>
         </form>

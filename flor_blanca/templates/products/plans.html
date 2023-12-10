@@ -4,17 +4,12 @@
       <p class="display-6 my-3">Planes de Suscripción</p>
     </div>
     <div class="col-md-6 mx-auto mb-3">
-      <div class="card text-center shadow h-100 plan1">
+      <div class="card d-flex flex-column text-center shadow h-100 plan1">
         <div class="card-header fw-bold h3">PERSONALIDAD</div>
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
           <div class="text-center my-3">
-            <img
-              src="{{ url_for('static', filename='/images/woman-white-dress.avif')}}"
-              alt=""
-              width="300"
-              height="300"
-              class="img-fluid rounded-2"
-            />
+            <img src="{{ url_for('static', filename='/images/woman-white-dress.avif')}}" alt="" width="300" height="300"
+              class="img-fluid rounded-2" />
           </div>
           <ul class="list-unstyled text-start p-3">
             <li>👁 Precio Gratis</li>
@@ -28,25 +23,14 @@
               👁 Acceso desde cualquier lugar, dispositivo y en todo momento
             </li>
           </ul>
-
-          <form
-            action="{{url_for('stripe.create_checkout_session')}}"
-            method="POST"
-          >
-            <input
-              type="hidden"
-              name="price_id"
-              value="price_1Nk5XdAEZk4zaxmwo8ZFYOEv"
-              class="form-control"
-            />
-            <button
-              type="submit"
-              id="plan1"
-              class="btn btn-lg btn-outline-dark"
-            >
-              Comprar por £0
-            </button>
-          </form>
+          <div class="mt-auto">
+            <form action="{{url_for('stripe.create_checkout_session')}}" method="POST">
+              <input type="hidden" name="price_id" value="price_1Nk5XdAEZk4zaxmwo8ZFYOEv" class="form-control" />
+              <button type="submit" id="plan1" class="btn btn-lg btn-outline-dark">
+                Comprar por £0
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -56,13 +40,8 @@
         <div class="card-header fw-bold h3">ALMA</div>
         <div class="card-body">
           <div class="text-center my-3">
-            <img
-              src="{{ url_for('static', filename='images/fantasy-astral.avif')}}"
-              alt=""
-              width="300"
-              height="300"
-              class="img-fluid rounded-2"
-            />
+            <img src="{{ url_for('static', filename='images/fantasy-astral.avif')}}" alt="" width="300" height="300"
+              class="img-fluid rounded-2" />
           </div>
           <ul class="list-unstyled text-start p-3">
             <li>👁 Precio £9.95</li>
@@ -81,21 +60,9 @@
             </li>
           </ul>
 
-          <form
-            action="{{url_for('stripe.create_checkout_session')}}"
-            method="POST"
-          >
-            <input
-              type="hidden"
-              name="price_id"
-              value="price_1Nk5YMAEZk4zaxmws0AhQfIs"
-              class="form-control"
-            />
-            <button
-              type="submit"
-              id="plan2"
-              class="btn btn-lg btn-outline-dark"
-            >
+          <form action="{{url_for('stripe.create_checkout_session')}}" method="POST">
+            <input type="hidden" name="price_id" value="price_1Nk5YMAEZk4zaxmws0AhQfIs" class="form-control" />
+            <button type="submit" id="plan2" class="btn btn-lg btn-outline-dark">
               Comprar por £9,95/mes
             </button>
           </form>
@@ -104,17 +71,12 @@
     </div>
 
     <div class="col-md-6 mx-auto mb-3 h-100">
-      <div class="card text-center plan3 shadow h-100">
+      <div class="card d-flex flex-column text-center plan3 shadow h-100">
         <div class="card-header fw-bold h3">ESPÍRITU</div>
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
           <div class="text-center my-3">
-            <img
-              src="{{ url_for('static', filename='images/brain-tree.avif')}}"
-              alt=""
-              width="300"
-              height="300"
-              class="img-fluid rounded-2"
-            />
+            <img src="{{ url_for('static', filename='images/brain-tree.avif')}}" alt="" width="300" height="300"
+              class="img-fluid rounded-2" />
           </div>
           <ul class="list-unstyled text-start p-3">
             <li>👁 Precio £14.95</li>
@@ -133,21 +95,9 @@
             </li>
           </ul>
 
-          <form
-            action="{{url_for('stripe.create_checkout_session')}}"
-            method="POST"
-          >
-            <input
-              type="hidden"
-              name="price_id"
-              value="price_1Nk5YdAEZk4zaxmwEqqHWSS2"
-              class="form-control"
-            />
-            <button
-              type="submit"
-              id="plan3"
-              class="btn btn-lg btn-outline-dark"
-            >
+          <form action="{{url_for('stripe.create_checkout_session')}}" method="POST">
+            <input type="hidden" name="price_id" value="price_1Nk5YdAEZk4zaxmwEqqHWSS2" class="form-control" />
+            <button type="submit" id="plan3" class="btn btn-lg btn-outline-dark">
               Comprar por £14,95/mes
             </button>
           </form>
@@ -160,13 +110,8 @@
         <div class="card-header fw-bold h3">ADMINISTRA TU SUSCRIPCIÓN</div>
         <div class="card-body">
           <div class="text-center my-3">
-            <img
-              src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
-              alt="logo"
-              class="rounded-2 shadow"
-              width="200px"
-              height="200px"
-            />
+            <img src="{{ url_for('static', filename='images/logoFb.jpeg')}}" alt="logo" class="rounded-2 shadow"
+              width="200px" height="200px" />
           </div>
           <p class="h5 py-3">
             Accede al
@@ -182,10 +127,7 @@
           </ul>
           <form action="{{ url_for('stripe.customer_portal') }}" method="post">
             <input type="hidden" name="email" value="{{ email }}" />
-            <button
-              type="submit"
-              class="btn btn-lg btn-outline-dark mx-1 rounded-2"
-            >
+            <button type="submit" class="btn btn-lg btn-outline-dark mx-1 rounded-2">
               Portal del Cliente
             </button>
           </form>

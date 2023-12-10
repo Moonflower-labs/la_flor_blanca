@@ -1,45 +1,26 @@
-{% extends 'base.html' %} {% block header %} {% block title %}TIENDA {% endblock
+{% extends 'layout.html' %} {% block header %} {% block title %}TIENDA {% endblock
 %} {% endblock %} {% block content %}
 
 <div id="container-fluid product-container overflow-x-hidden">
   <div id="toast" class="hide">Artículo añadadido a la cesta!</div>
   <div class="row text-center">
     <div class="col-12 mx-auto">
-      <button
-        class="btn btn-primary btn-lg cartButton mb-3"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasCart"
-        aria-controls="offcanvasCart"
-      >
+      <button class="btn btn-primary btn-lg cartButton mb-3" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
         <i class="bi bi-cart4"></i><span class="itemCount ms-2"> 0</span>
       </button>
 
-      <div
-        class="offcanvas offcanvas-end"
-        tabindex="-1"
-        id="offcanvasCart"
-        aria-labelledby="offcanvasCartleLabel"
-      >
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartleLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasCartLabel">Cesta</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
           <div id="cart-items" class="row text-start"></div>
           <div>Total: <span id="total"></span></div>
 
           <div class="mt-3">
-            <button
-              class="btn btn-secondary"
-              id="checkout-button"
-              type="button"
-            >
+            <button class="btn btn-secondary" id="checkout-button" type="button">
               Checkout
             </button>
           </div>
@@ -50,31 +31,17 @@
   <div class="row justify-content-around">
     {% for product in products %}
     <div class="col-md-5 col-lg-4 text-center mx-auto my-1 mb-3">
-      <div
-        class="card rounded-3 shadow shadow-md mx-auto h-100 overflow-x-hidden"
-        style="width: 18rem"
-      >
-        <img
-          src="{{ product.images[0] }}"
-          alt="Product Image"
-          style="width: 100%"
-        />
+      <div class="card rounded-3 shadow shadow-md mx-auto h-100 overflow-x-hidden" style="width: 18rem">
+        <img src="{{ product.images[0] }}" alt="Product Image" style="width: 100%" />
 
         <div class="card-body" id="{{ product.id }}">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="h6">Opción</p>
-          <select
-            class="form-select form-select-sm mb-3"
-            aria-label=".form-select-lg example"
-            id="product-{{ product.id }}-select"
-          >
+          <select class="form-select form-select-sm mb-3" aria-label=".form-select-lg example"
+            id="product-{{ product.id }}-select">
             {% for sku in skus[product.id] %}
-            <option
-              value="{{ sku.id }}"
-              data-price="{{ sku.unit_amount }}"
-              data-name="{{ product.name }}"
-              data-image="{{ product.images[0] }}"
-            >
+            <option value="{{ sku.id }}" data-price="{{ sku.unit_amount }}" data-name="{{ product.name }}"
+              data-image="{{ product.images[0] }}">
               {{ sku.unit_amount / 100 }} {{ sku.currency.upper() }} {% if
               sku.metadata.title %} {{ sku.metadata.title.title() }}{% endif %}
               {% if sku.metadata.size %} {{ sku.metadata.size }}{% endif %}{% if
@@ -83,19 +50,9 @@
             {% endfor %}
           </select>
 
-          <label for="quantity-{{ product.id }}" class="form-label"
-            >Cantidad</label
-          >
-          <input
-            type="number"
-            min="1"
-            id="quantity-{{ product.id }}"
-            value="1"
-            class="form-control mb-3 item"
-          />
-          <a href="#" class="add btn btn-md btn-outline-success rounded-3"
-            >Añadir</a
-          >
+          <label for="quantity-{{ product.id }}" class="form-label">Cantidad</label>
+          <input type="number" min="1" id="quantity-{{ product.id }}" value="1" class="form-control mb-3 item" />
+          <a href="#" class="add btn btn-md btn-outline-success rounded-3">Añadir</a>
         </div>
       </div>
     </div>

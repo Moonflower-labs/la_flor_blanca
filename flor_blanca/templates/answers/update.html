@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block header %}
+{% extends 'layout.html' %} {% block header %}
 <h1 class="text-center">{% block title %}Edit Post{% endblock %}</h1>
 {% endblock %} {% block content %}
 <div class="container">
@@ -6,29 +6,12 @@
     <div class="col-md-8 mx-auto mb-3">
       <form method="post">
         <label for="title">Title</label>
-        <input
-          name="title"
-          id="title"
-          value="{{ post[0] }}"
-          required
-          class="form-control mb-3"
-        />
+        <input name="title" id="title" value="{{ post[0] }}" required class="form-control mb-3" />
         <label for="body">Body</label>
-        <textarea
-          name="body"
-          id="body"
-          class="form-control mb-3"
-          rows="14"
-          cols="50"
-        >
-              {{ post[1] }}</textarea
-        >
+        <textarea name="body" id="body" class="form-control mb-3" rows="14" cols="50">
+        {{ post[1] }}</textarea>
         <div class="text-center">
-          <input
-            type="submit"
-            value="Save"
-            class="btn btn-lg rounded-2 btn-success"
-          />
+          <input type="submit" value="Save" class="btn btn-lg rounded-2 btn-success" />
         </div>
       </form>
     </div>

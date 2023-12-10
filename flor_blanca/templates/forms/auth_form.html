@@ -1,0 +1,27 @@
+{% macro render_form(username=true, email=true, password=true) %}
+<form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
+    {% if username %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Nombre de Usuario</label>
+        <input name="username" type="text" class="form-control" id="username" placeholder="" autocomplete="off" />
+    </div>
+    {% endif %}
+    {% if email %}
+    <div class="mb-3">
+        <label for="email" class="form-label">Dirección de email</label>
+        <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com"
+            autocomplete="off" />
+    </div>
+    {% endif %}
+    {% if password %}
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input name="password" type="password" class="form-control" id="password" />
+    </div>
+    {% endif %}
+    <div class="mb-3 text-center">
+        <button type="button" class="btn btn-outline-info mx-1 rounded-1" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-outline-info rounded-1 mx-1 text-center">Aceptar</button>
+    </div>
+</form>
+{% endmacro %}

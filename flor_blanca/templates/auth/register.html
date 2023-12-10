@@ -1,76 +1,17 @@
-{% extends 'base.html'%} {% block header %}
-<p class="fw-75 display-6 text-center">
-  {% block title %}Registro{% endblock %}
+{% extends 'auth/layout.html' %}
+{% import "forms/auth_form.html" as forms %}
+{% block title %}Registro{% endblock %}
+{% block main_content %}
+
+<div class="col-md-6 mx-auto mt-5">
+  {{forms.render_form()}}
+</div>
+
+{% endblock %}
+
+{% block link %}
+<p class="h4 text-center">
+  ¿Ya estás registrado?
+  <a href="{{url_for('auth.login')}}">Iniciar Sesión</a>
 </p>
-{% endblock %} {% block content %}
-
-<div class="container text-center my-4">
-  <img
-    src="{{ url_for('static', filename='images/logoFb.jpeg')}}"
-    alt="logo"
-    class="rounded-2 shadow logo"
-    width="200px"
-    height="200px"
-  />
-</div>
-<div class="container">
-  <div class="col-md-6 mx-auto">
-    <form method="POST" class="bg-gradient p-3 my-3 rounded-3 shadow">
-      <div class="mb-3">
-        <label for="username" class="form-label">Nombre de Usuario</label>
-        <input
-          name="username"
-          type="text"
-          class="form-control"
-          id="username"
-          placeholder=""
-          autocomplete="false"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input
-          name="email"
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="name@example.com"
-          autocomplete="false"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-          name="password"
-          type="password"
-          class="form-control"
-          id="password"
-        />
-      </div>
-
-      <div class="mb-3 text-center">
-        <button
-          type="button"
-          class="btn btn-outline-info mx-1 rounded-1"
-          data-bs-dismiss="modal"
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          class="btn btn-outline-info rounded-1 mx-1 text-center"
-        >
-          Aceptar
-        </button>
-      </div>
-    </form>
-  </div>
-  <div class="my-5">
-    <p class="h4 text-center">
-      ¿Ya estás registrado?
-      <a href="{{url_for('auth.login')}}">Iniciar Sesión</a>
-    </p>
-  </div>
-</div>
-
 {% endblock %}

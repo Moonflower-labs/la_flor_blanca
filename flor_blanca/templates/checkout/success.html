@@ -1,16 +1,15 @@
-{% extends 'base.html' %} {% block header %}
-<h1>Ya eres un miembro más</h1>
+{% extends 'layout.html' %} {% block header %}
+<h1 class="pt-3">Ya eres un miembro más</h1>
 {% endblock %} {% block content %}
 
-<div class="container p-5">
-  <div class="row">
-    <div class="col-md-6 text-center mx-auto mb-3">
-      <div class="col-md-6 text-center mx-auto mb-3">
-        <p class="h5 mb-3">Gracias {{username}}</p>
-        {% include ('logo.html') %}
-      </div>
+<div class="container p-5 m-auto">
+  <div class="row text-center align-items-center justify-content-evenly">
+    <div class="col-md-6 mb-3 pb-3 pb-md-0">
+      <p class="h5 mb-3">Gracias {{username}}</p>
+      {% include ('logo.html') %}
     </div>
-    <div class="col-md-6 text-center mx-auto">
+    <hr class="d-inline-block d-md-none w-75 mt-3">
+    <div class="col-md-6 pt-3 pt-md-0">
       <h1>Exito!</h1>
       <p>
         Gracias por tu apoyo y suscribirte a

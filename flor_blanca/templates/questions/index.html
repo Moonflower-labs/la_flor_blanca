@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block header %} {% block title %}Preguntas {%
+{% extends 'layout.html' %} {% block header %} {% block title %}Preguntas {%
 endblock %} {% endblock %} {% block content %}
 <section>
   <div class="container-fluid mb-3">
@@ -22,280 +22,133 @@ endblock %} {% endblock %} {% block content %}
       <div class="col-md-6">
         <div class="h6 text-end mb-3">
           Preguntas disponibles:
-          <span class="countSpan h4 text-warning"
-            >{{remaining_question_count}}</span
-          >
+          <span class="countSpan h4 text-warning">{{remaining_question_count}}</span>
           de
           <span class="h4 text-warning">3</span>
         </div>
-        <form
-          action="{{url_for('questions.index')}}"
-          method="post"
-          class="border border-1 px-4 pt-2 rounded-4 bg-body-tertiary questions"
-          id="questionForm"
-          data-endpoint="basic"
-        >
+        <form action="{{url_for('questions.index')}}" method="post"
+          class="border border-1 px-4 pt-2 rounded-4 bg-body-tertiary questions" id="questionForm"
+          data-endpoint="basic">
           <label for="name" class="form-label">Nombre</label>
           <div class="mb-4 input-group">
             <span class="input-group-text">
               <i class="bi bi-person-fill"></i>
             </span>
-            <input
-              type="name"
-              id="name"
-              class="form-control"
-              placeholder="e.g. Harry"
-              name="name"
-              required
-              autocomplete="true"
-            />
+            <input type="name" id="name" class="form-control" placeholder="e.g. Harry" name="name" required
+              autocomplete="true" />
           </div>
-          <did class="p fw-bolder"
-            >1. ¿Tu pregunta es sobre Limpiezas, Emociones y Sentimientos
-            Discordantes, Ataques Psíquicos o Habilidades Psíquicas?</did
-          >
+          <did class="p fw-bolder">1. ¿Tu pregunta es sobre Limpiezas, Emociones y Sentimientos
+            Discordantes, Ataques Psíquicos o Habilidades Psíquicas?</did>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="limpiezas"
-              value="limpiezas"
-              required
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="limpiezas" value="limpiezas"
+              required />
             <label class="form-check-label" for="limpiezas"> Limpiezas </label>
           </div>
 
           <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="emotions"
-              value="emotions"
-              required
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="emotions" value="emotions"
+              required />
             <label class="form-check-label" for="emotions">
               Emociones y Sentimientos Discordantes
             </label>
           </div>
           <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="ataques"
-              value="ataques"
-              required
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ataques" value="ataques"
+              required />
             <label class="form-check-label" for="ataques">
               Ataques Psíquicos
             </label>
           </div>
           <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="habilidades"
-              value="habilidades-psiquicas"
-              required
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="habilidades"
+              value="habilidades-psiquicas" required />
             <label class="form-check-label" for="habilidades">
               Habilidades Psíquicas
             </label>
           </div>
           <div class="form-check mb-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="other"
-              value="otro"
-              required
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="other" value="otro" required />
             <label class="form-check-label" for="other">
               Otro
-              <span class="fw-bold"
-                >(siguiendo la línea de nuestro contenido)</span
-              >
+              <span class="fw-bold">(siguiendo la línea de nuestro contenido)</span>
             </label>
           </div>
 
           <div class="form- mb-4 mt-5">
-            <label for="query" class="fw-bolder"
-              >2. ¿Qué duda tienes o te interesa saber sobre este tema?</label
-            >
-            <textarea
-              name="question"
-              class="form-control"
-              id="query"
-              style="height: 140px"
-              placeholder="Escribe tu pregunta aqui..."
-              required
-            ></textarea>
+            <label for="query" class="fw-bolder">2. ¿Qué duda tienes o te interesa saber sobre este tema?</label>
+            <textarea name="question" class="form-control" id="query" style="height: 140px"
+              placeholder="Escribe tu pregunta aqui..." required></textarea>
           </div>
 
           <did class="p fw-bolder">3. ¿Dónde has oído hablar de nosotros?:</did>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="telegram"
-              name="telegram"
-            />
+            <input class="form-check-input" type="checkbox" id="telegram" name="telegram" />
             <label class="form-check-label" for="telegram"> Telegram </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="youtube"
-              name="youtube"
-            />
+            <input class="form-check-input" type="checkbox" id="youtube" name="youtube" />
             <label class="form-check-label" for="youtube"> YouTube </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="instagram"
-              name="instagram"
-            />
+            <input class="form-check-input" type="checkbox" id="instagram" name="instagram" />
             <label class="form-check-label" for="instagram"> Instagram </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="facebook"
-              name="facebook"
-            />
+            <input class="form-check-input" type="checkbox" id="facebook" name="facebook" />
             <label class="form-check-label" for="facebook"> Facebook </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="linkedin"
-              name="linkedin"
-            />
+            <input class="form-check-input" type="checkbox" id="linkedin" name="linkedin" />
             <label class="form-check-label" for="linkedin"> LinkedIn </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="anuncio"
-              name="anuncio"
-            />
+            <input class="form-check-input" type="checkbox" id="anuncio" name="anuncio" />
             <label class="form-check-label" for="anuncio"> Anuncio </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="boca"
-              name="boca"
-            />
+            <input class="form-check-input" type="checkbox" id="boca" name="boca" />
             <label class="form-check-label" for="boca"> De boca en boca </label>
           </div>
           <div class="form-check my-2">
             <label class="form-check-label" for="another"> Otro:</label>
-            <input
-              id="another"
-              type="text"
-              class="form-control form-control-plaintext"
-              placeholder="Especifica aquí..."
-              name="another"
-            />
+            <input id="another" type="text" class="form-control form-control-plaintext" placeholder="Especifica aquí..."
+              name="another" />
           </div>
 
           <did class="p fw-bolder mb-3">4. ¿Cúal es tu grupo de edad? </did>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt1"
-              value="16-25"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt1" value="16-25" required />
             <label class="form-check-label" for="opt1"> De 16 a 25 años </label>
           </div>
 
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt2"
-              value="26-35"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt2" value="26-35" required />
             <label class="form-check-label" for="opt2"> De 26 a 35 años </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt3"
-              value="36-45"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt3" value="36-45" required />
             <label class="form-check-label" for="opt3"> De 36 a 45 años </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt4"
-              value="46-55"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt4" value="46-55" required />
             <label class="form-check-label" for="opt4"> De 46 a 55 años </label>
           </div>
 
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt5"
-              value="56-65"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt5" value="56-65" required />
             <label class="form-check-label" for="opt5"> De 56 a 65 años </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt6"
-              value="66-75"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt6" value="66-75" required />
             <label class="form-check-label" for="opt6"> De 66 a 75 años </label>
           </div>
           <div class="form-check my-2">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="ageGroup"
-              id="opt7"
-              value=">75"
-              required
-            />
+            <input class="form-check-input" type="radio" name="ageGroup" id="opt7" value=">75" required />
             <label class="form-check-label" for="opt7">
               Mayor de 75 años
             </label>
           </div>
-          <label for="gender" class="form-label fw-bolder"
-            >5. ¿Cúal es tu Género?</label
-          >
+          <label for="gender" class="form-label fw-bolder">5. ¿Cúal es tu Género?</label>
           <div class="input-group mb-4">
             <span class="input-group-text">
               <i class="bi bi-gender-ambiguous"></i>
@@ -305,34 +158,13 @@ endblock %} {% endblock %} {% block content %}
               <option value="male">Hombre</option>
             </select>
           </div>
-          <label for="country" class="fw-bolder mb-3"
-            >6. ¿Desde qué país nos contactas?</label
-          >
-          <input
-            name="country"
-            type="text"
-            class="form-control"
-            id="country"
-            required
-            autocomplete="true"
-          />
-          <label for="country" class="fw-bolder my-3"
-            >7. ¿Desde qué ciudad nos contactas?</label
-          >
-          <input
-            name="city"
-            type="text "
-            class="form-control mb-3"
-            id="city"
-            required
-          />
+          <label for="country" class="fw-bolder mb-3">6. ¿Desde qué país nos contactas?</label>
+          <input name="country" type="text" class="form-control" id="country" required autocomplete="true" />
+          <label for="country" class="fw-bolder my-3">7. ¿Desde qué ciudad nos contactas?</label>
+          <input name="city" type="text " class="form-control mb-3" id="city" required />
 
           <div class="mb-4 text-center">
-            <button
-              id="submitBtn"
-              type="submit"
-              class="btn w-25 btn-outline-info rounded-1"
-            >
+            <button id="submitBtn" type="submit" class="btn w-25 btn-outline-info rounded-1">
               Enviar
             </button>
           </div>

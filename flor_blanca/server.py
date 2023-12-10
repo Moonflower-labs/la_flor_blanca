@@ -175,7 +175,7 @@ def shop_checkout():
 
         current_app.logger.error(
             'The following error has occurred: %s', str(e))
-        flash('La operación no se ha podido realizar, pruebe de nuevo más tarde')
+        flash(('La operación no se ha podido realizar, pruebe de nuevo más tarde', 'warnig'))
         return redirect(url_for('stripe.products'))
 
 
@@ -411,15 +411,16 @@ def customer_portal():
                     current_app.logger.error(
                         'The following error has occurred: %s', str(e))
                     flash(
-                        'La operación no se ha podido realizar, pruebe de nuevo más tarde')
+                        ('La operación no se ha podido realizar, pruebe de nuevo más tarde', 'warning'))
                     return redirect(url_for('index'))
 
             else:
-                flash("No pudimos encontrar una suscripcion asociada a tu cuenta")
+                flash(
+                    ("No pudimos encontrar una suscripcion asociada a tu cuenta", 'warning'))
 
-    flash("Debes comprar una suscripción antes de acceder al Customer portal ")
+    flash(("Debes comprar una suscripción antes de acceder al Customer portal ", 'warning'))
 
-    return redirect(url_for('index', _anchor='plans'))
+    return redirect(url_for('index'))
 
 
 @bp.route('/customer-portal-redirect')

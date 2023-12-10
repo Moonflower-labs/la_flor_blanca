@@ -1,11 +1,12 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'layout.html' %} {% block content %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 text-center mx-auto mb-3">
+<div class="container m-auto">
+  <div class="row text-center align-items-center justify-content-evenly">
+    <div class="col-md-6  mb-3">
       {% include ('logo.html') %}
     </div>
-    <div class="col text-center">
+    <hr class="d-inline-block d-md-none w-75 mt-3">
+    <div class="col-md-6 bg-body mt-3">
       <h1>Compra Cancelada</h1>
       <p>Tu compra ha sido cancelada.</p>
     </div>
