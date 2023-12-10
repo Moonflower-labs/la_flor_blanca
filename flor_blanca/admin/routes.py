@@ -351,11 +351,12 @@ def delete_tarot_question():
         try:
             cursor.execute("DELETE FROM tarot WHERE id=%s ", (question_id,))
             db.commit()
-
+            flash(('Pregunta borrada co éxito.', 'success'))
             return redirect(url_for('admin.view_tarot_questions'))
 
         except:
-            pass
+
+            return str(e)
 
     return redirect(url_for('admin.view_tarot_questions'))
 
@@ -371,7 +372,7 @@ def live_question():
         try:
             cursor.execute("DELETE FROM live WHERE id=%s ", (question_id,))
             db.commit()
-
+            flash(('Pregunta borrada co éxito.', 'success'))
             return redirect(url_for('admin.live_question'))
 
         except Exception as e:
