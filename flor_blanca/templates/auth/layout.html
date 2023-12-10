@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block header %}
+<p class="fw-75 display-6 text-center title pt-4">
+    {% block title %}{% endblock %}{% endblock %}
+</p>
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container text-center my-4">
+        <img src="{{ url_for('static', filename='images/logoFb.jpeg')}}" alt="logo" class="rounded-2 shadow logo"
+            width="200px" height="200px" />
+    </div>
+    {% block main_content %}
+    {% endblock %}
+</div>
+
+<div class="my-5">
+    {% block link %}
+    {% endblock %}
+    <p class="h4 text-center">
+        ¿Has olvidado tu contraseña?
+        <a href="{{url_for('auth.reset_password')}}">Resetear Contraseña</a>
+    </p>
+</div>
+{% endblock %}
